@@ -30,7 +30,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n  <p>\n    <input type=\"button\" (click)=\"navigateToExpense()\" value=\"< Show Expense\">\n  </p>\n  Expense Name :\n  <input type=\"text\" [(ngModel)]=\"addnewExpense.name\"><br>\n  Expense Cost :\n  {{addnewExpense.tripDetails.expenseCost | number:'1.0-2' }}\n  <br>\n  PerPerson Cost :\n  {{addnewExpense.tripDetails.perPersonCost | number:'1.0-2' }}\n  <hr>\n  <div>\n    Expense By: <input type=\"button\" value=\"+\" (click)=\"addInExpenseTray()\"\n      *ngIf=\"expenseTray?.length < tripMembers?.length\">\n    <br><br>\n    <div *ngFor=\"let tray of expenseTray;let i = index\">\n      <select name=\"members\" [(ngModel)]=\"tray.selectedmember\" (change)=\"setNewSelectedMember(tray)\">\n        <option *ngFor=\"let mem of tray.members\">{{mem.name}}</option>\n      </select>\n      Amount : <input type=\"text\" [(ngModel)]=\"tray.amount\" (keyup)=\"calculateCurrentCost()\" placeholder=\"Amount\">\n      <input *ngIf=\"i!=0\" style=\"float: right;\" type=\"button\" value=\"-\" (click)=\"removeInExpenseTray(i)\">\n      <br>\n    </div>\n\n\n  </div>\n  <br>\n  <hr>\n  <div>\n    Expense Splited between :\n    <br><br>\n    <div>\n      <input type=\"checkbox\" [(ngModel)]=\"ischeckAll\" (click)=\"checkAll($event)\"> Check All\n      <br>\n      <br>\n      <div style=\"text-align: center;\">\n        <table width=\"100%\">\n          <thead>\n            <td>Have to Pay</td>\n            <td>Name</td>\n            <td>Paid Amount</td>\n            <td>Payable Amount</td>\n          </thead>\n          <tbody *ngFor=\"let members of currentMember\">\n            <td><input type=\"checkbox\" [(ngModel)]=\"members.isChecked\" (click)=\"memberChecked($event,members)\"></td>\n            <td>{{members.name}}</td>\n            <td [ngClass]=\"members.paidamount > 0 ? 'green_color' : 'red_color'\">{{members.paidamount | number:'1.0-2'}}\n            </td>\n            <td [ngClass]=\"members.finalAmount > 0 ? 'green_color' : 'red_color'\">\n              {{members.finalAmount | number:'1.0-2'}} </td>\n            <!-- <td><input type=\"text\" [(ngModel)]=\"members.paidamount\"> </td> -->\n          </tbody>\n          <thead>\n            <th>\n              <hr>Total</th>\n            <th>\n              <hr>&nbsp;</th>\n            <th>\n              <hr>{{footerInfo.amountpaid | number:'1.0-2' }}</th>\n            <th>\n              <hr>{{footerInfo.amountBalance | number:'1.0-2' }}</th>\n          </thead>\n        </table>\n      </div>\n      <!-- <div *ngFor=\"let members of currentMember\">\n\n        <input type=\"checkbox\" [(ngModel)]=\"members.isChecked\" (click)=\"memberChecked($event,members)\">\n\n        {{members.name}}\n\n        <br>\n      </div> -->\n    </div>\n  </div>\n  <!-- <input type=\"text\" [(ngModel)]=\"addnewExpense.tripDetails.expenseCost\"> -->\n\n  <p>\n    <input type=\"button\" (click)=\"addExpense(addnewExpense)\" value=\"{{expenseId ? 'Modify Expense' :'Add Expense'}}\">\n  </p>\n\n\n</div>"
+module.exports = "<div>\n  <p>\n    <input type=\"button\" (click)=\"navigateToExpense()\" value=\"< Show Expense\">\n  </p>\n  Expense Name :\n  <input type=\"text\" [(ngModel)]=\"addnewExpense.name\" [ngClass]=\"{'global_disable': !isEditMode}\"><br>\n  Expense Cost :\n  {{addnewExpense.tripDetails.expenseCost | number:'1.0-2' }}\n  <br>\n  PerPerson Cost :\n  {{addnewExpense.tripDetails.perPersonCost | number:'1.0-2' }}\n  <hr>\n  <div>\n    Expense By: <input type=\"button\" value=\"+\" [ngClass]=\"{'global_disable': !isEditMode}\" (click)=\"addInExpenseTray()\"\n      *ngIf=\"expenseTray?.length < tripMembers?.length\">\n    <br><br>\n    <div *ngFor=\"let tray of expenseTray;let i = index\">\n      <select name=\"members\" [(ngModel)]=\"tray.selectedmember\" (change)=\"setNewSelectedMember(tray)\"\n        [ngClass]=\"{'global_disable': !isEditMode}\">\n        <option *ngFor=\"let mem of tray.members\">{{mem.name}}</option>\n      </select>\n      Amount : <input type=\"text\" [ngClass]=\"{'global_disable': !isEditMode}\" [(ngModel)]=\"tray.amount\"\n        (keyup)=\"calculateCurrentCost()\" placeholder=\"Amount\">\n      <input [ngClass]=\"{'global_disable': !isEditMode}\" *ngIf=\"i!=0\" style=\"float: right;\" type=\"button\" value=\"-\"\n        (click)=\"removeInExpenseTray(i)\">\n      <br>\n    </div>\n\n\n  </div>\n  <br>\n  <hr>\n  <div>\n    Expense Splited between :\n    <br><br>\n    <div>\n      <input type=\"checkbox\" [ngClass]=\"{'global_disable': !isEditMode}\" [(ngModel)]=\"ischeckAll\"\n        (click)=\"checkAll($event)\"> Check All\n      <br>\n      <br>\n      <div style=\"text-align: center;\">\n        <table width=\"100%\">\n          <thead>\n            <td>Have to Pay</td>\n            <td>Name</td>\n            <td>Paid Amount</td>\n            <td>Payable Amount</td>\n          </thead>\n          <tbody>\n            <tr *ngFor=\"let members of currentMember\">\n\n              <td><input type=\"checkbox\" [ngClass]=\"{'global_disable': !isEditMode}\" [(ngModel)]=\"members.isChecked\"\n                  (click)=\"memberChecked($event,members)\"></td>\n              <td>{{members.name}}</td>\n              <td [ngClass]=\"members.paidamount > 0 ? 'green_color' : 'red_color'\">\n                {{members.paidamount | number:'1.0-2'}}\n              </td>\n              <td [ngClass]=\"members.finalAmount > 0 ? 'green_color' : 'red_color'\">\n                {{members.finalAmount | number:'1.0-2'}} </td>\n              <!-- <td><input type=\"text\" [(ngModel)]=\"members.paidamount\"> </td> -->\n            </tr>\n          </tbody>\n          <!-- <thead>\n            <th>\n              <hr>Total</th>\n            <th>\n              <hr>&nbsp;</th>\n            <th>\n              <hr>{{footerInfo?.amountpaid | number:'1.0-2' }}</th>\n            <th>\n              <hr>{{footerInfo?.amountBalance | number:'1.0-2' }}</th>\n          </thead> -->\n        </table>\n      </div>\n      <!-- <div *ngFor=\"let members of currentMember\">\n\n        <input type=\"checkbox\" [(ngModel)]=\"members.isChecked\" (click)=\"memberChecked($event,members)\">\n\n        {{members.name}}\n\n        <br>\n      </div> -->\n    </div>\n  </div>\n  <!-- <input type=\"text\" [(ngModel)]=\"addnewExpense.tripDetails.expenseCost\"> -->\n\n  <p>\n    <input type=\"button\" (click)=\"addExpense(addnewExpense)\" [ngClass]=\"{'global_disable': !isEditMode}\"\n      value=\"{{expenseId ? 'Modify Expense' :'Add Expense'}}\">\n  </p>\n\n\n</div>"
 
 /***/ }),
 
@@ -62,6 +62,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _tripservice_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../tripservice.service */ "./src/app/tripservice.service.ts");
+/* harmony import */ var _model_storageKey__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../model/storageKey */ "./src/app/model/storageKey.ts");
+
 
 
 
@@ -74,13 +76,12 @@ var AddmodifyexpenseComponent = /** @class */ (function () {
         this.route = route;
         this.router = router;
         this._trip = _trip;
-        this.setPage = "expense";
         this.expenseTray = [];
-        this.footerInfo = {
-            totalMembers: 0,
-            perPersonCost: 0,
-            amountSpend: 0
-        };
+        // footerInfo: any = {
+        //   totalMembers: 0,
+        //   perPersonCost: 0,
+        //   amountSpend: 0
+        // }
         this.addnewExpense = {
             expenseId: null,
             name: null,
@@ -92,82 +93,53 @@ var AddmodifyexpenseComponent = /** @class */ (function () {
         };
     }
     AddmodifyexpenseComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.tripId = this.route.snapshot.paramMap.get('tripId');
         this.expenseId = this.route.snapshot.paramMap.get('expenseId');
-        console.log("_common service", this._common.value, this.tripId);
-        this.getTripInfo(this.tripId);
-        // this.trip = this._common.getExpense(this.tripId)
-        // this.tripMembers = this._common.getTripMembers(this.tripId)
-        // this.currentMember = JSON.parse(JSON.stringify(this.tripMembers))
-        // console.log("this.trip", this.trip)
-        // console.log("this.tripMembers", this.tripMembers)
-    };
-    AddmodifyexpenseComponent.prototype.checkAll = function (event) {
-        console.log("checkall", event);
-        this.setcurrentMembersBulkCheck(event.target.checked);
-    };
-    AddmodifyexpenseComponent.prototype.memberChecked = function (event, member) {
-        var _this = this;
-        console.log("checkall", event, member);
-        member.havetopay = event.target.checked;
-        // this.setcurrentMembersBulkCheck(event.target.checked)
-        setTimeout(function () {
-            _this.checkIfAllChecked();
-        }, 10);
-    };
-    AddmodifyexpenseComponent.prototype.setcurrentMembersBulkCheck = function (status) {
-        // this
-        this.currentMember.filter(function (item) {
-            item.isChecked = status;
-            item.havetopay = status;
+        this._common.getLocalData(_model_storageKey__WEBPACK_IMPORTED_MODULE_6__["storeKey"].id).then(function (id) {
+            _this.userId = id;
         });
-        this.ischeckAll = status;
-        this.calculateExpenseTopay();
+        this.getTripInfo(this.tripId);
     };
-    AddmodifyexpenseComponent.prototype.checkIfAllChecked = function () {
-        var checkMembers = this.currentMember.filter(function (item) { return item.isChecked; });
-        this.ischeckAll = (checkMembers.length == this.currentMember.length);
-        this.calculateExpenseTopay();
-    };
-    AddmodifyexpenseComponent.prototype.showExpenseDetails = function (expense) {
-        console.log("showExpenseDetails", expense);
-        this._common.islastPageReports.status = false;
-        this._common.islastPageReports.memberId = null;
-        this.router.navigate(['calculator', this.tripId, expense.expenseId]);
-    };
-    AddmodifyexpenseComponent.prototype.backToTrips = function () {
-        this.router.navigate(['home']);
-    };
-    AddmodifyexpenseComponent.prototype.reportsPage = function () {
-        this.router.navigate(['report', this.tripId]);
-    };
-    AddmodifyexpenseComponent.prototype.setUpaddInExpenseTray = function () {
+    AddmodifyexpenseComponent.prototype.getTripInfo = function (tripId) {
         var _this = this;
-        var expenseTrayData;
-        this.addnewExpense.name = this.expenseData.name;
-        this.expenseData.tripDetails.members.filter(function (item) {
-            if (item.hasalreadypaid) {
-                expenseTrayData = {
-                    members: [],
-                    selectedmember: null,
-                    selectedmemberData: null,
-                    amount: 0
-                };
-                expenseTrayData.members = JSON.parse(JSON.stringify(_this.tripMembers));
-                console.log(_this.expenseTray, "this.expenseTray", expenseTrayData);
-                expenseTrayData.selectedmember = item.name;
-                expenseTrayData.selectedmemberData = item;
-                expenseTrayData.amount = item.paidamount;
-                _this.expenseTray.push(expenseTrayData);
+        var data = { tripId: tripId };
+        this._common.setLoading(true);
+        this._trip.getTripInfo(data).subscribe(function (res) {
+            _this._common.setLoading(false);
+            console.log("getTripInfo", res);
+            _this.trip = res.result;
+            _this.tripMembers = _this.trip.members;
+            _this.currentMember = JSON.parse(JSON.stringify(_this.tripMembers));
+            _this.expenseTray = [];
+            if (_this.expenseId) {
+                _this.setIsReadOnlyMode();
+                _this.initExpenseModify();
+            }
+            else {
+                _this.isEditMode = true;
+                _this.addInExpenseTray();
+                _this.setcurrentMembersBulkCheck(true);
+            }
+            _this.calculateExpenseDetails();
+        });
+    };
+    AddmodifyexpenseComponent.prototype.setIsReadOnlyMode = function () {
+        var _this = this;
+        var index = lodash__WEBPACK_IMPORTED_MODULE_4__["findIndex"](this.trip.tripExpense, function (o) { return o._id == _this.expenseId; });
+        this.isEditMode = (this.trip.creatorID == this.userId || this.trip.tripExpense[index].creatorID == this.userId);
+    };
+    AddmodifyexpenseComponent.prototype.initExpenseModify = function () {
+        var _this = this;
+        console.log(this.expenseId, "initExpenseModify", this.trip);
+        this.expenseData = this.trip.tripExpense.filter(function (expense) {
+            if (expense._id == _this.expenseId) {
+                _this.expenseData = expense;
+                _this.setUpaddInExpenseTray();
             }
         });
-        this.expenseTray.filter(function (item) {
-            _this.showMembers(item);
-        });
-        this.calculateCurrentCost();
     };
     AddmodifyexpenseComponent.prototype.addInExpenseTray = function () {
-        // console.log("addInExpenseTray", this.expenseTray)
         var _this = this;
         var expenseTrayData = {
             members: [],
@@ -175,14 +147,6 @@ var AddmodifyexpenseComponent = /** @class */ (function () {
             selectedmemberData: null,
             amount: 0
         };
-        // if (this.expenseTray.length > 0) {
-        //   this.tripMembers.filter(item => {
-        //     let index = _.findIndex(this.expenseTray, o => {
-        //       return o._id == item._id
-        //     });
-        //     console.log("addInExpenseTray_index", item, index)
-        //   })
-        // } else {
         expenseTrayData.members = JSON.parse(JSON.stringify(this.tripMembers));
         console.log(this.expenseTray, "this.expenseTray", expenseTrayData);
         if (this.expenseTray.length < 1) {
@@ -206,22 +170,85 @@ var AddmodifyexpenseComponent = /** @class */ (function () {
         this.expenseTray.filter(function (item) {
             _this.showMembers(item);
         });
-        // } 
-        // else {
-        // let remainingMembers = this.tripMembers.filter(item => {
-        //   return item._id != tray.selectedmemberData._id
-        // })
-        // console.log("remainingMembers", remainingMembers)
-        // this.expenseTray.filter(item => {
-        //   let index = _.findIndex(expenseTrayData.members, o => {
-        //     return o._id == item.selectedmemberData._id
-        //   });
-        //   console.log("this.expenseTray_filter", item, index)
-        // })
-        // }
-        // if (this.expenseTray.length < 1)
         this.calculateCurrentCost();
-        // }
+    };
+    AddmodifyexpenseComponent.prototype.setcurrentMembersBulkCheck = function (status) {
+        this.currentMember.filter(function (item) {
+            item.isChecked = status;
+            item.havetopay = status;
+        });
+        this.ischeckAll = status;
+        this.calculateExpenseTopay();
+    };
+    AddmodifyexpenseComponent.prototype.calculateExpenseDetails = function () {
+        var totalCost = 0;
+        this.trip.tripExpense.filter(function (item) {
+            console.log("calculateExpenseDetails", item);
+            var num = item.tripDetails.expenseCost;
+            totalCost = totalCost + parseFloat(num);
+        });
+        this.trip.totalTripExpenseCost = totalCost;
+    };
+    AddmodifyexpenseComponent.prototype.setUpaddInExpenseTray = function () {
+        var _this = this;
+        var expenseTrayData;
+        this.addnewExpense.name = this.expenseData.name;
+        console.log("setUpaddInExpenseTray", this.currentMember);
+        this.expenseData.tripDetails.members.filter(function (item) {
+            var index = lodash__WEBPACK_IMPORTED_MODULE_4__["findIndex"](_this.currentMember, function (o) { return o._id == item._id; });
+            if (index > -1) {
+                _this.currentMember[index].isChecked = item.isChecked;
+                _this.currentMember[index].havetopay = item.havetopay;
+            }
+            if (item.hasalreadypaid) {
+                expenseTrayData = {
+                    members: [],
+                    selectedmember: null,
+                    selectedmemberData: null,
+                    amount: 0
+                };
+                expenseTrayData.members = JSON.parse(JSON.stringify(_this.tripMembers));
+                console.log(_this.expenseTray, "this.expenseTray", expenseTrayData);
+                expenseTrayData.selectedmember = item.name;
+                expenseTrayData.selectedmemberData = item;
+                expenseTrayData.amount = item.paidamount;
+                _this.expenseTray.push(expenseTrayData);
+            }
+        });
+        this.expenseTray.filter(function (item) {
+            _this.showMembers(item);
+        });
+        this.calculateCurrentCost();
+        this.checkIfAllChecked();
+    };
+    AddmodifyexpenseComponent.prototype.checkAll = function (event) {
+        console.log("checkall", event);
+        this.setcurrentMembersBulkCheck(event.target.checked);
+    };
+    AddmodifyexpenseComponent.prototype.memberChecked = function (event, member) {
+        var _this = this;
+        console.log("checkall", event, member);
+        member.havetopay = event.target.checked;
+        setTimeout(function () {
+            _this.checkIfAllChecked();
+        }, 10);
+    };
+    AddmodifyexpenseComponent.prototype.checkIfAllChecked = function () {
+        var checkMembers = this.currentMember.filter(function (item) { return item.isChecked; });
+        this.ischeckAll = (checkMembers.length == this.currentMember.length);
+        this.calculateExpenseTopay();
+    };
+    AddmodifyexpenseComponent.prototype.showExpenseDetails = function (expense) {
+        console.log("showExpenseDetails", expense);
+        this._common.islastPageReports.status = false;
+        this._common.islastPageReports.memberId = null;
+        this.router.navigate(['calculator', this.tripId, expense.expenseId]);
+    };
+    AddmodifyexpenseComponent.prototype.backToTrips = function () {
+        this.router.navigate(['home']);
+    };
+    AddmodifyexpenseComponent.prototype.reportsPage = function () {
+        this.router.navigate(['report', this.tripId]);
     };
     AddmodifyexpenseComponent.prototype.setNewSelectedMember = function (tray) {
         var _this = this;
@@ -250,7 +277,6 @@ var AddmodifyexpenseComponent = /** @class */ (function () {
     AddmodifyexpenseComponent.prototype.calculateExpenseTopay = function () {
         var _this = this;
         console.log("calculateExpenseTopay", this.currentMember, this.expenseTray);
-        // let amountToCollect
         this.currentMember.filter(function (mem) {
             mem.paidamount = 0;
             mem.finalAmount = 0;
@@ -263,8 +289,6 @@ var AddmodifyexpenseComponent = /** @class */ (function () {
                 _this.currentMember[index].paidamount = item.amount;
             }
         });
-        // this.currentMember.filter(curmem =>{
-        // })
         this.calculatePayable();
     };
     AddmodifyexpenseComponent.prototype.calculatePayable = function () {
@@ -321,15 +345,10 @@ var AddmodifyexpenseComponent = /** @class */ (function () {
         this.router.navigate(['expense', this.tripId]);
     };
     AddmodifyexpenseComponent.prototype.setPageTo = function (pageName) {
-        // this.setPage = pageName
         if (pageName == 'expense') {
-            // console.log("Page set to ", pageName)
             this.navigateToExpense();
-            // this.calculateDetails()
         }
         else if (pageName == 'addExpense') {
-            console.log("Page set to ", pageName);
-            // this.checkMembersStatus();
             this.expenseTray = [];
             this.addInExpenseTray();
         }
@@ -337,30 +356,21 @@ var AddmodifyexpenseComponent = /** @class */ (function () {
     AddmodifyexpenseComponent.prototype.addExpense = function (addExpense) {
         console.log("Add Expense Called", addExpense);
         var expense = {
-            // expenseId: this._common.getNewId(),
             name: addExpense.name,
             tripDetails: {
                 expenseCost: addExpense.tripDetails.expenseCost,
                 members: [],
                 perPersonCost: addExpense.perPersonCost
-            }
+            },
+            creatorID: this.userId
         };
         this.AddMembersList(expense);
-        // this.trip.tripExpense.push(expense)
         console.log("addExpense_final", expense);
         this.saveExpenseTripDetails(expense);
-        // this.calculateDetails()
-        // this.calculateExpenseDetails()
-        // this.setPageTo('expense')
-    };
-    AddmodifyexpenseComponent.prototype.calculateDetails = function () {
-        this.trip.tripExpense.filter(function (item) {
-            // this._common.calculateDetails(item)
-        });
     };
     AddmodifyexpenseComponent.prototype.saveExpenseTripDetails = function (expense) {
         var _this = this;
-        console.log("saveExpenseTripDetails", JSON.stringify(expense));
+        console.log("saveExpenseTripDetails", expense, JSON.stringify(expense));
         var data = {
             tripId: this.tripId,
             expenseId: this.expenseId,
@@ -371,15 +381,6 @@ var AddmodifyexpenseComponent = /** @class */ (function () {
                 _this.navigateToExpense();
             }
         });
-    };
-    AddmodifyexpenseComponent.prototype.calculateExpenseDetails = function () {
-        var totalCost = 0;
-        this.trip.tripExpense.filter(function (item) {
-            console.log("calculateExpenseDetails", item);
-            var num = item.tripDetails.expenseCost;
-            totalCost = totalCost + parseFloat(num);
-        });
-        this.trip.totalTripExpenseCost = totalCost;
     };
     AddmodifyexpenseComponent.prototype.AddMembersList = function (member) {
         var _this = this;
@@ -413,38 +414,6 @@ var AddmodifyexpenseComponent = /** @class */ (function () {
         this.trip.tripExpense.splice(index, 1);
         this.calculateExpenseDetails();
     };
-    AddmodifyexpenseComponent.prototype.getTripInfo = function (tripId) {
-        var _this = this;
-        var data = { tripId: tripId };
-        this._trip.getTripInfo(data).subscribe(function (res) {
-            console.log("getTripInfo", res);
-            _this.trip = res.result;
-            _this.tripMembers = _this.trip.members;
-            _this.currentMember = JSON.parse(JSON.stringify(_this.tripMembers));
-            _this.expenseTray = [];
-            if (_this.expenseId) {
-                _this.initExpenseModify();
-            }
-            else {
-                _this.addInExpenseTray();
-            }
-            _this.calculateDetails();
-            _this.calculateExpenseDetails();
-            _this.setcurrentMembersBulkCheck(true);
-            // this.friendsList = res.friendsList
-            // this.friendsListFilter = JSON.parse(JSON.stringify(this.friendsList))
-        });
-    };
-    AddmodifyexpenseComponent.prototype.initExpenseModify = function () {
-        var _this = this;
-        console.log(this.expenseId, "initExpenseModify", this.trip);
-        this.expenseData = this.trip.tripExpense.filter(function (expense) {
-            if (expense._id == _this.expenseId) {
-                _this.expenseData = expense;
-                _this.setUpaddInExpenseTray();
-            }
-        });
-    };
     AddmodifyexpenseComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-addmodifyexpense',
@@ -457,6 +426,237 @@ var AddmodifyexpenseComponent = /** @class */ (function () {
             _tripservice_service__WEBPACK_IMPORTED_MODULE_5__["TripserviceService"]])
     ], AddmodifyexpenseComponent);
     return AddmodifyexpenseComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/addmodifytrip/addmodifytrip.component.html":
+/*!************************************************************!*\
+  !*** ./src/app/addmodifytrip/addmodifytrip.component.html ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div>\n  <form [formGroup]='tripDataForm'>\n    <p>Add Trip Details</p>\n\n\n\n    Trip Name :\n    <input type=\"text\" placeholder=\"Trip Name\" formControlName='tripName' />\n    <!-- <input type=\"text\" placeholder=\"Trip Name\" [(ngModel)]=\"addTrip.tripName\"> -->\n    <br>\n    <!-- expense Total Cost:\n  <input type=\"text\" placeholder=\"Expense Total Cost\" (keyup)=\"calculateDetails()\" [(ngModel)]=\"tripDetails.total_cost\"> -->\n    <br>\n    Add Members <input type=\"button\" value=\"+\">\n    <br>\n    <br>\n    Choose Trip Members:\n    <!-- <div> -->\n    <input style=\"float: right;\" [ngModelOptions]=\"{standalone: true}\" name=\"searchFriend\" type=\"text\"\n      [(ngModel)]=\"searchFriend\" placeholder=\"Search Friend\" (ngModelChange)=\"filterFriend($event)\" />\n    <!-- </div> -->\n    <hr>\n    <div formArray='memberData'>\n      <div *ngFor=\"let friend of tripMembersArray.value ;let i = index;\">\n        <div [formGroup]='tripMembersArray.controls[i]'>\n\n          {{friend.memberData.name}}\n          <span *ngIf=\"friend?.isInvolvedArray?.length > 0\" style=\"float: right;\">linked in\n            {{friend?.isInvolvedArray?.length}}\n            expense</span>\n          <input *ngIf=\"friend?.isInvolvedArray?.length < 1\" type=\"button\" style=\"float: right;\"\n            (click)=\"switchSelection(tripMembersArray.controls[i])\" [value]=\"friend.isChecked ? 'Removed': 'Add'\">\n          <br>\n          <hr>\n        </div>\n      </div>\n    </div>\n    <!-- <div *ngFor=\"let friend of friendsList ;let i = index;\">\n\n      {{friend.name}} <input type=\"button\" style=\"float: right;\" (click)=\"addSelectedMember(friend)\"\n        [value]=\"friend.isChecked ? 'Removed': 'Add'\">\n      <br>\n      <hr>\n    </div> -->\n\n\n\n\n\n\n    <p></p>\n\n    <input type=\"button\" value=\"{{ currentTripData ? 'Modify Trip' : 'Add Trip'}}\" (click)=\"saveTrip()\">\n    <input type=\"button\" value=\"cancel\" (click)=\"navigateToTrips()\">\n  </form>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/addmodifytrip/addmodifytrip.component.scss":
+/*!************************************************************!*\
+  !*** ./src/app/addmodifytrip/addmodifytrip.component.scss ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2FkZG1vZGlmeXRyaXAvYWRkbW9kaWZ5dHJpcC5jb21wb25lbnQuc2NzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/addmodifytrip/addmodifytrip.component.ts":
+/*!**********************************************************!*\
+  !*** ./src/app/addmodifytrip/addmodifytrip.component.ts ***!
+  \**********************************************************/
+/*! exports provided: AddmodifytripComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddmodifytripComponent", function() { return AddmodifytripComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _common_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../common.service */ "./src/app/common.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _tripservice_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../tripservice.service */ "./src/app/tripservice.service.ts");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _model_storageKey__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../model/storageKey */ "./src/app/model/storageKey.ts");
+
+
+
+
+
+
+
+
+var AddmodifytripComponent = /** @class */ (function () {
+    function AddmodifytripComponent(_common, router, fb, route, _trip) {
+        this._common = _common;
+        this.router = router;
+        this.fb = fb;
+        this.route = route;
+        this._trip = _trip;
+        this.addTripMode = false;
+        this.showCalculator = false;
+        // currentPage
+        // tripDetailsObj: TripMemberModel
+        // friendsList: FriendsModel[]
+        this.friendsList = [];
+        this.tripDataForm = this.fb.group({
+            tripId: [null],
+            tripName: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required]],
+            tripMembers: this.fb.array([])
+        });
+        this.clearFormArray = function (formArray) {
+            while (formArray.length !== 0) {
+                formArray.removeAt(0);
+            }
+        };
+    }
+    AddmodifytripComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        var tripId = this.route.snapshot.paramMap.get('tripId');
+        this._common.getLocalData(_model_storageKey__WEBPACK_IMPORTED_MODULE_7__["storeKey"].id).then(function (id) {
+            _this.userId = id;
+        });
+        this.tripDataForm.get('tripId').setValue(tripId ? tripId : null);
+        this.tripDataForm.get('tripId').updateValueAndValidity();
+        if (this.tripDataForm.value.tripId)
+            this.getTripDetails();
+        else
+            this.getFriendsList(1);
+    };
+    AddmodifytripComponent.prototype.getFriendsList = function (type) {
+        var _this = this;
+        var data = { type: type };
+        this.friendsList = [];
+        this.friendsListFilter = [];
+        this.clearFormArray(this.tripMembersArray);
+        this._trip.getFriendsList(data).subscribe(function (res) {
+            _this.friendsList = res.friendsList.friendsDataInfo;
+            _this.friendsListFilter = JSON.parse(JSON.stringify(_this.friendsList));
+            if (_this.currentTripData) {
+                _this.setupTripModifyInfo();
+            }
+            else {
+                _this.friendsList.filter(function (item) {
+                    _this.createMemberControl(false, item, []);
+                });
+            }
+            console.log("getFriendsList", res, _this.tripMembersArray);
+        });
+    };
+    AddmodifytripComponent.prototype.getTripDetails = function () {
+        var _this = this;
+        this.trips = [];
+        var tripId = this.tripDataForm.value.tripId;
+        this._trip.getTripDetails().subscribe(function (res) {
+            console.log("getTripDetails_API", res, _this.tripDataForm);
+            _this.trips = res.result;
+            var index = lodash__WEBPACK_IMPORTED_MODULE_6__["findIndex"](_this.trips, function (o) {
+                return o._id == tripId;
+            });
+            _this.currentTripData = index > -1 ? _this.trips[index] : null;
+            _this.getFriendsList(1);
+        });
+    };
+    Object.defineProperty(AddmodifytripComponent.prototype, "tripMembersArray", {
+        get: function () {
+            return this.tripDataForm.get('tripMembers');
+        },
+        enumerable: true,
+        configurable: true
+    });
+    AddmodifytripComponent.prototype.setupTripModifyInfo = function () {
+        var _this = this;
+        console.log("setupTripModifyInfo", this.currentTripData);
+        var data = { tripId: this.currentTripData._id };
+        this.tripDataForm.get('tripName').setValue(this.currentTripData.tripName);
+        this._trip.getTripMembersList(data).subscribe(function (res) {
+            console.log("getTripMembersList", res);
+            // this.friendsList.filter(item => {
+            //   this.createMemberControl(false, item)
+            // })
+            var filterData = res.result.members.filter(function (item) { return item._id != _this.userId; });
+            _this.friendsList = _this.friendsList.concat(filterData);
+            console.log("this.friendsList", _this.friendsList);
+            _this.friendsList = _this._common.removeDuplicate(_this.friendsList, '_id');
+            _this.friendsList.filter(function (item) {
+                var index = lodash__WEBPACK_IMPORTED_MODULE_6__["findIndex"](res.result.members, function (o) {
+                    return o._id == item._id;
+                });
+                _this.createMemberControl((index > -1), item, _this.checkIfInvolved(item._id));
+                // if (index > -1) {
+                //   // this.friendsList.push(item)
+                //   this.createMemberControl(false, item)
+                // }
+                // else {
+                //   this.createMemberControl(true, item)
+                // }
+            });
+            // this.friendsList = this.friendsList.concat(tempArray)
+            _this.friendsListFilter = JSON.parse(JSON.stringify(_this.friendsList));
+            // res.result.members.filter(added => {
+            //   // this.addSelectedMember(added)
+            // })
+        });
+    };
+    AddmodifytripComponent.prototype.checkIfInvolved = function (memberId) {
+        console.log("checkIfInvolved", memberId, this.currentTripData);
+        var involvedTrips = [];
+        this.currentTripData.tripExpense.filter(function (expense) {
+            // expense.tripDetails.members.filter(member => {
+            // })
+            var index = lodash__WEBPACK_IMPORTED_MODULE_6__["findIndex"](expense.tripDetails.members, function (o) {
+                return o._id == memberId && (o.havetopay && o.finalAmount.toString() != '0');
+            });
+            if (index > -1)
+                involvedTrips.push(expense);
+        });
+        return involvedTrips;
+    };
+    AddmodifytripComponent.prototype.switchSelection = function (control) {
+        console.log("switchSelection", this.tripMembersArray);
+        control.get('isChecked').setValue(!control.value.isChecked);
+    };
+    AddmodifytripComponent.prototype.createMemberControl = function (isChecked, item, isInvolvedArray) {
+        var control = this.fb.group({
+            isChecked: [isChecked, [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required]],
+            memberData: [item, [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required]],
+            isInvolvedArray: [isInvolvedArray, [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required]]
+        });
+        this.tripMembersArray.push(control);
+    };
+    AddmodifytripComponent.prototype.navigateToTrips = function () {
+        this.router.navigate(['home']);
+    };
+    AddmodifytripComponent.prototype.saveTrip = function () {
+        var _this = this;
+        var data = {
+            tripId: this.tripDataForm.value.tripId,
+            tripName: this.tripDataForm.value.tripName,
+            totalTripExpenseCost: null,
+            members: []
+        };
+        this.tripDataForm.value.tripMembers.filter(function (item) {
+            if (item.isChecked)
+                data.members.push(item.memberData._id);
+        });
+        console.log("this.tripDataForm", this.tripDataForm, data);
+        this._trip.AddTrip(data).subscribe(function (res) {
+            console.log("AddTrip", res);
+            _this.navigateToTrips();
+        });
+    };
+    AddmodifytripComponent.prototype.filterFriend = function (event) {
+        console.log("filterFriend", event);
+        this.friendsList = this.friendsListFilter.filter(function (item) { return (item.name).toLowerCase().includes(event.toLowerCase()); });
+    };
+    AddmodifytripComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-addmodifytrip',
+            template: __webpack_require__(/*! ./addmodifytrip.component.html */ "./src/app/addmodifytrip/addmodifytrip.component.html"),
+            styles: [__webpack_require__(/*! ./addmodifytrip.component.scss */ "./src/app/addmodifytrip/addmodifytrip.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_common_service__WEBPACK_IMPORTED_MODULE_2__["CommonService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
+            _tripservice_service__WEBPACK_IMPORTED_MODULE_5__["TripserviceService"]])
+    ], AddmodifytripComponent);
+    return AddmodifytripComponent;
 }());
 
 
@@ -485,6 +685,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _auth_loginmodule_login_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./auth/loginmodule/login.component */ "./src/app/auth/loginmodule/login.component.ts");
 /* harmony import */ var _theme_theme_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./theme/theme.component */ "./src/app/theme/theme.component.ts");
 /* harmony import */ var _addmodifyexpense_addmodifyexpense_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./addmodifyexpense/addmodifyexpense.component */ "./src/app/addmodifyexpense/addmodifyexpense.component.ts");
+/* harmony import */ var _addmodifytrip_addmodifytrip_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./addmodifytrip/addmodifytrip.component */ "./src/app/addmodifytrip/addmodifytrip.component.ts");
+
 
 
 
@@ -523,6 +725,14 @@ var routes = [
                 component: _addmodifyexpense_addmodifyexpense_component__WEBPACK_IMPORTED_MODULE_11__["AddmodifyexpenseComponent"]
             },
             {
+                path: 'addmodifytrip',
+                component: _addmodifytrip_addmodifytrip_component__WEBPACK_IMPORTED_MODULE_12__["AddmodifytripComponent"]
+            },
+            {
+                path: 'addmodifytrip/:tripId',
+                component: _addmodifytrip_addmodifytrip_component__WEBPACK_IMPORTED_MODULE_12__["AddmodifytripComponent"]
+            },
+            {
                 path: 'addmodifyexpense/:tripId/:expenseId',
                 component: _addmodifyexpense_addmodifyexpense_component__WEBPACK_IMPORTED_MODULE_11__["AddmodifyexpenseComponent"]
             },
@@ -551,7 +761,7 @@ var AppRoutingModule = /** @class */ (function () {
     }
     AppRoutingModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-            imports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forRoot(routes)],
+            imports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forRoot(routes, { useHash: true })],
             exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]]
         })
     ], AppRoutingModule);
@@ -637,27 +847,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _calculator_calculator_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./calculator/calculator.component */ "./src/app/calculator/calculator.component.ts");
-/* harmony import */ var _common_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./common.service */ "./src/app/common.service.ts");
-/* harmony import */ var _trip_trip_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./trip/trip.component */ "./src/app/trip/trip.component.ts");
-/* harmony import */ var _expenses_expenses_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./expenses/expenses.component */ "./src/app/expenses/expenses.component.ts");
-/* harmony import */ var _report_report_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./report/report.component */ "./src/app/report/report.component.ts");
-/* harmony import */ var _userwisereport_userwisereport_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./userwisereport/userwisereport.component */ "./src/app/userwisereport/userwisereport.component.ts");
-/* harmony import */ var _friend_friend_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./friend/friend.component */ "./src/app/friend/friend.component.ts");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _calculator_calculator_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./calculator/calculator.component */ "./src/app/calculator/calculator.component.ts");
+/* harmony import */ var _common_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./common.service */ "./src/app/common.service.ts");
+/* harmony import */ var _trip_trip_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./trip/trip.component */ "./src/app/trip/trip.component.ts");
+/* harmony import */ var _expenses_expenses_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./expenses/expenses.component */ "./src/app/expenses/expenses.component.ts");
+/* harmony import */ var _report_report_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./report/report.component */ "./src/app/report/report.component.ts");
+/* harmony import */ var _userwisereport_userwisereport_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./userwisereport/userwisereport.component */ "./src/app/userwisereport/userwisereport.component.ts");
+/* harmony import */ var _friend_friend_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./friend/friend.component */ "./src/app/friend/friend.component.ts");
 /* harmony import */ var _auth_auth_interceptor__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./auth/auth-interceptor */ "./src/app/auth/auth-interceptor.ts");
 /* harmony import */ var _auth_auth_module__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./auth/auth.module */ "./src/app/auth/auth.module.ts");
 /* harmony import */ var _theme_theme_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./theme/theme.component */ "./src/app/theme/theme.component.ts");
 /* harmony import */ var _header_header_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./header/header.component */ "./src/app/header/header.component.ts");
 /* harmony import */ var _addmodifyexpense_addmodifyexpense_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./addmodifyexpense/addmodifyexpense.component */ "./src/app/addmodifyexpense/addmodifyexpense.component.ts");
+/* harmony import */ var _addmodifytrip_addmodifytrip_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./addmodifytrip/addmodifytrip.component */ "./src/app/addmodifytrip/addmodifytrip.component.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
+
+
 
 
 
 
 // import { ToastrModule } from 'ngx-toastr';
+
 
 
 
@@ -681,31 +897,38 @@ var AppModule = /** @class */ (function () {
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
             declarations: [
-                _app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"],
-                _calculator_calculator_component__WEBPACK_IMPORTED_MODULE_6__["CalculatorComponent"],
-                _trip_trip_component__WEBPACK_IMPORTED_MODULE_8__["TripComponent"],
-                _expenses_expenses_component__WEBPACK_IMPORTED_MODULE_9__["ExpensesComponent"],
-                _report_report_component__WEBPACK_IMPORTED_MODULE_10__["ReportComponent"],
-                _userwisereport_userwisereport_component__WEBPACK_IMPORTED_MODULE_11__["UserwisereportComponent"],
-                _friend_friend_component__WEBPACK_IMPORTED_MODULE_12__["FriendComponent"],
+                _app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"],
+                _calculator_calculator_component__WEBPACK_IMPORTED_MODULE_8__["CalculatorComponent"],
+                _trip_trip_component__WEBPACK_IMPORTED_MODULE_10__["TripComponent"],
+                _expenses_expenses_component__WEBPACK_IMPORTED_MODULE_11__["ExpensesComponent"],
+                _report_report_component__WEBPACK_IMPORTED_MODULE_12__["ReportComponent"],
+                _userwisereport_userwisereport_component__WEBPACK_IMPORTED_MODULE_13__["UserwisereportComponent"],
+                _friend_friend_component__WEBPACK_IMPORTED_MODULE_14__["FriendComponent"],
                 _theme_theme_component__WEBPACK_IMPORTED_MODULE_17__["ThemeComponent"],
                 _header_header_component__WEBPACK_IMPORTED_MODULE_18__["HeaderComponent"],
-                _addmodifyexpense_addmodifyexpense_component__WEBPACK_IMPORTED_MODULE_19__["AddmodifyexpenseComponent"]
+                _addmodifyexpense_addmodifyexpense_component__WEBPACK_IMPORTED_MODULE_19__["AddmodifyexpenseComponent"],
+                _addmodifytrip_addmodifytrip_component__WEBPACK_IMPORTED_MODULE_20__["AddmodifytripComponent"],
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
-                _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"],
+                _app_routing_module__WEBPACK_IMPORTED_MODULE_6__["AppRoutingModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                 _auth_auth_module__WEBPACK_IMPORTED_MODULE_16__["AuthModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_14__["HttpClientModule"],
-                _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"]
-                // ToastrModule.forRoot() // ToastrModule added
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpClientModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
+                _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_22__["BrowserAnimationsModule"],
+                ngx_toastr__WEBPACK_IMPORTED_MODULE_21__["ToastrModule"].forRoot({
+                    // positionClass : 'top-full-width'
+                    positionClass: 'toast-bottom-right',
+                }) // ToastrModule added
             ],
             providers: [
-                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_14__["HTTP_INTERCEPTORS"], useClass: _auth_auth_interceptor__WEBPACK_IMPORTED_MODULE_15__["AuthInterceptor"], multi: true },
-                _common_service__WEBPACK_IMPORTED_MODULE_7__["CommonService"], { provide: _angular_common__WEBPACK_IMPORTED_MODULE_13__["APP_BASE_HREF"], useValue: '/' },
+                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HTTP_INTERCEPTORS"], useClass: _auth_auth_interceptor__WEBPACK_IMPORTED_MODULE_15__["AuthInterceptor"], multi: true },
+                _common_service__WEBPACK_IMPORTED_MODULE_9__["CommonService"],
+                { provide: _angular_common__WEBPACK_IMPORTED_MODULE_4__["APP_BASE_HREF"], useValue: './' }
+                // { provide: LocationStrategy, useClass: HashLocationStrategy }
             ],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;
@@ -761,13 +984,15 @@ var AuthInterceptor = /** @class */ (function () {
             }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["catchError"])(function (err) {
                 if (err instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpErrorResponse"]) {
                     try {
-                        console.log("Failed_MSG_HTTP");
-                        if (err.status == 401)
+                        console.log("Failed_MSG_HTTP", err);
+                        if (err.status == 401 || err.status == 0) {
+                            _this._common.setLoading(false);
                             _this.authService.logout();
+                        }
                         // this.toasterService.error(err.error.message, err.error.title, { positionClass: 'toast-bottom-center' });
                     }
                     catch (e) {
-                        console.log("Failed_MSG_HTTP");
+                        console.log("Failed_MSG_HTTP_catch", e);
                         // this.toasterService.error('An error occurred', '', { positionClass: 'toast-bottom-center' });
                     }
                     //log error 
@@ -894,16 +1119,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var _model_apiLinks__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../model/apiLinks */ "./src/app/model/apiLinks.ts");
-/* harmony import */ var _common_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../common.service */ "./src/app/common.service.ts");
-/* harmony import */ var _model_storageKey__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../model/storageKey */ "./src/app/model/storageKey.ts");
-
+/* harmony import */ var _model_apiLinks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../model/apiLinks */ "./src/app/model/apiLinks.ts");
+/* harmony import */ var _common_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../common.service */ "./src/app/common.service.ts");
+/* harmony import */ var _model_storageKey__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../model/storageKey */ "./src/app/model/storageKey.ts");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
 
 
 
 
 // import { ToastrService } from 'ngx-toastr';
+
 
 
 
@@ -913,9 +1138,10 @@ var AuthService = /** @class */ (function () {
         this.router = router;
         this._common = _common;
         this.isAuthenticated = false;
-        this.authStatusListener = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
-        this.domainHost = "http://localhost:3000";
-        this.ApiConstants = _model_apiLinks__WEBPACK_IMPORTED_MODULE_5__["ApiConstants"];
+        // private authStatusListener = new Subject<boolean>();
+        // private domainHost: string = "http://localhost:3000"
+        this.domainHost = src_environments_environment__WEBPACK_IMPORTED_MODULE_7__["environment"].apiBaseUrl;
+        this.ApiConstants = _model_apiLinks__WEBPACK_IMPORTED_MODULE_4__["ApiConstants"];
     }
     AuthService.prototype.getToken = function () {
         return this.token;
@@ -929,20 +1155,20 @@ var AuthService = /** @class */ (function () {
     AuthService.prototype.getUserType = function () {
         return this.UserType;
     };
-    AuthService.prototype.getAuthStatusListener = function () {
-        return this.authStatusListener.asObservable();
-    };
-    AuthService.prototype.createUser = function (email, password) {
-        var _this = this;
-        var authData = { email: email, password: password };
-        this.http
-            .post("http://localhost:3000/api/user/signup", authData)
-            .subscribe(function () {
-            _this.router.navigate(["/"]);
-        }, function (error) {
-            _this.authStatusListener.next(false);
-        });
-    };
+    // getAuthStatusListener() {
+    //   // return this.authStatusListener.asObservable();
+    //   return null
+    // }
+    // createUser(email: string, password: string) {
+    //   const authData: AuthData = { email: email, password: password };
+    //   this.http
+    //     .post("http://localhost:3000/api/user/signup", authData)
+    //     .subscribe(() => {
+    //       this.router.navigate(["/"]);
+    //     }, error => {
+    //       this.authStatusListener.next(false);
+    //     });
+    // }
     AuthService.prototype.login = function (email, password) {
         var _this = this;
         console.log("login");
@@ -958,7 +1184,7 @@ var AuthService = /** @class */ (function () {
                 _this.setAuthTimer(expiresInDuration);
                 _this.isAuthenticated = true;
                 _this.userId = response.userId;
-                _this.authStatusListener.next(true);
+                // this.authStatusListener.next(true);
                 var now = new Date();
                 var expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
                 console.log(expirationDate);
@@ -972,13 +1198,13 @@ var AuthService = /** @class */ (function () {
                 }, 3000);
             }
         }, function (error) {
-            _this.authStatusListener.next(false);
+            // this.authStatusListener.next(false);
             // this.toastr.error("Something went wrong please contact Admin!");
         });
     };
     AuthService.prototype.checkAuthorization = function () {
         var _this = this;
-        this._common.getLocalData(_model_storageKey__WEBPACK_IMPORTED_MODULE_7__["storeKey"].token).then(function (token) {
+        this._common.getLocalData(_model_storageKey__WEBPACK_IMPORTED_MODULE_6__["storeKey"].token).then(function (token) {
             if (!token) {
                 // this.router.navigate(["/login"]);
                 _this.logout();
@@ -1002,13 +1228,13 @@ var AuthService = /** @class */ (function () {
             this.isAuthenticated = true;
             this.userId = authInformation.userId;
             this.setAuthTimer(expiresIn / 1000);
-            this.authStatusListener.next(true);
+            // this.authStatusListener.next(true);
         }
     };
     AuthService.prototype.logout = function () {
         this.token = null;
         this.isAuthenticated = false;
-        this.authStatusListener.next(false);
+        // this.authStatusListener.next(false);
         this.userId = null;
         clearTimeout(this.tokenTimer);
         // this.clearAuthData();
@@ -1052,10 +1278,13 @@ var AuthService = /** @class */ (function () {
     AuthService.prototype.loginUser = function (loginData) {
         return this.http.post(this.domainHost + this.ApiConstants.user.login, loginData);
     };
+    AuthService.prototype.validateUserName = function (data) {
+        return this.http.post(this.domainHost + this.ApiConstants.user.checkUserName, data);
+    };
     AuthService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({ providedIn: "root" }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
-            _common_service__WEBPACK_IMPORTED_MODULE_6__["CommonService"]])
+            _common_service__WEBPACK_IMPORTED_MODULE_5__["CommonService"]])
     ], AuthService);
     return AuthService;
 }());
@@ -1071,7 +1300,7 @@ var AuthService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <h1>hello you are in login module</h1> -->\r\n<div class=\"login-box\" *ngIf=\"false\">\r\n    <!-- <div class=\"login-logo\">\r\n        <a href=\"../../index2.html\"><b>Locker</b>AnyTime</a>\r\n    </div> -->\r\n    <!-- /.login-logo -->\r\n    <div class=\"login-box-body\">\r\n        <p class=\"login-box-msg\">Sign in to start your session</p>\r\n\r\n        <form #loginForm=\"ngForm\" (submit)=\"login(loginForm)\">\r\n            <div class=\"form-group has-feedback\">\r\n                <input type=\"email\" class=\"form-control\" placeholder=\"Email\" ngModel #namefield=\"ngModel\" name=\"email\"\r\n                    required>\r\n                <span class=\"glyphicon glyphicon-envelope form-control-feedback\"></span>\r\n                <span class=\"text-red\" *ngIf=\"namefield.invalid && submited\">Please Enter Valid Email</span>\r\n            </div>\r\n            <div class=\"form-group has-feedback\">\r\n                <input type=\"password\" class=\"form-control\" placeholder=\"Password\" ngModel #passfield=\"ngModel\"\r\n                    name=\"password\" required>\r\n                <span class=\"glyphicon glyphicon-lock form-control-feedback\"></span>\r\n                <span class=\"text-red\" *ngIf=\"passfield.invalid && submited\">Please Enter Valid Password</span>\r\n            </div>\r\n            <div class=\"row\">\r\n                <!-- <div class=\"col-xs-8\">\r\n                    <div class=\"checkbox icheck\">\r\n                        <label>\r\n                            <input type=\"checkbox\"> Remember Me\r\n                        </label>\r\n                    </div>\r\n                </div> -->\r\n\r\n                <div class=\"col-xs-12\">\r\n                    <button type=\"submit\" class=\"btn btn-primary btn-block btn-flat\">Sign In</button>\r\n                </div>\r\n                <!-- <div class=\"col-xs-12\">\r\n                    <button type=\"button\" class=\"btn btn-primary btn-block btn-flat\" (click)=\"openToast()\">Toast</button>\r\n                </div> -->\r\n\r\n            </div>\r\n        </form>\r\n\r\n    </div>\r\n</div>\r\n<h1>Trip Expense Manager</h1>\r\n<div class=\"Login\" *ngIf=\"signInMode =='login'\">\r\n    <p class=\"login-box-msg\" *ngIf=\"userLoginType =='EXIST'\">Please Sign in to start your session</p>\r\n    <p class=\"login-box-msg\" *ngIf=\"userLoginType =='NEWACC'\">Congratulations!! Account Successfully Created<br>Please Sign in to start your session</p>\r\n    <form  autocomplete=\"off\" [formGroup]=\"loginForm\">\r\n        <div class=\"row\">\r\n            <input type=\"email\" placeholder=\"Email\" name=\"email\" formControlName=\"email\">\r\n        </div>\r\n        <div class=\"row\">\r\n            <input type=\"password\" placeholder=\"Password\" name=\"password\" formControlName=\"password\">\r\n        </div>\r\n        <div class=\"row\">\r\n            <button [disabled]=\"loginForm.invalid\" type=\"submit\" class=\"btn btn-primary btn-block btn-flat\" (click)=\"loginBtn()\">Sign In</button>\r\n        </div>\r\n        <div class=\"row\" *ngIf=\"userLoginType !='NEWACC'\">\r\n            <br>\r\n            <a (click)=\"signInMode ='register'\">New User? Create your Account Here</a>\r\n        </div>\r\n    </form>\r\n</div>\r\n<div class=\"Register\" *ngIf=\"signInMode =='register'\">\r\n    <p class=\"login-box-msg\">Create New Account</p>\r\n    <form  autocomplete=\"off\" [formGroup]=\"registrationForm\">\r\n        <div class=\"row\">\r\n            <input type=\"text\" formControlName=\"name\" placeholder=\"Name\">\r\n        </div>\r\n        <div class=\"row\">\r\n            <input type=\"email\" formControlName=\"email\" placeholder=\"Email\">\r\n        </div>\r\n        <div class=\"row\">\r\n            <input type=\"password\" formControlName=\"password\" placeholder=\"Password\">\r\n        </div>\r\n        <div class=\"row\">\r\n            <input type=\"password\" formControlName=\"repassword\" placeholder=\"Re-Enter Password\">\r\n        </div>\r\n        <div class=\"row\">\r\n            <input type=\"tel\" formControlName=\"mobile\" placeholder=\"Mobile Number\">\r\n        </div>\r\n        <div class=\"row\">\r\n            <button type=\"submit\" class=\"btn btn-primary btn-block btn-flat\" (click)=\"registerBtn()\">Register</button>\r\n        </div>\r\n        <div class=\"row\">\r\n            <br>\r\n            <a (click)=\"signInMode ='login'\">Already Have An Account? Login Here!</a>\r\n        </div>\r\n    </form>\r\n</div>"
+module.exports = "<!-- <h1>hello you are in login module</h1> -->\r\n<div>\r\n    <h1>Trip Expense Manager</h1>\r\n\r\n    <div class=\"Login\" *ngIf=\"signInMode =='login'\">\r\n        <div class=\"loading\" *ngIf=\"setLoading\"></div>\r\n        <p class=\"login-box-msg\" *ngIf=\"userLoginType =='EXIST'\">Please Sign in to start your session</p>\r\n        <p class=\"login-box-msg\" *ngIf=\"userLoginType =='NEWACC'\">Congratulations!! Account Successfully\r\n            Created<br>Please\r\n            Sign in to start your session</p>\r\n        <form autocomplete=\"off\" [formGroup]=\"loginForm\">\r\n            <div class=\"row\">\r\n                <input type=\"text\" placeholder=\"Username\" name=\"userName\" formControlName=\"userName\">\r\n            </div>\r\n            <div class=\"row\">\r\n                <input type=\"password\" placeholder=\"Password\" name=\"password\" formControlName=\"password\">\r\n            </div>\r\n            <div class=\"row\">\r\n                <button [disabled]=\"loginForm.invalid\" type=\"submit\" class=\"btn btn-primary btn-block btn-flat\"\r\n                    (click)=\"loginBtn()\">Sign In</button>\r\n            </div>\r\n            <div class=\"row\" *ngIf=\"userLoginType !='NEWACC'\">\r\n                <br>\r\n                <a (click)=\"signInMode ='register'\">New User? Create your Account Here</a>\r\n            </div>\r\n        </form>\r\n    </div>\r\n    <div class=\"Register\" *ngIf=\"signInMode =='register'\">\r\n        <div class=\"loading\" *ngIf=\"setLoading\"></div>\r\n        <p class=\"login-box-msg\">Create New Account</p>\r\n        <form autocomplete=\"off\" [formGroup]=\"registrationForm\">\r\n            <div class=\"row\">\r\n                <!-- <fa-icon [icon]=\"'faCoffee'\"></fa-icon> -->\r\n                <!-- <span class=\"icon-class\">\r\n                <i class=\"fab fa-adn\"></i>\r\n            </span>\r\n            <span>\r\n            </span> -->\r\n                <input type=\"text\"\r\n                    [ngClass]=\"{ 'error_field' : registrationForm?.controls?.name?.touched && registrationForm?.controls?.name?.invalid}\"\r\n                    formControlName=\"name\" placeholder=\"Name\">\r\n                <span\r\n                    *ngIf=\"registrationForm?.controls?.name?.touched && registrationForm?.controls?.name?.hasError('required')\"\r\n                    class=\"red_color\">field is\r\n                    Required</span>\r\n            </div>\r\n            <div class=\"row\">\r\n                <input type=\"text\"\r\n                    [ngClass]=\"{ 'error_field' : registrationForm?.controls?.userName?.touched && registrationForm?.controls?.userName?.invalid}\"\r\n                    formControlName=\"userName\" placeholder=\"Username\" (keyup)=\"validateUserName()\">\r\n                <span\r\n                    *ngIf=\"registrationForm?.controls?.userName?.touched && registrationForm?.controls?.userName?.hasError('required') && registrationForm?.controls?.userName?.hasError('hasWhiteSpace')\"\r\n                    class=\"red_color\">field is\r\n                    Required</span>\r\n                <span\r\n                    *ngIf=\"!registrationForm?.controls?.userName?.hasError('required') && !registrationForm?.controls?.userName?.hasError('hasWhiteSpace')\">\r\n                    <span *ngIf=\"isUsername.checking\">Checking...</span>\r\n                    <span *ngIf=\"!registrationForm?.controls?.userName?.hasError('inValidUser') && !isUsername.checking\"\r\n                        class=\"green_color\">UserName\r\n                        {{registrationForm.value.userName}} is Valid</span>\r\n                    <span *ngIf=\"registrationForm?.controls?.userName?.hasError('inValidUser') && !isUsername.checking\"\r\n                        class=\"red_color\">UserName\r\n                        {{registrationForm.value.userName}} Already\r\n                        Taken</span>\r\n                </span>\r\n\r\n            </div>\r\n            <div class=\"row\">\r\n                <input type=\"password\"\r\n                    [ngClass]=\"{ 'error_field' : registrationForm?.controls?.password?.touched && registrationForm?.controls?.password?.invalid}\"\r\n                    formControlName=\"password\" placeholder=\"Password\">\r\n                <span\r\n                    *ngIf=\"registrationForm?.controls?.password?.touched && registrationForm?.controls?.password?.hasError('required')\"\r\n                    class=\"red_color\">field is\r\n                    Required</span>\r\n\r\n            </div>\r\n            <div class=\"row\">\r\n                <input type=\"password\"\r\n                    [ngClass]=\"{ 'error_field' : registrationForm?.controls?.repassword?.touched && registrationForm?.controls?.repassword?.invalid}\"\r\n                    formControlName=\"repassword\" placeholder=\"Re-Enter Password\">\r\n                <span\r\n                    *ngIf=\"registrationForm?.controls?.repassword?.touched && registrationForm?.controls?.repassword?.hasError('required')\"\r\n                    class=\"red_color\">field is\r\n                    Required</span>\r\n                <span\r\n                    *ngIf=\"(registrationForm?.controls?.repassword?.touched || registrationForm?.controls?.password?.touched) && registrationForm?.controls?.repassword?.hasError('matchError')\"\r\n                    class=\"red_color\"> Password do\r\n                    not Match</span>\r\n\r\n            </div>\r\n            <div class=\"row\">\r\n                <input type=\"tel\"\r\n                    [ngClass]=\"{ 'error_field' : registrationForm?.controls?.mobile?.touched && registrationForm?.controls?.mobile?.invalid}\"\r\n                    formControlName=\"mobile\" placeholder=\"Mobile Number\">\r\n                <span\r\n                    *ngIf=\"registrationForm?.controls?.mobile?.touched && registrationForm?.controls?.mobile?.hasError('required')\"\r\n                    class=\"red_color\">field is\r\n                    Required</span>\r\n\r\n            </div>\r\n            <div class=\"row\">\r\n                <button type=\"submit\" class=\"btn btn-primary btn-block btn-flat\"\r\n                    (click)=\"registerBtn()\">Register</button>\r\n            </div>\r\n            <div class=\"row\">\r\n                <br>\r\n                <a (click)=\"signInMode ='login'\">Already Have An Account? Login Here!</a>\r\n            </div>\r\n        </form>\r\n    </div>\r\n\r\n\r\n</div>\r\n<div class=\"hold-transition login-page\" *ngIf=\"false\">\r\n\r\n    <div class=\"login-box\">\r\n        <div class=\"login-logo\">\r\n            <a href=\"../../index2.html\"><b>Admin</b>LTE</a>\r\n        </div>\r\n        <!-- /.login-logo -->\r\n        <div class=\"card\">\r\n            <div class=\"card-body login-card-body\">\r\n                <p class=\"login-box-msg\">Sign in to start your session</p>\r\n\r\n                <form action=\"../../index3.html\" method=\"post\">\r\n                    <div class=\"input-group mb-3\">\r\n                        <input type=\"email\" class=\"form-control\" placeholder=\"Email\">\r\n                        <div class=\"input-group-append\">\r\n                            <div class=\"input-group-text\">\r\n                                <span class=\"fas fa-envelope\"></span>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"input-group mb-3\">\r\n                        <input type=\"password\" class=\"form-control\" placeholder=\"Password\">\r\n                        <div class=\"input-group-append\">\r\n                            <div class=\"input-group-text\">\r\n                                <span class=\"fas fa-lock\"></span>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"row\">\r\n                        <div class=\"col-8\">\r\n                            <div class=\"icheck-primary\">\r\n                                <input type=\"checkbox\" id=\"remember\">\r\n                                <label for=\"remember\">\r\n                                    Remember Me\r\n                                </label>\r\n                            </div>\r\n                        </div>\r\n                        <!-- /.col -->\r\n                        <div class=\"col-4\">\r\n                            <button type=\"submit\" class=\"btn btn-primary btn-block\">Sign In</button>\r\n                        </div>\r\n                        <!-- /.col -->\r\n                    </div>\r\n                </form>\r\n\r\n                <div class=\"social-auth-links text-center mb-3\">\r\n                    <p>- OR -</p>\r\n                    <a href=\"#\" class=\"btn btn-block btn-primary\">\r\n                        <i class=\"fab fa-facebook mr-2\"></i> Sign in using Facebook\r\n                    </a>\r\n                    <a href=\"#\" class=\"btn btn-block btn-danger\">\r\n                        <i class=\"fab fa-google-plus mr-2\"></i> Sign in using Google+\r\n                    </a>\r\n                </div>\r\n                <!-- /.social-auth-links -->\r\n\r\n                <p class=\"mb-1\">\r\n                    <a href=\"forgot-password.html\">I forgot my password</a>\r\n                </p>\r\n                <p class=\"mb-0\">\r\n                    <a href=\"register.html\" class=\"text-center\">Register a new membership</a>\r\n                </p>\r\n            </div>\r\n            <!-- /.login-card-body -->\r\n        </div>\r\n    </div>\r\n    <!-- /.login-box -->\r\n</div>"
 
 /***/ }),
 
@@ -1082,7 +1311,7 @@ module.exports = "<!-- <h1>hello you are in login module</h1> -->\r\n<div class=
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/* based on angular-toastr css https://github.com/Foxandxss/angular-toastr/blob/cb508fe6801d6b288d3afc525bb40fee1b101650/dist/angular-toastr.css */\n/* position */\n.toast-center-center {\n  top: 50%;\n  left: 50%;\n  -webkit-transform: translate(-50%, -50%);\n          transform: translate(-50%, -50%); }\n.toast-top-center {\n  top: 0;\n  right: 0;\n  width: 100%; }\n.toast-bottom-center {\n  bottom: 0;\n  right: 0;\n  width: 100%; }\n.toast-top-full-width {\n  top: 0;\n  right: 0;\n  width: 100%; }\n.toast-bottom-full-width {\n  bottom: 0;\n  right: 0;\n  width: 100%; }\n.toast-top-left {\n  top: 12px;\n  left: 12px; }\n.toast-top-right {\n  top: 12px;\n  right: 12px; }\n.toast-bottom-right {\n  right: 12px;\n  bottom: 12px; }\n.toast-bottom-left {\n  bottom: 12px;\n  left: 12px; }\n/* toast styles */\n.toast-title {\n  font-weight: bold; }\n.toast-message {\n  word-wrap: break-word; }\n.toast-message a,\n.toast-message label {\n  color: #FFFFFF; }\n.toast-message a:hover {\n  color: #CCCCCC;\n  text-decoration: none; }\n.toast-close-button {\n  position: relative;\n  right: -0.3em;\n  top: -0.3em;\n  float: right;\n  font-size: 20px;\n  font-weight: bold;\n  color: #FFFFFF;\n  text-shadow: 0 1px 0 #ffffff;\n  /* opacity: 0.8; */ }\n.toast-close-button:hover,\n.toast-close-button:focus {\n  color: #000000;\n  text-decoration: none;\n  cursor: pointer;\n  opacity: 0.4; }\n/*Additional properties for button version\r\n   iOS requires the button element instead of an anchor tag.\r\n   If you want the anchor version, it requires `href=\"#\"`.*/\nbutton.toast-close-button {\n  padding: 0;\n  cursor: pointer;\n  background: transparent;\n  border: 0; }\n.toast-container {\n  pointer-events: none;\n  position: fixed;\n  z-index: 999999; }\n.toast-container * {\n  box-sizing: border-box; }\n.toast-container .ngx-toastr {\n  position: relative;\n  overflow: hidden;\n  margin: 0 0 6px;\n  padding: 15px 15px 15px 50px;\n  width: 300px;\n  border-radius: 3px 3px 3px 3px;\n  background-position: 15px center;\n  background-repeat: no-repeat;\n  background-size: 24px;\n  box-shadow: 0 0 12px #999999;\n  color: #FFFFFF; }\n.toast-container .ngx-toastr:hover {\n  box-shadow: 0 0 12px #000000;\n  opacity: 1;\n  cursor: pointer; }\n/* https://github.com/FortAwesome/Font-Awesome-Pro/blob/master/advanced-options/raw-svg/regular/info-circle.svg */\n.toast-info {\n  background-image: url(\"data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='512' height='512'%3E%3Cpath fill='rgb(255,255,255)' d='M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z'/%3E%3C/svg%3E\"); }\n/* https://github.com/FortAwesome/Font-Awesome-Pro/blob/master/advanced-options/raw-svg/regular/times-circle.svg */\n.toast-error {\n  background-image: url(\"data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='512' height='512'%3E%3Cpath fill='rgb(255,255,255)' d='M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z'/%3E%3C/svg%3E\"); }\n/* https://github.com/FortAwesome/Font-Awesome-Pro/blob/master/advanced-options/raw-svg/regular/check.svg */\n.toast-success {\n  background-image: url(\"data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='512' height='512'%3E%3Cpath fill='rgb(255,255,255)' d='M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z'/%3E%3C/svg%3E\"); }\n/* https://github.com/FortAwesome/Font-Awesome-Pro/blob/master/advanced-options/raw-svg/regular/exclamation-triangle.svg */\n.toast-warning {\n  background-image: url(\"data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 576 512' width='576' height='512'%3E%3Cpath fill='rgb(255,255,255)' d='M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z'/%3E%3C/svg%3E\"); }\n.toast-container.toast-top-center .ngx-toastr,\n.toast-container.toast-bottom-center .ngx-toastr {\n  width: 300px;\n  margin-left: auto;\n  margin-right: auto; }\n.toast-container.toast-top-full-width .ngx-toastr,\n.toast-container.toast-bottom-full-width .ngx-toastr {\n  width: 96%;\n  margin-left: auto;\n  margin-right: auto; }\n.ngx-toastr {\n  background-color: #030303;\n  pointer-events: auto; }\n.toast-success {\n  background-color: #51A351; }\n.toast-error {\n  background-color: #BD362F; }\n.toast-info {\n  background-color: #2F96B4; }\n.toast-warning {\n  background-color: #F89406; }\n.toast-progress {\n  position: absolute;\n  left: 0;\n  bottom: 0;\n  height: 4px;\n  background-color: #000000;\n  opacity: 0.4; }\n/* Responsive Design */\n@media all and (max-width: 240px) {\n  .toast-container .ngx-toastr.div {\n    padding: 8px 8px 8px 50px;\n    width: 11em; }\n  .toast-container .toast-close-button {\n    right: -0.2em;\n    top: -0.2em; } }\n@media all and (min-width: 241px) and (max-width: 480px) {\n  .toast-container .ngx-toastr.div {\n    padding: 8px 8px 8px 50px;\n    width: 18em; }\n  .toast-container .toast-close-button {\n    right: -0.2em;\n    top: -0.2em; } }\n@media all and (min-width: 481px) and (max-width: 768px) {\n  .toast-container .ngx-toastr.div {\n    padding: 15px 15px 15px 50px;\n    width: 25em; } }\n.Login input, .Register input {\n  width: 100%;\n  padding-top: 10px;\n  padding-bottom: 10px;\n  margin-top: 10px;\n  margin-bottom: 10px;\n  text-align: center;\n  border: gray 1px solid; }\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXV0aC9sb2dpbm1vZHVsZS9FOlxcUHJvamVjdCBmaWxlc1xcdHJpcEV4cGVuc2Uvc3JjXFxhcHBcXGF1dGhcXGxvZ2lubW9kdWxlXFxsb2dpbi5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvYXV0aC9sb2dpbm1vZHVsZS9sb2dpbi5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxrSkFBQTtBQUVBLGFBQUE7QUFDQTtFQUNJLFFBQVE7RUFDUixTQUFTO0VBQ1Qsd0NBQWdDO1VBQWhDLGdDQUFnQyxFQUFBO0FBRWxDO0VBQ0UsTUFBTTtFQUNOLFFBQVE7RUFDUixXQUFXLEVBQUE7QUFFYjtFQUNFLFNBQVM7RUFDVCxRQUFRO0VBQ1IsV0FBVyxFQUFBO0FBRWI7RUFDRSxNQUFNO0VBQ04sUUFBUTtFQUNSLFdBQVcsRUFBQTtBQUViO0VBQ0UsU0FBUztFQUNULFFBQVE7RUFDUixXQUFXLEVBQUE7QUFFYjtFQUNFLFNBQVM7RUFDVCxVQUFVLEVBQUE7QUFFWjtFQUNFLFNBQVM7RUFDVCxXQUFXLEVBQUE7QUFFYjtFQUNFLFdBQVc7RUFDWCxZQUFZLEVBQUE7QUFFZDtFQUNFLFlBQVk7RUFDWixVQUFVLEVBQUE7QUFHWixpQkFBQTtBQUNBO0VBQ0UsaUJBQWlCLEVBQUE7QUFFbkI7RUFDRSxxQkFBcUIsRUFBQTtBQUV2Qjs7RUFFRSxjQUFjLEVBQUE7QUFFaEI7RUFDRSxjQUFjO0VBQ2QscUJBQXFCLEVBQUE7QUFFdkI7RUFDRSxrQkFBa0I7RUFDbEIsYUFBYTtFQUNiLFdBQVc7RUFDWCxZQUFZO0VBQ1osZUFBZTtFQUNmLGlCQUFpQjtFQUNqQixjQUFjO0VBQ2QsNEJBQTRCO0VBQzVCLGtCQUFBLEVBQW1CO0FBRXJCOztFQUVFLGNBQWM7RUFDZCxxQkFBcUI7RUFDckIsZUFBZTtFQUNmLFlBQVksRUFBQTtBQUVkOzsyRENBeUQ7QURHekQ7RUFDRSxVQUFVO0VBQ1YsZUFBZTtFQUNmLHVCQUF1QjtFQUN2QixTQUFTLEVBQUE7QUFFWDtFQUNFLG9CQUFvQjtFQUNwQixlQUFlO0VBQ2YsZUFBZSxFQUFBO0FBRWpCO0VBQ0Usc0JBQXNCLEVBQUE7QUFFeEI7RUFDRSxrQkFBa0I7RUFDbEIsZ0JBQWdCO0VBQ2hCLGVBQWU7RUFDZiw0QkFBNEI7RUFDNUIsWUFBWTtFQUNaLDhCQUE4QjtFQUM5QixnQ0FBZ0M7RUFDaEMsNEJBQTRCO0VBQzVCLHFCQUFxQjtFQUNyQiw0QkFBNEI7RUFDNUIsY0FBYyxFQUFBO0FBRWhCO0VBQ0UsNEJBQTRCO0VBQzVCLFVBQVU7RUFDVixlQUFlLEVBQUE7QUFFakIsaUhBQUE7QUFDQTtFQUNFLHFsQkFBcWxCLEVBQUE7QUFFdmxCLGtIQUFBO0FBQ0E7RUFDRSw2akJBQTZqQixFQUFBO0FBRS9qQiwyR0FBQTtBQUNBO0VBQ0Usd2RBQXdkLEVBQUE7QUFFMWQsMEhBQUE7QUFDQTtFQUNFLHNvQkFBc29CLEVBQUE7QUFFeG9COztFQUVFLFlBQVk7RUFDWixpQkFBaUI7RUFDakIsa0JBQWtCLEVBQUE7QUFFcEI7O0VBRUUsVUFBVTtFQUNWLGlCQUFpQjtFQUNqQixrQkFBa0IsRUFBQTtBQUVwQjtFQUNFLHlCQUF5QjtFQUN6QixvQkFBb0IsRUFBQTtBQUV0QjtFQUNFLHlCQUF5QixFQUFBO0FBRTNCO0VBQ0UseUJBQXlCLEVBQUE7QUFFM0I7RUFDRSx5QkFBeUIsRUFBQTtBQUUzQjtFQUNFLHlCQUF5QixFQUFBO0FBRTNCO0VBQ0Usa0JBQWtCO0VBQ2xCLE9BQU87RUFDUCxTQUFTO0VBQ1QsV0FBVztFQUNYLHlCQUF5QjtFQUN6QixZQUFZLEVBQUE7QUFFZCxzQkFBQTtBQUNBO0VBQ0U7SUFDRSx5QkFBeUI7SUFDekIsV0FBVyxFQUFBO0VBRWI7SUFDRSxhQUFhO0lBQ2IsV0FBVyxFQUFBLEVBQ1o7QUFFSDtFQUNFO0lBQ0UseUJBQXlCO0lBQ3pCLFdBQVcsRUFBQTtFQUViO0lBQ0UsYUFBYTtJQUNiLFdBQVcsRUFBQSxFQUNaO0FBRUg7RUFDRTtJQUNFLDRCQUE0QjtJQUM1QixXQUFXLEVBQUEsRUFDWjtBQUdIO0VBQ0UsV0FBVztFQUNYLGlCQUFpQjtFQUNqQixvQkFBb0I7RUFDcEIsZ0JBQWdCO0VBQ2hCLG1CQUFtQjtFQUNuQixrQkFBa0I7RUFDbEIsc0JBQXNCLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9hdXRoL2xvZ2lubW9kdWxlL2xvZ2luLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLyogYmFzZWQgb24gYW5ndWxhci10b2FzdHIgY3NzIGh0dHBzOi8vZ2l0aHViLmNvbS9Gb3hhbmR4c3MvYW5ndWxhci10b2FzdHIvYmxvYi9jYjUwOGZlNjgwMWQ2YjI4OGQzYWZjNTI1YmI0MGZlZTFiMTAxNjUwL2Rpc3QvYW5ndWxhci10b2FzdHIuY3NzICovXHJcblxyXG4vKiBwb3NpdGlvbiAqL1xyXG4udG9hc3QtY2VudGVyLWNlbnRlciB7XHJcbiAgICB0b3A6IDUwJTtcclxuICAgIGxlZnQ6IDUwJTtcclxuICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlKC01MCUsIC01MCUpO1xyXG4gIH1cclxuICAudG9hc3QtdG9wLWNlbnRlciB7XHJcbiAgICB0b3A6IDA7XHJcbiAgICByaWdodDogMDtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG4gIH1cclxuICAudG9hc3QtYm90dG9tLWNlbnRlciB7XHJcbiAgICBib3R0b206IDA7XHJcbiAgICByaWdodDogMDtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG4gIH1cclxuICAudG9hc3QtdG9wLWZ1bGwtd2lkdGgge1xyXG4gICAgdG9wOiAwO1xyXG4gICAgcmlnaHQ6IDA7XHJcbiAgICB3aWR0aDogMTAwJTtcclxuICB9XHJcbiAgLnRvYXN0LWJvdHRvbS1mdWxsLXdpZHRoIHtcclxuICAgIGJvdHRvbTogMDtcclxuICAgIHJpZ2h0OiAwO1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgfVxyXG4gIC50b2FzdC10b3AtbGVmdCB7XHJcbiAgICB0b3A6IDEycHg7XHJcbiAgICBsZWZ0OiAxMnB4O1xyXG4gIH1cclxuICAudG9hc3QtdG9wLXJpZ2h0IHtcclxuICAgIHRvcDogMTJweDtcclxuICAgIHJpZ2h0OiAxMnB4O1xyXG4gIH1cclxuICAudG9hc3QtYm90dG9tLXJpZ2h0IHtcclxuICAgIHJpZ2h0OiAxMnB4O1xyXG4gICAgYm90dG9tOiAxMnB4O1xyXG4gIH1cclxuICAudG9hc3QtYm90dG9tLWxlZnQge1xyXG4gICAgYm90dG9tOiAxMnB4O1xyXG4gICAgbGVmdDogMTJweDtcclxuICB9XHJcbiAgXHJcbiAgLyogdG9hc3Qgc3R5bGVzICovXHJcbiAgLnRvYXN0LXRpdGxlIHtcclxuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIH1cclxuICAudG9hc3QtbWVzc2FnZSB7XHJcbiAgICB3b3JkLXdyYXA6IGJyZWFrLXdvcmQ7XHJcbiAgfVxyXG4gIC50b2FzdC1tZXNzYWdlIGEsXHJcbiAgLnRvYXN0LW1lc3NhZ2UgbGFiZWwge1xyXG4gICAgY29sb3I6ICNGRkZGRkY7XHJcbiAgfVxyXG4gIC50b2FzdC1tZXNzYWdlIGE6aG92ZXIge1xyXG4gICAgY29sb3I6ICNDQ0NDQ0M7XHJcbiAgICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XHJcbiAgfVxyXG4gIC50b2FzdC1jbG9zZS1idXR0b24ge1xyXG4gICAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG4gICAgcmlnaHQ6IC0wLjNlbTtcclxuICAgIHRvcDogLTAuM2VtO1xyXG4gICAgZmxvYXQ6IHJpZ2h0O1xyXG4gICAgZm9udC1zaXplOiAyMHB4O1xyXG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbiAgICBjb2xvcjogI0ZGRkZGRjtcclxuICAgIHRleHQtc2hhZG93OiAwIDFweCAwICNmZmZmZmY7XHJcbiAgICAvKiBvcGFjaXR5OiAwLjg7ICovXHJcbiAgfVxyXG4gIC50b2FzdC1jbG9zZS1idXR0b246aG92ZXIsXHJcbiAgLnRvYXN0LWNsb3NlLWJ1dHRvbjpmb2N1cyB7XHJcbiAgICBjb2xvcjogIzAwMDAwMDtcclxuICAgIHRleHQtZGVjb3JhdGlvbjogbm9uZTtcclxuICAgIGN1cnNvcjogcG9pbnRlcjtcclxuICAgIG9wYWNpdHk6IDAuNDtcclxuICB9XHJcbiAgLypBZGRpdGlvbmFsIHByb3BlcnRpZXMgZm9yIGJ1dHRvbiB2ZXJzaW9uXHJcbiAgIGlPUyByZXF1aXJlcyB0aGUgYnV0dG9uIGVsZW1lbnQgaW5zdGVhZCBvZiBhbiBhbmNob3IgdGFnLlxyXG4gICBJZiB5b3Ugd2FudCB0aGUgYW5jaG9yIHZlcnNpb24sIGl0IHJlcXVpcmVzIGBocmVmPVwiI1wiYC4qL1xyXG4gIGJ1dHRvbi50b2FzdC1jbG9zZS1idXR0b24ge1xyXG4gICAgcGFkZGluZzogMDtcclxuICAgIGN1cnNvcjogcG9pbnRlcjtcclxuICAgIGJhY2tncm91bmQ6IHRyYW5zcGFyZW50O1xyXG4gICAgYm9yZGVyOiAwO1xyXG4gIH1cclxuICAudG9hc3QtY29udGFpbmVyIHtcclxuICAgIHBvaW50ZXItZXZlbnRzOiBub25lO1xyXG4gICAgcG9zaXRpb246IGZpeGVkO1xyXG4gICAgei1pbmRleDogOTk5OTk5O1xyXG4gIH1cclxuICAudG9hc3QtY29udGFpbmVyICoge1xyXG4gICAgYm94LXNpemluZzogYm9yZGVyLWJveDtcclxuICB9XHJcbiAgLnRvYXN0LWNvbnRhaW5lciAubmd4LXRvYXN0ciB7XHJcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcbiAgICBvdmVyZmxvdzogaGlkZGVuO1xyXG4gICAgbWFyZ2luOiAwIDAgNnB4O1xyXG4gICAgcGFkZGluZzogMTVweCAxNXB4IDE1cHggNTBweDtcclxuICAgIHdpZHRoOiAzMDBweDtcclxuICAgIGJvcmRlci1yYWRpdXM6IDNweCAzcHggM3B4IDNweDtcclxuICAgIGJhY2tncm91bmQtcG9zaXRpb246IDE1cHggY2VudGVyO1xyXG4gICAgYmFja2dyb3VuZC1yZXBlYXQ6IG5vLXJlcGVhdDtcclxuICAgIGJhY2tncm91bmQtc2l6ZTogMjRweDtcclxuICAgIGJveC1zaGFkb3c6IDAgMCAxMnB4ICM5OTk5OTk7XHJcbiAgICBjb2xvcjogI0ZGRkZGRjtcclxuICB9XHJcbiAgLnRvYXN0LWNvbnRhaW5lciAubmd4LXRvYXN0cjpob3ZlciB7XHJcbiAgICBib3gtc2hhZG93OiAwIDAgMTJweCAjMDAwMDAwO1xyXG4gICAgb3BhY2l0eTogMTtcclxuICAgIGN1cnNvcjogcG9pbnRlcjtcclxuICB9XHJcbiAgLyogaHR0cHM6Ly9naXRodWIuY29tL0ZvcnRBd2Vzb21lL0ZvbnQtQXdlc29tZS1Qcm8vYmxvYi9tYXN0ZXIvYWR2YW5jZWQtb3B0aW9ucy9yYXctc3ZnL3JlZ3VsYXIvaW5mby1jaXJjbGUuc3ZnICovXHJcbiAgLnRvYXN0LWluZm8ge1xyXG4gICAgYmFja2dyb3VuZC1pbWFnZTogdXJsKFwiZGF0YTppbWFnZS9zdmcreG1sO2NoYXJzZXQ9dXRmOCwlM0NzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB2aWV3Qm94PScwIDAgNTEyIDUxMicgd2lkdGg9JzUxMicgaGVpZ2h0PSc1MTInJTNFJTNDcGF0aCBmaWxsPSdyZ2IoMjU1LDI1NSwyNTUpJyBkPSdNMjU2IDhDMTE5LjA0MyA4IDggMTE5LjA4MyA4IDI1NmMwIDEzNi45OTcgMTExLjA0MyAyNDggMjQ4IDI0OHMyNDgtMTExLjAwMyAyNDgtMjQ4QzUwNCAxMTkuMDgzIDM5Mi45NTcgOCAyNTYgOHptMCAxMTBjMjMuMTk2IDAgNDIgMTguODA0IDQyIDQycy0xOC44MDQgNDItNDIgNDItNDItMTguODA0LTQyLTQyIDE4LjgwNC00MiA0Mi00MnptNTYgMjU0YzAgNi42MjctNS4zNzMgMTItMTIgMTJoLTg4Yy02LjYyNyAwLTEyLTUuMzczLTEyLTEydi0yNGMwLTYuNjI3IDUuMzczLTEyIDEyLTEyaDEydi02NGgtMTJjLTYuNjI3IDAtMTItNS4zNzMtMTItMTJ2LTI0YzAtNi42MjcgNS4zNzMtMTIgMTItMTJoNjRjNi42MjcgMCAxMiA1LjM3MyAxMiAxMnYxMDBoMTJjNi42MjcgMCAxMiA1LjM3MyAxMiAxMnYyNHonLyUzRSUzQy9zdmclM0VcIik7XHJcbiAgfVxyXG4gIC8qIGh0dHBzOi8vZ2l0aHViLmNvbS9Gb3J0QXdlc29tZS9Gb250LUF3ZXNvbWUtUHJvL2Jsb2IvbWFzdGVyL2FkdmFuY2VkLW9wdGlvbnMvcmF3LXN2Zy9yZWd1bGFyL3RpbWVzLWNpcmNsZS5zdmcgKi9cclxuICAudG9hc3QtZXJyb3Ige1xyXG4gICAgYmFja2dyb3VuZC1pbWFnZTogdXJsKFwiZGF0YTppbWFnZS9zdmcreG1sO2NoYXJzZXQ9dXRmOCwlM0NzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB2aWV3Qm94PScwIDAgNTEyIDUxMicgd2lkdGg9JzUxMicgaGVpZ2h0PSc1MTInJTNFJTNDcGF0aCBmaWxsPSdyZ2IoMjU1LDI1NSwyNTUpJyBkPSdNMjU2IDhDMTE5IDggOCAxMTkgOCAyNTZzMTExIDI0OCAyNDggMjQ4IDI0OC0xMTEgMjQ4LTI0OFMzOTMgOCAyNTYgOHptMTIxLjYgMzEzLjFjNC43IDQuNyA0LjcgMTIuMyAwIDE3TDMzOCAzNzcuNmMtNC43IDQuNy0xMi4zIDQuNy0xNyAwTDI1NiAzMTJsLTY1LjEgNjUuNmMtNC43IDQuNy0xMi4zIDQuNy0xNyAwTDEzNC40IDMzOGMtNC43LTQuNy00LjctMTIuMyAwLTE3bDY1LjYtNjUtNjUuNi02NS4xYy00LjctNC43LTQuNy0xMi4zIDAtMTdsMzkuNi0zOS42YzQuNy00LjcgMTIuMy00LjcgMTcgMGw2NSA2NS43IDY1LjEtNjUuNmM0LjctNC43IDEyLjMtNC43IDE3IDBsMzkuNiAzOS42YzQuNyA0LjcgNC43IDEyLjMgMCAxN0wzMTIgMjU2bDY1LjYgNjUuMXonLyUzRSUzQy9zdmclM0VcIik7XHJcbiAgfVxyXG4gIC8qIGh0dHBzOi8vZ2l0aHViLmNvbS9Gb3J0QXdlc29tZS9Gb250LUF3ZXNvbWUtUHJvL2Jsb2IvbWFzdGVyL2FkdmFuY2VkLW9wdGlvbnMvcmF3LXN2Zy9yZWd1bGFyL2NoZWNrLnN2ZyAqL1xyXG4gIC50b2FzdC1zdWNjZXNzIHtcclxuICAgIGJhY2tncm91bmQtaW1hZ2U6IHVybChcImRhdGE6aW1hZ2Uvc3ZnK3htbDtjaGFyc2V0PXV0ZjgsJTNDc3ZnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zycgdmlld0JveD0nMCAwIDUxMiA1MTInIHdpZHRoPSc1MTInIGhlaWdodD0nNTEyJyUzRSUzQ3BhdGggZmlsbD0ncmdiKDI1NSwyNTUsMjU1KScgZD0nTTE3My44OTggNDM5LjQwNGwtMTY2LjQtMTY2LjRjLTkuOTk3LTkuOTk3LTkuOTk3LTI2LjIwNiAwLTM2LjIwNGwzNi4yMDMtMzYuMjA0YzkuOTk3LTkuOTk4IDI2LjIwNy05Ljk5OCAzNi4yMDQgMEwxOTIgMzEyLjY5IDQzMi4wOTUgNzIuNTk2YzkuOTk3LTkuOTk3IDI2LjIwNy05Ljk5NyAzNi4yMDQgMGwzNi4yMDMgMzYuMjA0YzkuOTk3IDkuOTk3IDkuOTk3IDI2LjIwNiAwIDM2LjIwNGwtMjk0LjQgMjk0LjQwMWMtOS45OTggOS45OTctMjYuMjA3IDkuOTk3LTM2LjIwNC0uMDAxeicvJTNFJTNDL3N2ZyUzRVwiKTtcclxuICB9XHJcbiAgLyogaHR0cHM6Ly9naXRodWIuY29tL0ZvcnRBd2Vzb21lL0ZvbnQtQXdlc29tZS1Qcm8vYmxvYi9tYXN0ZXIvYWR2YW5jZWQtb3B0aW9ucy9yYXctc3ZnL3JlZ3VsYXIvZXhjbGFtYXRpb24tdHJpYW5nbGUuc3ZnICovXHJcbiAgLnRvYXN0LXdhcm5pbmcge1xyXG4gICAgYmFja2dyb3VuZC1pbWFnZTogdXJsKFwiZGF0YTppbWFnZS9zdmcreG1sO2NoYXJzZXQ9dXRmOCwlM0NzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB2aWV3Qm94PScwIDAgNTc2IDUxMicgd2lkdGg9JzU3NicgaGVpZ2h0PSc1MTInJTNFJTNDcGF0aCBmaWxsPSdyZ2IoMjU1LDI1NSwyNTUpJyBkPSdNNTY5LjUxNyA0NDAuMDEzQzU4Ny45NzUgNDcyLjAwNyA1NjQuODA2IDUxMiA1MjcuOTQgNTEySDQ4LjA1NGMtMzYuOTM3IDAtNTkuOTk5LTQwLjA1NS00MS41NzctNzEuOTg3TDI0Ni40MjMgMjMuOTg1YzE4LjQ2Ny0zMi4wMDkgNjQuNzItMzEuOTUxIDgzLjE1NCAwbDIzOS45NCA0MTYuMDI4ek0yODggMzU0Yy0yNS40MDUgMC00NiAyMC41OTUtNDYgNDZzMjAuNTk1IDQ2IDQ2IDQ2IDQ2LTIwLjU5NSA0Ni00Ni0yMC41OTUtNDYtNDYtNDZ6bS00My42NzMtMTY1LjM0Nmw3LjQxOCAxMzZjLjM0NyA2LjM2NCA1LjYwOSAxMS4zNDYgMTEuOTgyIDExLjM0Nmg0OC41NDZjNi4zNzMgMCAxMS42MzUtNC45ODIgMTEuOTgyLTExLjM0Nmw3LjQxOC0xMzZjLjM3NS02Ljg3NC01LjA5OC0xMi42NTQtMTEuOTgyLTEyLjY1NGgtNjMuMzgzYy02Ljg4NCAwLTEyLjM1NiA1Ljc4LTExLjk4MSAxMi42NTR6Jy8lM0UlM0Mvc3ZnJTNFXCIpO1xyXG4gIH1cclxuICAudG9hc3QtY29udGFpbmVyLnRvYXN0LXRvcC1jZW50ZXIgLm5neC10b2FzdHIsXHJcbiAgLnRvYXN0LWNvbnRhaW5lci50b2FzdC1ib3R0b20tY2VudGVyIC5uZ3gtdG9hc3RyIHtcclxuICAgIHdpZHRoOiAzMDBweDtcclxuICAgIG1hcmdpbi1sZWZ0OiBhdXRvO1xyXG4gICAgbWFyZ2luLXJpZ2h0OiBhdXRvO1xyXG4gIH1cclxuICAudG9hc3QtY29udGFpbmVyLnRvYXN0LXRvcC1mdWxsLXdpZHRoIC5uZ3gtdG9hc3RyLFxyXG4gIC50b2FzdC1jb250YWluZXIudG9hc3QtYm90dG9tLWZ1bGwtd2lkdGggLm5neC10b2FzdHIge1xyXG4gICAgd2lkdGg6IDk2JTtcclxuICAgIG1hcmdpbi1sZWZ0OiBhdXRvO1xyXG4gICAgbWFyZ2luLXJpZ2h0OiBhdXRvO1xyXG4gIH1cclxuICAubmd4LXRvYXN0ciB7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjMDMwMzAzO1xyXG4gICAgcG9pbnRlci1ldmVudHM6IGF1dG87XHJcbiAgfVxyXG4gIC50b2FzdC1zdWNjZXNzIHtcclxuICAgIGJhY2tncm91bmQtY29sb3I6ICM1MUEzNTE7XHJcbiAgfVxyXG4gIC50b2FzdC1lcnJvciB7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjQkQzNjJGO1xyXG4gIH1cclxuICAudG9hc3QtaW5mbyB7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjMkY5NkI0O1xyXG4gIH1cclxuICAudG9hc3Qtd2FybmluZyB7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjRjg5NDA2O1xyXG4gIH1cclxuICAudG9hc3QtcHJvZ3Jlc3Mge1xyXG4gICAgcG9zaXRpb246IGFic29sdXRlO1xyXG4gICAgbGVmdDogMDtcclxuICAgIGJvdHRvbTogMDtcclxuICAgIGhlaWdodDogNHB4O1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogIzAwMDAwMDtcclxuICAgIG9wYWNpdHk6IDAuNDtcclxuICB9XHJcbiAgLyogUmVzcG9uc2l2ZSBEZXNpZ24gKi9cclxuICBAbWVkaWEgYWxsIGFuZCAobWF4LXdpZHRoOiAyNDBweCkge1xyXG4gICAgLnRvYXN0LWNvbnRhaW5lciAubmd4LXRvYXN0ci5kaXYge1xyXG4gICAgICBwYWRkaW5nOiA4cHggOHB4IDhweCA1MHB4O1xyXG4gICAgICB3aWR0aDogMTFlbTtcclxuICAgIH1cclxuICAgIC50b2FzdC1jb250YWluZXIgLnRvYXN0LWNsb3NlLWJ1dHRvbiB7XHJcbiAgICAgIHJpZ2h0OiAtMC4yZW07XHJcbiAgICAgIHRvcDogLTAuMmVtO1xyXG4gICAgfVxyXG4gIH1cclxuICBAbWVkaWEgYWxsIGFuZCAobWluLXdpZHRoOiAyNDFweCkgYW5kIChtYXgtd2lkdGg6IDQ4MHB4KSB7XHJcbiAgICAudG9hc3QtY29udGFpbmVyIC5uZ3gtdG9hc3RyLmRpdiB7XHJcbiAgICAgIHBhZGRpbmc6IDhweCA4cHggOHB4IDUwcHg7XHJcbiAgICAgIHdpZHRoOiAxOGVtO1xyXG4gICAgfVxyXG4gICAgLnRvYXN0LWNvbnRhaW5lciAudG9hc3QtY2xvc2UtYnV0dG9uIHtcclxuICAgICAgcmlnaHQ6IC0wLjJlbTtcclxuICAgICAgdG9wOiAtMC4yZW07XHJcbiAgICB9XHJcbiAgfVxyXG4gIEBtZWRpYSBhbGwgYW5kIChtaW4td2lkdGg6IDQ4MXB4KSBhbmQgKG1heC13aWR0aDogNzY4cHgpIHtcclxuICAgIC50b2FzdC1jb250YWluZXIgLm5neC10b2FzdHIuZGl2IHtcclxuICAgICAgcGFkZGluZzogMTVweCAxNXB4IDE1cHggNTBweDtcclxuICAgICAgd2lkdGg6IDI1ZW07XHJcbiAgICB9XHJcbiAgfVxyXG5cclxuICAuTG9naW4gaW5wdXQsIC5SZWdpc3RlciBpbnB1dHtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgcGFkZGluZy10b3A6IDEwcHg7XHJcbiAgICBwYWRkaW5nLWJvdHRvbTogMTBweDtcclxuICAgIG1hcmdpbi10b3A6IDEwcHg7XHJcbiAgICBtYXJnaW4tYm90dG9tOiAxMHB4O1xyXG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gICAgYm9yZGVyOiBncmF5IDFweCBzb2xpZDtcclxuICB9IiwiLyogYmFzZWQgb24gYW5ndWxhci10b2FzdHIgY3NzIGh0dHBzOi8vZ2l0aHViLmNvbS9Gb3hhbmR4c3MvYW5ndWxhci10b2FzdHIvYmxvYi9jYjUwOGZlNjgwMWQ2YjI4OGQzYWZjNTI1YmI0MGZlZTFiMTAxNjUwL2Rpc3QvYW5ndWxhci10b2FzdHIuY3NzICovXG4vKiBwb3NpdGlvbiAqL1xuLnRvYXN0LWNlbnRlci1jZW50ZXIge1xuICB0b3A6IDUwJTtcbiAgbGVmdDogNTAlO1xuICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgtNTAlLCAtNTAlKTsgfVxuXG4udG9hc3QtdG9wLWNlbnRlciB7XG4gIHRvcDogMDtcbiAgcmlnaHQ6IDA7XG4gIHdpZHRoOiAxMDAlOyB9XG5cbi50b2FzdC1ib3R0b20tY2VudGVyIHtcbiAgYm90dG9tOiAwO1xuICByaWdodDogMDtcbiAgd2lkdGg6IDEwMCU7IH1cblxuLnRvYXN0LXRvcC1mdWxsLXdpZHRoIHtcbiAgdG9wOiAwO1xuICByaWdodDogMDtcbiAgd2lkdGg6IDEwMCU7IH1cblxuLnRvYXN0LWJvdHRvbS1mdWxsLXdpZHRoIHtcbiAgYm90dG9tOiAwO1xuICByaWdodDogMDtcbiAgd2lkdGg6IDEwMCU7IH1cblxuLnRvYXN0LXRvcC1sZWZ0IHtcbiAgdG9wOiAxMnB4O1xuICBsZWZ0OiAxMnB4OyB9XG5cbi50b2FzdC10b3AtcmlnaHQge1xuICB0b3A6IDEycHg7XG4gIHJpZ2h0OiAxMnB4OyB9XG5cbi50b2FzdC1ib3R0b20tcmlnaHQge1xuICByaWdodDogMTJweDtcbiAgYm90dG9tOiAxMnB4OyB9XG5cbi50b2FzdC1ib3R0b20tbGVmdCB7XG4gIGJvdHRvbTogMTJweDtcbiAgbGVmdDogMTJweDsgfVxuXG4vKiB0b2FzdCBzdHlsZXMgKi9cbi50b2FzdC10aXRsZSB7XG4gIGZvbnQtd2VpZ2h0OiBib2xkOyB9XG5cbi50b2FzdC1tZXNzYWdlIHtcbiAgd29yZC13cmFwOiBicmVhay13b3JkOyB9XG5cbi50b2FzdC1tZXNzYWdlIGEsXG4udG9hc3QtbWVzc2FnZSBsYWJlbCB7XG4gIGNvbG9yOiAjRkZGRkZGOyB9XG5cbi50b2FzdC1tZXNzYWdlIGE6aG92ZXIge1xuICBjb2xvcjogI0NDQ0NDQztcbiAgdGV4dC1kZWNvcmF0aW9uOiBub25lOyB9XG5cbi50b2FzdC1jbG9zZS1idXR0b24ge1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIHJpZ2h0OiAtMC4zZW07XG4gIHRvcDogLTAuM2VtO1xuICBmbG9hdDogcmlnaHQ7XG4gIGZvbnQtc2l6ZTogMjBweDtcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XG4gIGNvbG9yOiAjRkZGRkZGO1xuICB0ZXh0LXNoYWRvdzogMCAxcHggMCAjZmZmZmZmO1xuICAvKiBvcGFjaXR5OiAwLjg7ICovIH1cblxuLnRvYXN0LWNsb3NlLWJ1dHRvbjpob3Zlcixcbi50b2FzdC1jbG9zZS1idXR0b246Zm9jdXMge1xuICBjb2xvcjogIzAwMDAwMDtcbiAgdGV4dC1kZWNvcmF0aW9uOiBub25lO1xuICBjdXJzb3I6IHBvaW50ZXI7XG4gIG9wYWNpdHk6IDAuNDsgfVxuXG4vKkFkZGl0aW9uYWwgcHJvcGVydGllcyBmb3IgYnV0dG9uIHZlcnNpb25cclxuICAgaU9TIHJlcXVpcmVzIHRoZSBidXR0b24gZWxlbWVudCBpbnN0ZWFkIG9mIGFuIGFuY2hvciB0YWcuXHJcbiAgIElmIHlvdSB3YW50IHRoZSBhbmNob3IgdmVyc2lvbiwgaXQgcmVxdWlyZXMgYGhyZWY9XCIjXCJgLiovXG5idXR0b24udG9hc3QtY2xvc2UtYnV0dG9uIHtcbiAgcGFkZGluZzogMDtcbiAgY3Vyc29yOiBwb2ludGVyO1xuICBiYWNrZ3JvdW5kOiB0cmFuc3BhcmVudDtcbiAgYm9yZGVyOiAwOyB9XG5cbi50b2FzdC1jb250YWluZXIge1xuICBwb2ludGVyLWV2ZW50czogbm9uZTtcbiAgcG9zaXRpb246IGZpeGVkO1xuICB6LWluZGV4OiA5OTk5OTk7IH1cblxuLnRvYXN0LWNvbnRhaW5lciAqIHtcbiAgYm94LXNpemluZzogYm9yZGVyLWJveDsgfVxuXG4udG9hc3QtY29udGFpbmVyIC5uZ3gtdG9hc3RyIHtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICBvdmVyZmxvdzogaGlkZGVuO1xuICBtYXJnaW46IDAgMCA2cHg7XG4gIHBhZGRpbmc6IDE1cHggMTVweCAxNXB4IDUwcHg7XG4gIHdpZHRoOiAzMDBweDtcbiAgYm9yZGVyLXJhZGl1czogM3B4IDNweCAzcHggM3B4O1xuICBiYWNrZ3JvdW5kLXBvc2l0aW9uOiAxNXB4IGNlbnRlcjtcbiAgYmFja2dyb3VuZC1yZXBlYXQ6IG5vLXJlcGVhdDtcbiAgYmFja2dyb3VuZC1zaXplOiAyNHB4O1xuICBib3gtc2hhZG93OiAwIDAgMTJweCAjOTk5OTk5O1xuICBjb2xvcjogI0ZGRkZGRjsgfVxuXG4udG9hc3QtY29udGFpbmVyIC5uZ3gtdG9hc3RyOmhvdmVyIHtcbiAgYm94LXNoYWRvdzogMCAwIDEycHggIzAwMDAwMDtcbiAgb3BhY2l0eTogMTtcbiAgY3Vyc29yOiBwb2ludGVyOyB9XG5cbi8qIGh0dHBzOi8vZ2l0aHViLmNvbS9Gb3J0QXdlc29tZS9Gb250LUF3ZXNvbWUtUHJvL2Jsb2IvbWFzdGVyL2FkdmFuY2VkLW9wdGlvbnMvcmF3LXN2Zy9yZWd1bGFyL2luZm8tY2lyY2xlLnN2ZyAqL1xuLnRvYXN0LWluZm8ge1xuICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCJkYXRhOmltYWdlL3N2Zyt4bWw7Y2hhcnNldD11dGY4LCUzQ3N2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA1MTIgNTEyJyB3aWR0aD0nNTEyJyBoZWlnaHQ9JzUxMiclM0UlM0NwYXRoIGZpbGw9J3JnYigyNTUsMjU1LDI1NSknIGQ9J00yNTYgOEMxMTkuMDQzIDggOCAxMTkuMDgzIDggMjU2YzAgMTM2Ljk5NyAxMTEuMDQzIDI0OCAyNDggMjQ4czI0OC0xMTEuMDAzIDI0OC0yNDhDNTA0IDExOS4wODMgMzkyLjk1NyA4IDI1NiA4em0wIDExMGMyMy4xOTYgMCA0MiAxOC44MDQgNDIgNDJzLTE4LjgwNCA0Mi00MiA0Mi00Mi0xOC44MDQtNDItNDIgMTguODA0LTQyIDQyLTQyem01NiAyNTRjMCA2LjYyNy01LjM3MyAxMi0xMiAxMmgtODhjLTYuNjI3IDAtMTItNS4zNzMtMTItMTJ2LTI0YzAtNi42MjcgNS4zNzMtMTIgMTItMTJoMTJ2LTY0aC0xMmMtNi42MjcgMC0xMi01LjM3My0xMi0xMnYtMjRjMC02LjYyNyA1LjM3My0xMiAxMi0xMmg2NGM2LjYyNyAwIDEyIDUuMzczIDEyIDEydjEwMGgxMmM2LjYyNyAwIDEyIDUuMzczIDEyIDEydjI0eicvJTNFJTNDL3N2ZyUzRVwiKTsgfVxuXG4vKiBodHRwczovL2dpdGh1Yi5jb20vRm9ydEF3ZXNvbWUvRm9udC1Bd2Vzb21lLVByby9ibG9iL21hc3Rlci9hZHZhbmNlZC1vcHRpb25zL3Jhdy1zdmcvcmVndWxhci90aW1lcy1jaXJjbGUuc3ZnICovXG4udG9hc3QtZXJyb3Ige1xuICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCJkYXRhOmltYWdlL3N2Zyt4bWw7Y2hhcnNldD11dGY4LCUzQ3N2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA1MTIgNTEyJyB3aWR0aD0nNTEyJyBoZWlnaHQ9JzUxMiclM0UlM0NwYXRoIGZpbGw9J3JnYigyNTUsMjU1LDI1NSknIGQ9J00yNTYgOEMxMTkgOCA4IDExOSA4IDI1NnMxMTEgMjQ4IDI0OCAyNDggMjQ4LTExMSAyNDgtMjQ4UzM5MyA4IDI1NiA4em0xMjEuNiAzMTMuMWM0LjcgNC43IDQuNyAxMi4zIDAgMTdMMzM4IDM3Ny42Yy00LjcgNC43LTEyLjMgNC43LTE3IDBMMjU2IDMxMmwtNjUuMSA2NS42Yy00LjcgNC43LTEyLjMgNC43LTE3IDBMMTM0LjQgMzM4Yy00LjctNC43LTQuNy0xMi4zIDAtMTdsNjUuNi02NS02NS42LTY1LjFjLTQuNy00LjctNC43LTEyLjMgMC0xN2wzOS42LTM5LjZjNC43LTQuNyAxMi4zLTQuNyAxNyAwbDY1IDY1LjcgNjUuMS02NS42YzQuNy00LjcgMTIuMy00LjcgMTcgMGwzOS42IDM5LjZjNC43IDQuNyA0LjcgMTIuMyAwIDE3TDMxMiAyNTZsNjUuNiA2NS4xeicvJTNFJTNDL3N2ZyUzRVwiKTsgfVxuXG4vKiBodHRwczovL2dpdGh1Yi5jb20vRm9ydEF3ZXNvbWUvRm9udC1Bd2Vzb21lLVByby9ibG9iL21hc3Rlci9hZHZhbmNlZC1vcHRpb25zL3Jhdy1zdmcvcmVndWxhci9jaGVjay5zdmcgKi9cbi50b2FzdC1zdWNjZXNzIHtcbiAgYmFja2dyb3VuZC1pbWFnZTogdXJsKFwiZGF0YTppbWFnZS9zdmcreG1sO2NoYXJzZXQ9dXRmOCwlM0NzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB2aWV3Qm94PScwIDAgNTEyIDUxMicgd2lkdGg9JzUxMicgaGVpZ2h0PSc1MTInJTNFJTNDcGF0aCBmaWxsPSdyZ2IoMjU1LDI1NSwyNTUpJyBkPSdNMTczLjg5OCA0MzkuNDA0bC0xNjYuNC0xNjYuNGMtOS45OTctOS45OTctOS45OTctMjYuMjA2IDAtMzYuMjA0bDM2LjIwMy0zNi4yMDRjOS45OTctOS45OTggMjYuMjA3LTkuOTk4IDM2LjIwNCAwTDE5MiAzMTIuNjkgNDMyLjA5NSA3Mi41OTZjOS45OTctOS45OTcgMjYuMjA3LTkuOTk3IDM2LjIwNCAwbDM2LjIwMyAzNi4yMDRjOS45OTcgOS45OTcgOS45OTcgMjYuMjA2IDAgMzYuMjA0bC0yOTQuNCAyOTQuNDAxYy05Ljk5OCA5Ljk5Ny0yNi4yMDcgOS45OTctMzYuMjA0LS4wMDF6Jy8lM0UlM0Mvc3ZnJTNFXCIpOyB9XG5cbi8qIGh0dHBzOi8vZ2l0aHViLmNvbS9Gb3J0QXdlc29tZS9Gb250LUF3ZXNvbWUtUHJvL2Jsb2IvbWFzdGVyL2FkdmFuY2VkLW9wdGlvbnMvcmF3LXN2Zy9yZWd1bGFyL2V4Y2xhbWF0aW9uLXRyaWFuZ2xlLnN2ZyAqL1xuLnRvYXN0LXdhcm5pbmcge1xuICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCJkYXRhOmltYWdlL3N2Zyt4bWw7Y2hhcnNldD11dGY4LCUzQ3N2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA1NzYgNTEyJyB3aWR0aD0nNTc2JyBoZWlnaHQ9JzUxMiclM0UlM0NwYXRoIGZpbGw9J3JnYigyNTUsMjU1LDI1NSknIGQ9J001NjkuNTE3IDQ0MC4wMTNDNTg3Ljk3NSA0NzIuMDA3IDU2NC44MDYgNTEyIDUyNy45NCA1MTJINDguMDU0Yy0zNi45MzcgMC01OS45OTktNDAuMDU1LTQxLjU3Ny03MS45ODdMMjQ2LjQyMyAyMy45ODVjMTguNDY3LTMyLjAwOSA2NC43Mi0zMS45NTEgODMuMTU0IDBsMjM5Ljk0IDQxNi4wMjh6TTI4OCAzNTRjLTI1LjQwNSAwLTQ2IDIwLjU5NS00NiA0NnMyMC41OTUgNDYgNDYgNDYgNDYtMjAuNTk1IDQ2LTQ2LTIwLjU5NS00Ni00Ni00NnptLTQzLjY3My0xNjUuMzQ2bDcuNDE4IDEzNmMuMzQ3IDYuMzY0IDUuNjA5IDExLjM0NiAxMS45ODIgMTEuMzQ2aDQ4LjU0NmM2LjM3MyAwIDExLjYzNS00Ljk4MiAxMS45ODItMTEuMzQ2bDcuNDE4LTEzNmMuMzc1LTYuODc0LTUuMDk4LTEyLjY1NC0xMS45ODItMTIuNjU0aC02My4zODNjLTYuODg0IDAtMTIuMzU2IDUuNzgtMTEuOTgxIDEyLjY1NHonLyUzRSUzQy9zdmclM0VcIik7IH1cblxuLnRvYXN0LWNvbnRhaW5lci50b2FzdC10b3AtY2VudGVyIC5uZ3gtdG9hc3RyLFxuLnRvYXN0LWNvbnRhaW5lci50b2FzdC1ib3R0b20tY2VudGVyIC5uZ3gtdG9hc3RyIHtcbiAgd2lkdGg6IDMwMHB4O1xuICBtYXJnaW4tbGVmdDogYXV0bztcbiAgbWFyZ2luLXJpZ2h0OiBhdXRvOyB9XG5cbi50b2FzdC1jb250YWluZXIudG9hc3QtdG9wLWZ1bGwtd2lkdGggLm5neC10b2FzdHIsXG4udG9hc3QtY29udGFpbmVyLnRvYXN0LWJvdHRvbS1mdWxsLXdpZHRoIC5uZ3gtdG9hc3RyIHtcbiAgd2lkdGg6IDk2JTtcbiAgbWFyZ2luLWxlZnQ6IGF1dG87XG4gIG1hcmdpbi1yaWdodDogYXV0bzsgfVxuXG4ubmd4LXRvYXN0ciB7XG4gIGJhY2tncm91bmQtY29sb3I6ICMwMzAzMDM7XG4gIHBvaW50ZXItZXZlbnRzOiBhdXRvOyB9XG5cbi50b2FzdC1zdWNjZXNzIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogIzUxQTM1MTsgfVxuXG4udG9hc3QtZXJyb3Ige1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjQkQzNjJGOyB9XG5cbi50b2FzdC1pbmZvIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogIzJGOTZCNDsgfVxuXG4udG9hc3Qtd2FybmluZyB7XG4gIGJhY2tncm91bmQtY29sb3I6ICNGODk0MDY7IH1cblxuLnRvYXN0LXByb2dyZXNzIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICBsZWZ0OiAwO1xuICBib3R0b206IDA7XG4gIGhlaWdodDogNHB4O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjMDAwMDAwO1xuICBvcGFjaXR5OiAwLjQ7IH1cblxuLyogUmVzcG9uc2l2ZSBEZXNpZ24gKi9cbkBtZWRpYSBhbGwgYW5kIChtYXgtd2lkdGg6IDI0MHB4KSB7XG4gIC50b2FzdC1jb250YWluZXIgLm5neC10b2FzdHIuZGl2IHtcbiAgICBwYWRkaW5nOiA4cHggOHB4IDhweCA1MHB4O1xuICAgIHdpZHRoOiAxMWVtOyB9XG4gIC50b2FzdC1jb250YWluZXIgLnRvYXN0LWNsb3NlLWJ1dHRvbiB7XG4gICAgcmlnaHQ6IC0wLjJlbTtcbiAgICB0b3A6IC0wLjJlbTsgfSB9XG5cbkBtZWRpYSBhbGwgYW5kIChtaW4td2lkdGg6IDI0MXB4KSBhbmQgKG1heC13aWR0aDogNDgwcHgpIHtcbiAgLnRvYXN0LWNvbnRhaW5lciAubmd4LXRvYXN0ci5kaXYge1xuICAgIHBhZGRpbmc6IDhweCA4cHggOHB4IDUwcHg7XG4gICAgd2lkdGg6IDE4ZW07IH1cbiAgLnRvYXN0LWNvbnRhaW5lciAudG9hc3QtY2xvc2UtYnV0dG9uIHtcbiAgICByaWdodDogLTAuMmVtO1xuICAgIHRvcDogLTAuMmVtOyB9IH1cblxuQG1lZGlhIGFsbCBhbmQgKG1pbi13aWR0aDogNDgxcHgpIGFuZCAobWF4LXdpZHRoOiA3NjhweCkge1xuICAudG9hc3QtY29udGFpbmVyIC5uZ3gtdG9hc3RyLmRpdiB7XG4gICAgcGFkZGluZzogMTVweCAxNXB4IDE1cHggNTBweDtcbiAgICB3aWR0aDogMjVlbTsgfSB9XG5cbi5Mb2dpbiBpbnB1dCwgLlJlZ2lzdGVyIGlucHV0IHtcbiAgd2lkdGg6IDEwMCU7XG4gIHBhZGRpbmctdG9wOiAxMHB4O1xuICBwYWRkaW5nLWJvdHRvbTogMTBweDtcbiAgbWFyZ2luLXRvcDogMTBweDtcbiAgbWFyZ2luLWJvdHRvbTogMTBweDtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBib3JkZXI6IGdyYXkgMXB4IHNvbGlkOyB9XG4iXX0= */"
+module.exports = "/* based on angular-toastr css https://github.com/Foxandxss/angular-toastr/blob/cb508fe6801d6b288d3afc525bb40fee1b101650/dist/angular-toastr.css */\n/* position */\n.toast-center-center {\n  top: 50%;\n  left: 50%;\n  -webkit-transform: translate(-50%, -50%);\n          transform: translate(-50%, -50%); }\n.toast-top-center {\n  top: 0;\n  right: 0;\n  width: 100%; }\n.toast-bottom-center {\n  bottom: 0;\n  right: 0;\n  width: 100%; }\n.toast-top-full-width {\n  top: 0;\n  right: 0;\n  width: 100%; }\n.toast-bottom-full-width {\n  bottom: 0;\n  right: 0;\n  width: 100%; }\n.toast-top-left {\n  top: 12px;\n  left: 12px; }\n.toast-top-right {\n  top: 12px;\n  right: 12px; }\n.toast-bottom-right {\n  right: 12px;\n  bottom: 12px; }\n.toast-bottom-left {\n  bottom: 12px;\n  left: 12px; }\n/* toast styles */\n.toast-title {\n  font-weight: bold; }\n.toast-message {\n  word-wrap: break-word; }\n.toast-message a,\n.toast-message label {\n  color: #FFFFFF; }\n.toast-message a:hover {\n  color: #CCCCCC;\n  text-decoration: none; }\n.toast-close-button {\n  position: relative;\n  right: -0.3em;\n  top: -0.3em;\n  float: right;\n  font-size: 20px;\n  font-weight: bold;\n  color: #FFFFFF;\n  text-shadow: 0 1px 0 #ffffff;\n  /* opacity: 0.8; */ }\n.toast-close-button:hover,\n.toast-close-button:focus {\n  color: #000000;\n  text-decoration: none;\n  cursor: pointer;\n  opacity: 0.4; }\n/*Additional properties for button version\r\n   iOS requires the button element instead of an anchor tag.\r\n   If you want the anchor version, it requires `href=\"#\"`.*/\nbutton.toast-close-button {\n  padding: 0;\n  cursor: pointer;\n  background: transparent;\n  border: 0; }\n.toast-container {\n  pointer-events: none;\n  position: fixed;\n  z-index: 999999; }\n.toast-container * {\n  box-sizing: border-box; }\n.toast-container .ngx-toastr {\n  position: relative;\n  overflow: hidden;\n  margin: 0 0 6px;\n  padding: 15px 15px 15px 50px;\n  width: 300px;\n  border-radius: 3px 3px 3px 3px;\n  background-position: 15px center;\n  background-repeat: no-repeat;\n  background-size: 24px;\n  box-shadow: 0 0 12px #999999;\n  color: #FFFFFF; }\n.toast-container .ngx-toastr:hover {\n  box-shadow: 0 0 12px #000000;\n  opacity: 1;\n  cursor: pointer; }\n/* https://github.com/FortAwesome/Font-Awesome-Pro/blob/master/advanced-options/raw-svg/regular/info-circle.svg */\n.toast-info {\n  background-image: url(\"data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='512' height='512'%3E%3Cpath fill='rgb(255,255,255)' d='M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z'/%3E%3C/svg%3E\"); }\n/* https://github.com/FortAwesome/Font-Awesome-Pro/blob/master/advanced-options/raw-svg/regular/times-circle.svg */\n.toast-error {\n  background-image: url(\"data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='512' height='512'%3E%3Cpath fill='rgb(255,255,255)' d='M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z'/%3E%3C/svg%3E\"); }\n/* https://github.com/FortAwesome/Font-Awesome-Pro/blob/master/advanced-options/raw-svg/regular/check.svg */\n.toast-success {\n  background-image: url(\"data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='512' height='512'%3E%3Cpath fill='rgb(255,255,255)' d='M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z'/%3E%3C/svg%3E\"); }\n/* https://github.com/FortAwesome/Font-Awesome-Pro/blob/master/advanced-options/raw-svg/regular/exclamation-triangle.svg */\n.toast-warning {\n  background-image: url(\"data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 576 512' width='576' height='512'%3E%3Cpath fill='rgb(255,255,255)' d='M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z'/%3E%3C/svg%3E\"); }\n.toast-container.toast-top-center .ngx-toastr,\n.toast-container.toast-bottom-center .ngx-toastr {\n  width: 300px;\n  margin-left: auto;\n  margin-right: auto; }\n.toast-container.toast-top-full-width .ngx-toastr,\n.toast-container.toast-bottom-full-width .ngx-toastr {\n  width: 96%;\n  margin-left: auto;\n  margin-right: auto; }\n.ngx-toastr {\n  background-color: #030303;\n  pointer-events: auto; }\n.toast-success {\n  background-color: #51A351; }\n.toast-error {\n  background-color: #BD362F; }\n.toast-info {\n  background-color: #2F96B4; }\n.toast-warning {\n  background-color: #F89406; }\n.toast-progress {\n  position: absolute;\n  left: 0;\n  bottom: 0;\n  height: 4px;\n  background-color: #000000;\n  opacity: 0.4; }\n/* Responsive Design */\n@media all and (max-width: 240px) {\n  .toast-container .ngx-toastr.div {\n    padding: 8px 8px 8px 50px;\n    width: 11em; }\n  .toast-container .toast-close-button {\n    right: -0.2em;\n    top: -0.2em; } }\n@media all and (min-width: 241px) and (max-width: 480px) {\n  .toast-container .ngx-toastr.div {\n    padding: 8px 8px 8px 50px;\n    width: 18em; }\n  .toast-container .toast-close-button {\n    right: -0.2em;\n    top: -0.2em; } }\n@media all and (min-width: 481px) and (max-width: 768px) {\n  .toast-container .ngx-toastr.div {\n    padding: 15px 15px 15px 50px;\n    width: 25em; } }\n.Login input, .Register input {\n  width: 100%;\n  padding-top: 10px;\n  padding-bottom: 10px;\n  margin-top: 10px;\n  margin-bottom: 10px;\n  text-align: center;\n  border: gray 1px solid; }\n.icon-class {\n  padding: 10px; }\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvYXV0aC9sb2dpbm1vZHVsZS9FOlxcUHJvamVjdCBmaWxlc1xcdHJpcEV4cGVuc2Uvc3JjXFxhcHBcXGF1dGhcXGxvZ2lubW9kdWxlXFxsb2dpbi5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvYXV0aC9sb2dpbm1vZHVsZS9sb2dpbi5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxrSkFBQTtBQUVBLGFBQUE7QUFDQTtFQUNJLFFBQVE7RUFDUixTQUFTO0VBQ1Qsd0NBQWdDO1VBQWhDLGdDQUFnQyxFQUFBO0FBRWxDO0VBQ0UsTUFBTTtFQUNOLFFBQVE7RUFDUixXQUFXLEVBQUE7QUFFYjtFQUNFLFNBQVM7RUFDVCxRQUFRO0VBQ1IsV0FBVyxFQUFBO0FBRWI7RUFDRSxNQUFNO0VBQ04sUUFBUTtFQUNSLFdBQVcsRUFBQTtBQUViO0VBQ0UsU0FBUztFQUNULFFBQVE7RUFDUixXQUFXLEVBQUE7QUFFYjtFQUNFLFNBQVM7RUFDVCxVQUFVLEVBQUE7QUFFWjtFQUNFLFNBQVM7RUFDVCxXQUFXLEVBQUE7QUFFYjtFQUNFLFdBQVc7RUFDWCxZQUFZLEVBQUE7QUFFZDtFQUNFLFlBQVk7RUFDWixVQUFVLEVBQUE7QUFHWixpQkFBQTtBQUNBO0VBQ0UsaUJBQWlCLEVBQUE7QUFFbkI7RUFDRSxxQkFBcUIsRUFBQTtBQUV2Qjs7RUFFRSxjQUFjLEVBQUE7QUFFaEI7RUFDRSxjQUFjO0VBQ2QscUJBQXFCLEVBQUE7QUFFdkI7RUFDRSxrQkFBa0I7RUFDbEIsYUFBYTtFQUNiLFdBQVc7RUFDWCxZQUFZO0VBQ1osZUFBZTtFQUNmLGlCQUFpQjtFQUNqQixjQUFjO0VBQ2QsNEJBQTRCO0VBQzVCLGtCQUFBLEVBQW1CO0FBRXJCOztFQUVFLGNBQWM7RUFDZCxxQkFBcUI7RUFDckIsZUFBZTtFQUNmLFlBQVksRUFBQTtBQUVkOzsyRENBeUQ7QURHekQ7RUFDRSxVQUFVO0VBQ1YsZUFBZTtFQUNmLHVCQUF1QjtFQUN2QixTQUFTLEVBQUE7QUFFWDtFQUNFLG9CQUFvQjtFQUNwQixlQUFlO0VBQ2YsZUFBZSxFQUFBO0FBRWpCO0VBQ0Usc0JBQXNCLEVBQUE7QUFFeEI7RUFDRSxrQkFBa0I7RUFDbEIsZ0JBQWdCO0VBQ2hCLGVBQWU7RUFDZiw0QkFBNEI7RUFDNUIsWUFBWTtFQUNaLDhCQUE4QjtFQUM5QixnQ0FBZ0M7RUFDaEMsNEJBQTRCO0VBQzVCLHFCQUFxQjtFQUNyQiw0QkFBNEI7RUFDNUIsY0FBYyxFQUFBO0FBRWhCO0VBQ0UsNEJBQTRCO0VBQzVCLFVBQVU7RUFDVixlQUFlLEVBQUE7QUFFakIsaUhBQUE7QUFDQTtFQUNFLHFsQkFBcWxCLEVBQUE7QUFFdmxCLGtIQUFBO0FBQ0E7RUFDRSw2akJBQTZqQixFQUFBO0FBRS9qQiwyR0FBQTtBQUNBO0VBQ0Usd2RBQXdkLEVBQUE7QUFFMWQsMEhBQUE7QUFDQTtFQUNFLHNvQkFBc29CLEVBQUE7QUFFeG9COztFQUVFLFlBQVk7RUFDWixpQkFBaUI7RUFDakIsa0JBQWtCLEVBQUE7QUFFcEI7O0VBRUUsVUFBVTtFQUNWLGlCQUFpQjtFQUNqQixrQkFBa0IsRUFBQTtBQUVwQjtFQUNFLHlCQUF5QjtFQUN6QixvQkFBb0IsRUFBQTtBQUV0QjtFQUNFLHlCQUF5QixFQUFBO0FBRTNCO0VBQ0UseUJBQXlCLEVBQUE7QUFFM0I7RUFDRSx5QkFBeUIsRUFBQTtBQUUzQjtFQUNFLHlCQUF5QixFQUFBO0FBRTNCO0VBQ0Usa0JBQWtCO0VBQ2xCLE9BQU87RUFDUCxTQUFTO0VBQ1QsV0FBVztFQUNYLHlCQUF5QjtFQUN6QixZQUFZLEVBQUE7QUFFZCxzQkFBQTtBQUNBO0VBQ0U7SUFDRSx5QkFBeUI7SUFDekIsV0FBVyxFQUFBO0VBRWI7SUFDRSxhQUFhO0lBQ2IsV0FBVyxFQUFBLEVBQ1o7QUFFSDtFQUNFO0lBQ0UseUJBQXlCO0lBQ3pCLFdBQVcsRUFBQTtFQUViO0lBQ0UsYUFBYTtJQUNiLFdBQVcsRUFBQSxFQUNaO0FBRUg7RUFDRTtJQUNFLDRCQUE0QjtJQUM1QixXQUFXLEVBQUEsRUFDWjtBQUdIO0VBQ0UsV0FBVztFQUNYLGlCQUFpQjtFQUNqQixvQkFBb0I7RUFDcEIsZ0JBQWdCO0VBQ2hCLG1CQUFtQjtFQUNuQixrQkFBa0I7RUFDbEIsc0JBQXNCLEVBQUE7QUFHeEI7RUFDRSxhQUFhLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9hdXRoL2xvZ2lubW9kdWxlL2xvZ2luLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLyogYmFzZWQgb24gYW5ndWxhci10b2FzdHIgY3NzIGh0dHBzOi8vZ2l0aHViLmNvbS9Gb3hhbmR4c3MvYW5ndWxhci10b2FzdHIvYmxvYi9jYjUwOGZlNjgwMWQ2YjI4OGQzYWZjNTI1YmI0MGZlZTFiMTAxNjUwL2Rpc3QvYW5ndWxhci10b2FzdHIuY3NzICovXHJcblxyXG4vKiBwb3NpdGlvbiAqL1xyXG4udG9hc3QtY2VudGVyLWNlbnRlciB7XHJcbiAgICB0b3A6IDUwJTtcclxuICAgIGxlZnQ6IDUwJTtcclxuICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlKC01MCUsIC01MCUpO1xyXG4gIH1cclxuICAudG9hc3QtdG9wLWNlbnRlciB7XHJcbiAgICB0b3A6IDA7XHJcbiAgICByaWdodDogMDtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG4gIH1cclxuICAudG9hc3QtYm90dG9tLWNlbnRlciB7XHJcbiAgICBib3R0b206IDA7XHJcbiAgICByaWdodDogMDtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG4gIH1cclxuICAudG9hc3QtdG9wLWZ1bGwtd2lkdGgge1xyXG4gICAgdG9wOiAwO1xyXG4gICAgcmlnaHQ6IDA7XHJcbiAgICB3aWR0aDogMTAwJTtcclxuICB9XHJcbiAgLnRvYXN0LWJvdHRvbS1mdWxsLXdpZHRoIHtcclxuICAgIGJvdHRvbTogMDtcclxuICAgIHJpZ2h0OiAwO1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgfVxyXG4gIC50b2FzdC10b3AtbGVmdCB7XHJcbiAgICB0b3A6IDEycHg7XHJcbiAgICBsZWZ0OiAxMnB4O1xyXG4gIH1cclxuICAudG9hc3QtdG9wLXJpZ2h0IHtcclxuICAgIHRvcDogMTJweDtcclxuICAgIHJpZ2h0OiAxMnB4O1xyXG4gIH1cclxuICAudG9hc3QtYm90dG9tLXJpZ2h0IHtcclxuICAgIHJpZ2h0OiAxMnB4O1xyXG4gICAgYm90dG9tOiAxMnB4O1xyXG4gIH1cclxuICAudG9hc3QtYm90dG9tLWxlZnQge1xyXG4gICAgYm90dG9tOiAxMnB4O1xyXG4gICAgbGVmdDogMTJweDtcclxuICB9XHJcbiAgXHJcbiAgLyogdG9hc3Qgc3R5bGVzICovXHJcbiAgLnRvYXN0LXRpdGxlIHtcclxuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gIH1cclxuICAudG9hc3QtbWVzc2FnZSB7XHJcbiAgICB3b3JkLXdyYXA6IGJyZWFrLXdvcmQ7XHJcbiAgfVxyXG4gIC50b2FzdC1tZXNzYWdlIGEsXHJcbiAgLnRvYXN0LW1lc3NhZ2UgbGFiZWwge1xyXG4gICAgY29sb3I6ICNGRkZGRkY7XHJcbiAgfVxyXG4gIC50b2FzdC1tZXNzYWdlIGE6aG92ZXIge1xyXG4gICAgY29sb3I6ICNDQ0NDQ0M7XHJcbiAgICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XHJcbiAgfVxyXG4gIC50b2FzdC1jbG9zZS1idXR0b24ge1xyXG4gICAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG4gICAgcmlnaHQ6IC0wLjNlbTtcclxuICAgIHRvcDogLTAuM2VtO1xyXG4gICAgZmxvYXQ6IHJpZ2h0O1xyXG4gICAgZm9udC1zaXplOiAyMHB4O1xyXG4gICAgZm9udC13ZWlnaHQ6IGJvbGQ7XHJcbiAgICBjb2xvcjogI0ZGRkZGRjtcclxuICAgIHRleHQtc2hhZG93OiAwIDFweCAwICNmZmZmZmY7XHJcbiAgICAvKiBvcGFjaXR5OiAwLjg7ICovXHJcbiAgfVxyXG4gIC50b2FzdC1jbG9zZS1idXR0b246aG92ZXIsXHJcbiAgLnRvYXN0LWNsb3NlLWJ1dHRvbjpmb2N1cyB7XHJcbiAgICBjb2xvcjogIzAwMDAwMDtcclxuICAgIHRleHQtZGVjb3JhdGlvbjogbm9uZTtcclxuICAgIGN1cnNvcjogcG9pbnRlcjtcclxuICAgIG9wYWNpdHk6IDAuNDtcclxuICB9XHJcbiAgLypBZGRpdGlvbmFsIHByb3BlcnRpZXMgZm9yIGJ1dHRvbiB2ZXJzaW9uXHJcbiAgIGlPUyByZXF1aXJlcyB0aGUgYnV0dG9uIGVsZW1lbnQgaW5zdGVhZCBvZiBhbiBhbmNob3IgdGFnLlxyXG4gICBJZiB5b3Ugd2FudCB0aGUgYW5jaG9yIHZlcnNpb24sIGl0IHJlcXVpcmVzIGBocmVmPVwiI1wiYC4qL1xyXG4gIGJ1dHRvbi50b2FzdC1jbG9zZS1idXR0b24ge1xyXG4gICAgcGFkZGluZzogMDtcclxuICAgIGN1cnNvcjogcG9pbnRlcjtcclxuICAgIGJhY2tncm91bmQ6IHRyYW5zcGFyZW50O1xyXG4gICAgYm9yZGVyOiAwO1xyXG4gIH1cclxuICAudG9hc3QtY29udGFpbmVyIHtcclxuICAgIHBvaW50ZXItZXZlbnRzOiBub25lO1xyXG4gICAgcG9zaXRpb246IGZpeGVkO1xyXG4gICAgei1pbmRleDogOTk5OTk5O1xyXG4gIH1cclxuICAudG9hc3QtY29udGFpbmVyICoge1xyXG4gICAgYm94LXNpemluZzogYm9yZGVyLWJveDtcclxuICB9XHJcbiAgLnRvYXN0LWNvbnRhaW5lciAubmd4LXRvYXN0ciB7XHJcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcbiAgICBvdmVyZmxvdzogaGlkZGVuO1xyXG4gICAgbWFyZ2luOiAwIDAgNnB4O1xyXG4gICAgcGFkZGluZzogMTVweCAxNXB4IDE1cHggNTBweDtcclxuICAgIHdpZHRoOiAzMDBweDtcclxuICAgIGJvcmRlci1yYWRpdXM6IDNweCAzcHggM3B4IDNweDtcclxuICAgIGJhY2tncm91bmQtcG9zaXRpb246IDE1cHggY2VudGVyO1xyXG4gICAgYmFja2dyb3VuZC1yZXBlYXQ6IG5vLXJlcGVhdDtcclxuICAgIGJhY2tncm91bmQtc2l6ZTogMjRweDtcclxuICAgIGJveC1zaGFkb3c6IDAgMCAxMnB4ICM5OTk5OTk7XHJcbiAgICBjb2xvcjogI0ZGRkZGRjtcclxuICB9XHJcbiAgLnRvYXN0LWNvbnRhaW5lciAubmd4LXRvYXN0cjpob3ZlciB7XHJcbiAgICBib3gtc2hhZG93OiAwIDAgMTJweCAjMDAwMDAwO1xyXG4gICAgb3BhY2l0eTogMTtcclxuICAgIGN1cnNvcjogcG9pbnRlcjtcclxuICB9XHJcbiAgLyogaHR0cHM6Ly9naXRodWIuY29tL0ZvcnRBd2Vzb21lL0ZvbnQtQXdlc29tZS1Qcm8vYmxvYi9tYXN0ZXIvYWR2YW5jZWQtb3B0aW9ucy9yYXctc3ZnL3JlZ3VsYXIvaW5mby1jaXJjbGUuc3ZnICovXHJcbiAgLnRvYXN0LWluZm8ge1xyXG4gICAgYmFja2dyb3VuZC1pbWFnZTogdXJsKFwiZGF0YTppbWFnZS9zdmcreG1sO2NoYXJzZXQ9dXRmOCwlM0NzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB2aWV3Qm94PScwIDAgNTEyIDUxMicgd2lkdGg9JzUxMicgaGVpZ2h0PSc1MTInJTNFJTNDcGF0aCBmaWxsPSdyZ2IoMjU1LDI1NSwyNTUpJyBkPSdNMjU2IDhDMTE5LjA0MyA4IDggMTE5LjA4MyA4IDI1NmMwIDEzNi45OTcgMTExLjA0MyAyNDggMjQ4IDI0OHMyNDgtMTExLjAwMyAyNDgtMjQ4QzUwNCAxMTkuMDgzIDM5Mi45NTcgOCAyNTYgOHptMCAxMTBjMjMuMTk2IDAgNDIgMTguODA0IDQyIDQycy0xOC44MDQgNDItNDIgNDItNDItMTguODA0LTQyLTQyIDE4LjgwNC00MiA0Mi00MnptNTYgMjU0YzAgNi42MjctNS4zNzMgMTItMTIgMTJoLTg4Yy02LjYyNyAwLTEyLTUuMzczLTEyLTEydi0yNGMwLTYuNjI3IDUuMzczLTEyIDEyLTEyaDEydi02NGgtMTJjLTYuNjI3IDAtMTItNS4zNzMtMTItMTJ2LTI0YzAtNi42MjcgNS4zNzMtMTIgMTItMTJoNjRjNi42MjcgMCAxMiA1LjM3MyAxMiAxMnYxMDBoMTJjNi42MjcgMCAxMiA1LjM3MyAxMiAxMnYyNHonLyUzRSUzQy9zdmclM0VcIik7XHJcbiAgfVxyXG4gIC8qIGh0dHBzOi8vZ2l0aHViLmNvbS9Gb3J0QXdlc29tZS9Gb250LUF3ZXNvbWUtUHJvL2Jsb2IvbWFzdGVyL2FkdmFuY2VkLW9wdGlvbnMvcmF3LXN2Zy9yZWd1bGFyL3RpbWVzLWNpcmNsZS5zdmcgKi9cclxuICAudG9hc3QtZXJyb3Ige1xyXG4gICAgYmFja2dyb3VuZC1pbWFnZTogdXJsKFwiZGF0YTppbWFnZS9zdmcreG1sO2NoYXJzZXQ9dXRmOCwlM0NzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB2aWV3Qm94PScwIDAgNTEyIDUxMicgd2lkdGg9JzUxMicgaGVpZ2h0PSc1MTInJTNFJTNDcGF0aCBmaWxsPSdyZ2IoMjU1LDI1NSwyNTUpJyBkPSdNMjU2IDhDMTE5IDggOCAxMTkgOCAyNTZzMTExIDI0OCAyNDggMjQ4IDI0OC0xMTEgMjQ4LTI0OFMzOTMgOCAyNTYgOHptMTIxLjYgMzEzLjFjNC43IDQuNyA0LjcgMTIuMyAwIDE3TDMzOCAzNzcuNmMtNC43IDQuNy0xMi4zIDQuNy0xNyAwTDI1NiAzMTJsLTY1LjEgNjUuNmMtNC43IDQuNy0xMi4zIDQuNy0xNyAwTDEzNC40IDMzOGMtNC43LTQuNy00LjctMTIuMyAwLTE3bDY1LjYtNjUtNjUuNi02NS4xYy00LjctNC43LTQuNy0xMi4zIDAtMTdsMzkuNi0zOS42YzQuNy00LjcgMTIuMy00LjcgMTcgMGw2NSA2NS43IDY1LjEtNjUuNmM0LjctNC43IDEyLjMtNC43IDE3IDBsMzkuNiAzOS42YzQuNyA0LjcgNC43IDEyLjMgMCAxN0wzMTIgMjU2bDY1LjYgNjUuMXonLyUzRSUzQy9zdmclM0VcIik7XHJcbiAgfVxyXG4gIC8qIGh0dHBzOi8vZ2l0aHViLmNvbS9Gb3J0QXdlc29tZS9Gb250LUF3ZXNvbWUtUHJvL2Jsb2IvbWFzdGVyL2FkdmFuY2VkLW9wdGlvbnMvcmF3LXN2Zy9yZWd1bGFyL2NoZWNrLnN2ZyAqL1xyXG4gIC50b2FzdC1zdWNjZXNzIHtcclxuICAgIGJhY2tncm91bmQtaW1hZ2U6IHVybChcImRhdGE6aW1hZ2Uvc3ZnK3htbDtjaGFyc2V0PXV0ZjgsJTNDc3ZnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zycgdmlld0JveD0nMCAwIDUxMiA1MTInIHdpZHRoPSc1MTInIGhlaWdodD0nNTEyJyUzRSUzQ3BhdGggZmlsbD0ncmdiKDI1NSwyNTUsMjU1KScgZD0nTTE3My44OTggNDM5LjQwNGwtMTY2LjQtMTY2LjRjLTkuOTk3LTkuOTk3LTkuOTk3LTI2LjIwNiAwLTM2LjIwNGwzNi4yMDMtMzYuMjA0YzkuOTk3LTkuOTk4IDI2LjIwNy05Ljk5OCAzNi4yMDQgMEwxOTIgMzEyLjY5IDQzMi4wOTUgNzIuNTk2YzkuOTk3LTkuOTk3IDI2LjIwNy05Ljk5NyAzNi4yMDQgMGwzNi4yMDMgMzYuMjA0YzkuOTk3IDkuOTk3IDkuOTk3IDI2LjIwNiAwIDM2LjIwNGwtMjk0LjQgMjk0LjQwMWMtOS45OTggOS45OTctMjYuMjA3IDkuOTk3LTM2LjIwNC0uMDAxeicvJTNFJTNDL3N2ZyUzRVwiKTtcclxuICB9XHJcbiAgLyogaHR0cHM6Ly9naXRodWIuY29tL0ZvcnRBd2Vzb21lL0ZvbnQtQXdlc29tZS1Qcm8vYmxvYi9tYXN0ZXIvYWR2YW5jZWQtb3B0aW9ucy9yYXctc3ZnL3JlZ3VsYXIvZXhjbGFtYXRpb24tdHJpYW5nbGUuc3ZnICovXHJcbiAgLnRvYXN0LXdhcm5pbmcge1xyXG4gICAgYmFja2dyb3VuZC1pbWFnZTogdXJsKFwiZGF0YTppbWFnZS9zdmcreG1sO2NoYXJzZXQ9dXRmOCwlM0NzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB2aWV3Qm94PScwIDAgNTc2IDUxMicgd2lkdGg9JzU3NicgaGVpZ2h0PSc1MTInJTNFJTNDcGF0aCBmaWxsPSdyZ2IoMjU1LDI1NSwyNTUpJyBkPSdNNTY5LjUxNyA0NDAuMDEzQzU4Ny45NzUgNDcyLjAwNyA1NjQuODA2IDUxMiA1MjcuOTQgNTEySDQ4LjA1NGMtMzYuOTM3IDAtNTkuOTk5LTQwLjA1NS00MS41NzctNzEuOTg3TDI0Ni40MjMgMjMuOTg1YzE4LjQ2Ny0zMi4wMDkgNjQuNzItMzEuOTUxIDgzLjE1NCAwbDIzOS45NCA0MTYuMDI4ek0yODggMzU0Yy0yNS40MDUgMC00NiAyMC41OTUtNDYgNDZzMjAuNTk1IDQ2IDQ2IDQ2IDQ2LTIwLjU5NSA0Ni00Ni0yMC41OTUtNDYtNDYtNDZ6bS00My42NzMtMTY1LjM0Nmw3LjQxOCAxMzZjLjM0NyA2LjM2NCA1LjYwOSAxMS4zNDYgMTEuOTgyIDExLjM0Nmg0OC41NDZjNi4zNzMgMCAxMS42MzUtNC45ODIgMTEuOTgyLTExLjM0Nmw3LjQxOC0xMzZjLjM3NS02Ljg3NC01LjA5OC0xMi42NTQtMTEuOTgyLTEyLjY1NGgtNjMuMzgzYy02Ljg4NCAwLTEyLjM1NiA1Ljc4LTExLjk4MSAxMi42NTR6Jy8lM0UlM0Mvc3ZnJTNFXCIpO1xyXG4gIH1cclxuICAudG9hc3QtY29udGFpbmVyLnRvYXN0LXRvcC1jZW50ZXIgLm5neC10b2FzdHIsXHJcbiAgLnRvYXN0LWNvbnRhaW5lci50b2FzdC1ib3R0b20tY2VudGVyIC5uZ3gtdG9hc3RyIHtcclxuICAgIHdpZHRoOiAzMDBweDtcclxuICAgIG1hcmdpbi1sZWZ0OiBhdXRvO1xyXG4gICAgbWFyZ2luLXJpZ2h0OiBhdXRvO1xyXG4gIH1cclxuICAudG9hc3QtY29udGFpbmVyLnRvYXN0LXRvcC1mdWxsLXdpZHRoIC5uZ3gtdG9hc3RyLFxyXG4gIC50b2FzdC1jb250YWluZXIudG9hc3QtYm90dG9tLWZ1bGwtd2lkdGggLm5neC10b2FzdHIge1xyXG4gICAgd2lkdGg6IDk2JTtcclxuICAgIG1hcmdpbi1sZWZ0OiBhdXRvO1xyXG4gICAgbWFyZ2luLXJpZ2h0OiBhdXRvO1xyXG4gIH1cclxuICAubmd4LXRvYXN0ciB7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjMDMwMzAzO1xyXG4gICAgcG9pbnRlci1ldmVudHM6IGF1dG87XHJcbiAgfVxyXG4gIC50b2FzdC1zdWNjZXNzIHtcclxuICAgIGJhY2tncm91bmQtY29sb3I6ICM1MUEzNTE7XHJcbiAgfVxyXG4gIC50b2FzdC1lcnJvciB7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjQkQzNjJGO1xyXG4gIH1cclxuICAudG9hc3QtaW5mbyB7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjMkY5NkI0O1xyXG4gIH1cclxuICAudG9hc3Qtd2FybmluZyB7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjRjg5NDA2O1xyXG4gIH1cclxuICAudG9hc3QtcHJvZ3Jlc3Mge1xyXG4gICAgcG9zaXRpb246IGFic29sdXRlO1xyXG4gICAgbGVmdDogMDtcclxuICAgIGJvdHRvbTogMDtcclxuICAgIGhlaWdodDogNHB4O1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogIzAwMDAwMDtcclxuICAgIG9wYWNpdHk6IDAuNDtcclxuICB9XHJcbiAgLyogUmVzcG9uc2l2ZSBEZXNpZ24gKi9cclxuICBAbWVkaWEgYWxsIGFuZCAobWF4LXdpZHRoOiAyNDBweCkge1xyXG4gICAgLnRvYXN0LWNvbnRhaW5lciAubmd4LXRvYXN0ci5kaXYge1xyXG4gICAgICBwYWRkaW5nOiA4cHggOHB4IDhweCA1MHB4O1xyXG4gICAgICB3aWR0aDogMTFlbTtcclxuICAgIH1cclxuICAgIC50b2FzdC1jb250YWluZXIgLnRvYXN0LWNsb3NlLWJ1dHRvbiB7XHJcbiAgICAgIHJpZ2h0OiAtMC4yZW07XHJcbiAgICAgIHRvcDogLTAuMmVtO1xyXG4gICAgfVxyXG4gIH1cclxuICBAbWVkaWEgYWxsIGFuZCAobWluLXdpZHRoOiAyNDFweCkgYW5kIChtYXgtd2lkdGg6IDQ4MHB4KSB7XHJcbiAgICAudG9hc3QtY29udGFpbmVyIC5uZ3gtdG9hc3RyLmRpdiB7XHJcbiAgICAgIHBhZGRpbmc6IDhweCA4cHggOHB4IDUwcHg7XHJcbiAgICAgIHdpZHRoOiAxOGVtO1xyXG4gICAgfVxyXG4gICAgLnRvYXN0LWNvbnRhaW5lciAudG9hc3QtY2xvc2UtYnV0dG9uIHtcclxuICAgICAgcmlnaHQ6IC0wLjJlbTtcclxuICAgICAgdG9wOiAtMC4yZW07XHJcbiAgICB9XHJcbiAgfVxyXG4gIEBtZWRpYSBhbGwgYW5kIChtaW4td2lkdGg6IDQ4MXB4KSBhbmQgKG1heC13aWR0aDogNzY4cHgpIHtcclxuICAgIC50b2FzdC1jb250YWluZXIgLm5neC10b2FzdHIuZGl2IHtcclxuICAgICAgcGFkZGluZzogMTVweCAxNXB4IDE1cHggNTBweDtcclxuICAgICAgd2lkdGg6IDI1ZW07XHJcbiAgICB9XHJcbiAgfVxyXG5cclxuICAuTG9naW4gaW5wdXQsIC5SZWdpc3RlciBpbnB1dHtcclxuICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgcGFkZGluZy10b3A6IDEwcHg7XHJcbiAgICBwYWRkaW5nLWJvdHRvbTogMTBweDtcclxuICAgIG1hcmdpbi10b3A6IDEwcHg7XHJcbiAgICBtYXJnaW4tYm90dG9tOiAxMHB4O1xyXG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gICAgYm9yZGVyOiBncmF5IDFweCBzb2xpZDtcclxuICB9XHJcblxyXG4gIC5pY29uLWNsYXNze1xyXG4gICAgcGFkZGluZzogMTBweDtcclxuICB9IiwiLyogYmFzZWQgb24gYW5ndWxhci10b2FzdHIgY3NzIGh0dHBzOi8vZ2l0aHViLmNvbS9Gb3hhbmR4c3MvYW5ndWxhci10b2FzdHIvYmxvYi9jYjUwOGZlNjgwMWQ2YjI4OGQzYWZjNTI1YmI0MGZlZTFiMTAxNjUwL2Rpc3QvYW5ndWxhci10b2FzdHIuY3NzICovXG4vKiBwb3NpdGlvbiAqL1xuLnRvYXN0LWNlbnRlci1jZW50ZXIge1xuICB0b3A6IDUwJTtcbiAgbGVmdDogNTAlO1xuICB0cmFuc2Zvcm06IHRyYW5zbGF0ZSgtNTAlLCAtNTAlKTsgfVxuXG4udG9hc3QtdG9wLWNlbnRlciB7XG4gIHRvcDogMDtcbiAgcmlnaHQ6IDA7XG4gIHdpZHRoOiAxMDAlOyB9XG5cbi50b2FzdC1ib3R0b20tY2VudGVyIHtcbiAgYm90dG9tOiAwO1xuICByaWdodDogMDtcbiAgd2lkdGg6IDEwMCU7IH1cblxuLnRvYXN0LXRvcC1mdWxsLXdpZHRoIHtcbiAgdG9wOiAwO1xuICByaWdodDogMDtcbiAgd2lkdGg6IDEwMCU7IH1cblxuLnRvYXN0LWJvdHRvbS1mdWxsLXdpZHRoIHtcbiAgYm90dG9tOiAwO1xuICByaWdodDogMDtcbiAgd2lkdGg6IDEwMCU7IH1cblxuLnRvYXN0LXRvcC1sZWZ0IHtcbiAgdG9wOiAxMnB4O1xuICBsZWZ0OiAxMnB4OyB9XG5cbi50b2FzdC10b3AtcmlnaHQge1xuICB0b3A6IDEycHg7XG4gIHJpZ2h0OiAxMnB4OyB9XG5cbi50b2FzdC1ib3R0b20tcmlnaHQge1xuICByaWdodDogMTJweDtcbiAgYm90dG9tOiAxMnB4OyB9XG5cbi50b2FzdC1ib3R0b20tbGVmdCB7XG4gIGJvdHRvbTogMTJweDtcbiAgbGVmdDogMTJweDsgfVxuXG4vKiB0b2FzdCBzdHlsZXMgKi9cbi50b2FzdC10aXRsZSB7XG4gIGZvbnQtd2VpZ2h0OiBib2xkOyB9XG5cbi50b2FzdC1tZXNzYWdlIHtcbiAgd29yZC13cmFwOiBicmVhay13b3JkOyB9XG5cbi50b2FzdC1tZXNzYWdlIGEsXG4udG9hc3QtbWVzc2FnZSBsYWJlbCB7XG4gIGNvbG9yOiAjRkZGRkZGOyB9XG5cbi50b2FzdC1tZXNzYWdlIGE6aG92ZXIge1xuICBjb2xvcjogI0NDQ0NDQztcbiAgdGV4dC1kZWNvcmF0aW9uOiBub25lOyB9XG5cbi50b2FzdC1jbG9zZS1idXR0b24ge1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIHJpZ2h0OiAtMC4zZW07XG4gIHRvcDogLTAuM2VtO1xuICBmbG9hdDogcmlnaHQ7XG4gIGZvbnQtc2l6ZTogMjBweDtcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XG4gIGNvbG9yOiAjRkZGRkZGO1xuICB0ZXh0LXNoYWRvdzogMCAxcHggMCAjZmZmZmZmO1xuICAvKiBvcGFjaXR5OiAwLjg7ICovIH1cblxuLnRvYXN0LWNsb3NlLWJ1dHRvbjpob3Zlcixcbi50b2FzdC1jbG9zZS1idXR0b246Zm9jdXMge1xuICBjb2xvcjogIzAwMDAwMDtcbiAgdGV4dC1kZWNvcmF0aW9uOiBub25lO1xuICBjdXJzb3I6IHBvaW50ZXI7XG4gIG9wYWNpdHk6IDAuNDsgfVxuXG4vKkFkZGl0aW9uYWwgcHJvcGVydGllcyBmb3IgYnV0dG9uIHZlcnNpb25cclxuICAgaU9TIHJlcXVpcmVzIHRoZSBidXR0b24gZWxlbWVudCBpbnN0ZWFkIG9mIGFuIGFuY2hvciB0YWcuXHJcbiAgIElmIHlvdSB3YW50IHRoZSBhbmNob3IgdmVyc2lvbiwgaXQgcmVxdWlyZXMgYGhyZWY9XCIjXCJgLiovXG5idXR0b24udG9hc3QtY2xvc2UtYnV0dG9uIHtcbiAgcGFkZGluZzogMDtcbiAgY3Vyc29yOiBwb2ludGVyO1xuICBiYWNrZ3JvdW5kOiB0cmFuc3BhcmVudDtcbiAgYm9yZGVyOiAwOyB9XG5cbi50b2FzdC1jb250YWluZXIge1xuICBwb2ludGVyLWV2ZW50czogbm9uZTtcbiAgcG9zaXRpb246IGZpeGVkO1xuICB6LWluZGV4OiA5OTk5OTk7IH1cblxuLnRvYXN0LWNvbnRhaW5lciAqIHtcbiAgYm94LXNpemluZzogYm9yZGVyLWJveDsgfVxuXG4udG9hc3QtY29udGFpbmVyIC5uZ3gtdG9hc3RyIHtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICBvdmVyZmxvdzogaGlkZGVuO1xuICBtYXJnaW46IDAgMCA2cHg7XG4gIHBhZGRpbmc6IDE1cHggMTVweCAxNXB4IDUwcHg7XG4gIHdpZHRoOiAzMDBweDtcbiAgYm9yZGVyLXJhZGl1czogM3B4IDNweCAzcHggM3B4O1xuICBiYWNrZ3JvdW5kLXBvc2l0aW9uOiAxNXB4IGNlbnRlcjtcbiAgYmFja2dyb3VuZC1yZXBlYXQ6IG5vLXJlcGVhdDtcbiAgYmFja2dyb3VuZC1zaXplOiAyNHB4O1xuICBib3gtc2hhZG93OiAwIDAgMTJweCAjOTk5OTk5O1xuICBjb2xvcjogI0ZGRkZGRjsgfVxuXG4udG9hc3QtY29udGFpbmVyIC5uZ3gtdG9hc3RyOmhvdmVyIHtcbiAgYm94LXNoYWRvdzogMCAwIDEycHggIzAwMDAwMDtcbiAgb3BhY2l0eTogMTtcbiAgY3Vyc29yOiBwb2ludGVyOyB9XG5cbi8qIGh0dHBzOi8vZ2l0aHViLmNvbS9Gb3J0QXdlc29tZS9Gb250LUF3ZXNvbWUtUHJvL2Jsb2IvbWFzdGVyL2FkdmFuY2VkLW9wdGlvbnMvcmF3LXN2Zy9yZWd1bGFyL2luZm8tY2lyY2xlLnN2ZyAqL1xuLnRvYXN0LWluZm8ge1xuICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCJkYXRhOmltYWdlL3N2Zyt4bWw7Y2hhcnNldD11dGY4LCUzQ3N2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA1MTIgNTEyJyB3aWR0aD0nNTEyJyBoZWlnaHQ9JzUxMiclM0UlM0NwYXRoIGZpbGw9J3JnYigyNTUsMjU1LDI1NSknIGQ9J00yNTYgOEMxMTkuMDQzIDggOCAxMTkuMDgzIDggMjU2YzAgMTM2Ljk5NyAxMTEuMDQzIDI0OCAyNDggMjQ4czI0OC0xMTEuMDAzIDI0OC0yNDhDNTA0IDExOS4wODMgMzkyLjk1NyA4IDI1NiA4em0wIDExMGMyMy4xOTYgMCA0MiAxOC44MDQgNDIgNDJzLTE4LjgwNCA0Mi00MiA0Mi00Mi0xOC44MDQtNDItNDIgMTguODA0LTQyIDQyLTQyem01NiAyNTRjMCA2LjYyNy01LjM3MyAxMi0xMiAxMmgtODhjLTYuNjI3IDAtMTItNS4zNzMtMTItMTJ2LTI0YzAtNi42MjcgNS4zNzMtMTIgMTItMTJoMTJ2LTY0aC0xMmMtNi42MjcgMC0xMi01LjM3My0xMi0xMnYtMjRjMC02LjYyNyA1LjM3My0xMiAxMi0xMmg2NGM2LjYyNyAwIDEyIDUuMzczIDEyIDEydjEwMGgxMmM2LjYyNyAwIDEyIDUuMzczIDEyIDEydjI0eicvJTNFJTNDL3N2ZyUzRVwiKTsgfVxuXG4vKiBodHRwczovL2dpdGh1Yi5jb20vRm9ydEF3ZXNvbWUvRm9udC1Bd2Vzb21lLVByby9ibG9iL21hc3Rlci9hZHZhbmNlZC1vcHRpb25zL3Jhdy1zdmcvcmVndWxhci90aW1lcy1jaXJjbGUuc3ZnICovXG4udG9hc3QtZXJyb3Ige1xuICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCJkYXRhOmltYWdlL3N2Zyt4bWw7Y2hhcnNldD11dGY4LCUzQ3N2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA1MTIgNTEyJyB3aWR0aD0nNTEyJyBoZWlnaHQ9JzUxMiclM0UlM0NwYXRoIGZpbGw9J3JnYigyNTUsMjU1LDI1NSknIGQ9J00yNTYgOEMxMTkgOCA4IDExOSA4IDI1NnMxMTEgMjQ4IDI0OCAyNDggMjQ4LTExMSAyNDgtMjQ4UzM5MyA4IDI1NiA4em0xMjEuNiAzMTMuMWM0LjcgNC43IDQuNyAxMi4zIDAgMTdMMzM4IDM3Ny42Yy00LjcgNC43LTEyLjMgNC43LTE3IDBMMjU2IDMxMmwtNjUuMSA2NS42Yy00LjcgNC43LTEyLjMgNC43LTE3IDBMMTM0LjQgMzM4Yy00LjctNC43LTQuNy0xMi4zIDAtMTdsNjUuNi02NS02NS42LTY1LjFjLTQuNy00LjctNC43LTEyLjMgMC0xN2wzOS42LTM5LjZjNC43LTQuNyAxMi4zLTQuNyAxNyAwbDY1IDY1LjcgNjUuMS02NS42YzQuNy00LjcgMTIuMy00LjcgMTcgMGwzOS42IDM5LjZjNC43IDQuNyA0LjcgMTIuMyAwIDE3TDMxMiAyNTZsNjUuNiA2NS4xeicvJTNFJTNDL3N2ZyUzRVwiKTsgfVxuXG4vKiBodHRwczovL2dpdGh1Yi5jb20vRm9ydEF3ZXNvbWUvRm9udC1Bd2Vzb21lLVByby9ibG9iL21hc3Rlci9hZHZhbmNlZC1vcHRpb25zL3Jhdy1zdmcvcmVndWxhci9jaGVjay5zdmcgKi9cbi50b2FzdC1zdWNjZXNzIHtcbiAgYmFja2dyb3VuZC1pbWFnZTogdXJsKFwiZGF0YTppbWFnZS9zdmcreG1sO2NoYXJzZXQ9dXRmOCwlM0NzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB2aWV3Qm94PScwIDAgNTEyIDUxMicgd2lkdGg9JzUxMicgaGVpZ2h0PSc1MTInJTNFJTNDcGF0aCBmaWxsPSdyZ2IoMjU1LDI1NSwyNTUpJyBkPSdNMTczLjg5OCA0MzkuNDA0bC0xNjYuNC0xNjYuNGMtOS45OTctOS45OTctOS45OTctMjYuMjA2IDAtMzYuMjA0bDM2LjIwMy0zNi4yMDRjOS45OTctOS45OTggMjYuMjA3LTkuOTk4IDM2LjIwNCAwTDE5MiAzMTIuNjkgNDMyLjA5NSA3Mi41OTZjOS45OTctOS45OTcgMjYuMjA3LTkuOTk3IDM2LjIwNCAwbDM2LjIwMyAzNi4yMDRjOS45OTcgOS45OTcgOS45OTcgMjYuMjA2IDAgMzYuMjA0bC0yOTQuNCAyOTQuNDAxYy05Ljk5OCA5Ljk5Ny0yNi4yMDcgOS45OTctMzYuMjA0LS4wMDF6Jy8lM0UlM0Mvc3ZnJTNFXCIpOyB9XG5cbi8qIGh0dHBzOi8vZ2l0aHViLmNvbS9Gb3J0QXdlc29tZS9Gb250LUF3ZXNvbWUtUHJvL2Jsb2IvbWFzdGVyL2FkdmFuY2VkLW9wdGlvbnMvcmF3LXN2Zy9yZWd1bGFyL2V4Y2xhbWF0aW9uLXRyaWFuZ2xlLnN2ZyAqL1xuLnRvYXN0LXdhcm5pbmcge1xuICBiYWNrZ3JvdW5kLWltYWdlOiB1cmwoXCJkYXRhOmltYWdlL3N2Zyt4bWw7Y2hhcnNldD11dGY4LCUzQ3N2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCA1NzYgNTEyJyB3aWR0aD0nNTc2JyBoZWlnaHQ9JzUxMiclM0UlM0NwYXRoIGZpbGw9J3JnYigyNTUsMjU1LDI1NSknIGQ9J001NjkuNTE3IDQ0MC4wMTNDNTg3Ljk3NSA0NzIuMDA3IDU2NC44MDYgNTEyIDUyNy45NCA1MTJINDguMDU0Yy0zNi45MzcgMC01OS45OTktNDAuMDU1LTQxLjU3Ny03MS45ODdMMjQ2LjQyMyAyMy45ODVjMTguNDY3LTMyLjAwOSA2NC43Mi0zMS45NTEgODMuMTU0IDBsMjM5Ljk0IDQxNi4wMjh6TTI4OCAzNTRjLTI1LjQwNSAwLTQ2IDIwLjU5NS00NiA0NnMyMC41OTUgNDYgNDYgNDYgNDYtMjAuNTk1IDQ2LTQ2LTIwLjU5NS00Ni00Ni00NnptLTQzLjY3My0xNjUuMzQ2bDcuNDE4IDEzNmMuMzQ3IDYuMzY0IDUuNjA5IDExLjM0NiAxMS45ODIgMTEuMzQ2aDQ4LjU0NmM2LjM3MyAwIDExLjYzNS00Ljk4MiAxMS45ODItMTEuMzQ2bDcuNDE4LTEzNmMuMzc1LTYuODc0LTUuMDk4LTEyLjY1NC0xMS45ODItMTIuNjU0aC02My4zODNjLTYuODg0IDAtMTIuMzU2IDUuNzgtMTEuOTgxIDEyLjY1NHonLyUzRSUzQy9zdmclM0VcIik7IH1cblxuLnRvYXN0LWNvbnRhaW5lci50b2FzdC10b3AtY2VudGVyIC5uZ3gtdG9hc3RyLFxuLnRvYXN0LWNvbnRhaW5lci50b2FzdC1ib3R0b20tY2VudGVyIC5uZ3gtdG9hc3RyIHtcbiAgd2lkdGg6IDMwMHB4O1xuICBtYXJnaW4tbGVmdDogYXV0bztcbiAgbWFyZ2luLXJpZ2h0OiBhdXRvOyB9XG5cbi50b2FzdC1jb250YWluZXIudG9hc3QtdG9wLWZ1bGwtd2lkdGggLm5neC10b2FzdHIsXG4udG9hc3QtY29udGFpbmVyLnRvYXN0LWJvdHRvbS1mdWxsLXdpZHRoIC5uZ3gtdG9hc3RyIHtcbiAgd2lkdGg6IDk2JTtcbiAgbWFyZ2luLWxlZnQ6IGF1dG87XG4gIG1hcmdpbi1yaWdodDogYXV0bzsgfVxuXG4ubmd4LXRvYXN0ciB7XG4gIGJhY2tncm91bmQtY29sb3I6ICMwMzAzMDM7XG4gIHBvaW50ZXItZXZlbnRzOiBhdXRvOyB9XG5cbi50b2FzdC1zdWNjZXNzIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogIzUxQTM1MTsgfVxuXG4udG9hc3QtZXJyb3Ige1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjQkQzNjJGOyB9XG5cbi50b2FzdC1pbmZvIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogIzJGOTZCNDsgfVxuXG4udG9hc3Qtd2FybmluZyB7XG4gIGJhY2tncm91bmQtY29sb3I6ICNGODk0MDY7IH1cblxuLnRvYXN0LXByb2dyZXNzIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICBsZWZ0OiAwO1xuICBib3R0b206IDA7XG4gIGhlaWdodDogNHB4O1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjMDAwMDAwO1xuICBvcGFjaXR5OiAwLjQ7IH1cblxuLyogUmVzcG9uc2l2ZSBEZXNpZ24gKi9cbkBtZWRpYSBhbGwgYW5kIChtYXgtd2lkdGg6IDI0MHB4KSB7XG4gIC50b2FzdC1jb250YWluZXIgLm5neC10b2FzdHIuZGl2IHtcbiAgICBwYWRkaW5nOiA4cHggOHB4IDhweCA1MHB4O1xuICAgIHdpZHRoOiAxMWVtOyB9XG4gIC50b2FzdC1jb250YWluZXIgLnRvYXN0LWNsb3NlLWJ1dHRvbiB7XG4gICAgcmlnaHQ6IC0wLjJlbTtcbiAgICB0b3A6IC0wLjJlbTsgfSB9XG5cbkBtZWRpYSBhbGwgYW5kIChtaW4td2lkdGg6IDI0MXB4KSBhbmQgKG1heC13aWR0aDogNDgwcHgpIHtcbiAgLnRvYXN0LWNvbnRhaW5lciAubmd4LXRvYXN0ci5kaXYge1xuICAgIHBhZGRpbmc6IDhweCA4cHggOHB4IDUwcHg7XG4gICAgd2lkdGg6IDE4ZW07IH1cbiAgLnRvYXN0LWNvbnRhaW5lciAudG9hc3QtY2xvc2UtYnV0dG9uIHtcbiAgICByaWdodDogLTAuMmVtO1xuICAgIHRvcDogLTAuMmVtOyB9IH1cblxuQG1lZGlhIGFsbCBhbmQgKG1pbi13aWR0aDogNDgxcHgpIGFuZCAobWF4LXdpZHRoOiA3NjhweCkge1xuICAudG9hc3QtY29udGFpbmVyIC5uZ3gtdG9hc3RyLmRpdiB7XG4gICAgcGFkZGluZzogMTVweCAxNXB4IDE1cHggNTBweDtcbiAgICB3aWR0aDogMjVlbTsgfSB9XG5cbi5Mb2dpbiBpbnB1dCwgLlJlZ2lzdGVyIGlucHV0IHtcbiAgd2lkdGg6IDEwMCU7XG4gIHBhZGRpbmctdG9wOiAxMHB4O1xuICBwYWRkaW5nLWJvdHRvbTogMTBweDtcbiAgbWFyZ2luLXRvcDogMTBweDtcbiAgbWFyZ2luLWJvdHRvbTogMTBweDtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBib3JkZXI6IGdyYXkgMXB4IHNvbGlkOyB9XG5cbi5pY29uLWNsYXNzIHtcbiAgcGFkZGluZzogMTBweDsgfVxuIl19 */"
 
 /***/ }),
 
@@ -1103,65 +1332,79 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_common_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/common.service */ "./src/app/common.service.ts");
 /* harmony import */ var src_app_model_storageKey__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! src/app/model/storageKey */ "./src/app/model/storageKey.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+
+
+
+// import { Subscription } from "rxjs";
 
 
 
 
 
-
-
-// import { ToastrService } from 'ngx-toastr';
-// import {  } from "";
 var loginComponent = /** @class */ (function () {
-    function loginComponent(authService, fb, _common, router
-    // private toastr: ToastrService
-    ) {
+    function loginComponent(authService, fb, _common, router, toastr) {
         this.authService = authService;
         this.fb = fb;
         this._common = _common;
         this.router = router;
+        this.toastr = toastr;
         this.submited = false;
-        this.isLoading = false;
+        this.setLoading = false;
         this.signInMode = "login";
         this.userLoginType = "EXIST";
+        this.isUsername = {
+            checking: false,
+            timer: null
+        };
+        // private authStatusSub: Subscription;
         this.loginForm = this.fb.group({
-            email: ['abc@gmail.com', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]],
-            password: ['123', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].minLength(3)]]
+            userName: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]],
+            password: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].minLength(5), _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].maxLength(15)]]
         });
+        // loginForm = this.fb.group({
+        //   userName: ['abc@gmail.com', [Validators.required]],
+        //   password: ['123', [Validators.required, Validators.minLength(3)]]
+        // })
         this.registrationForm = this.fb.group({
             name: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]],
-            email: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required]],
-            password: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].minLength(3)]],
-            repassword: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].minLength(3)]],
-            mobile: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].minLength(10)]]
+            userName: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].minLength(5), _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].maxLength(15)]],
+            password: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].minLength(5), _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].maxLength(15)]],
+            repassword: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, this.matchPassword()]],
+            mobile: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].minLength(10), _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].maxLength(10)]]
         });
     }
     loginComponent.prototype.ngOnInit = function () {
-        var _this = this;
         document.body.classList.add("login-page", "hold-transition");
-        this.authStatusSub = this.authService.getAuthStatusListener().subscribe(function (authStatus) {
-            _this.isLoading = false;
-        });
+        // this.authStatusSub = this.authService.getAuthStatusListener().subscribe(
+        //   authStatus => {
+        //     this.isLoading = false;
+        //   }
+        // );
     };
     loginComponent.prototype.loginBtn = function () {
         var _this = this;
         console.log("loginBtn", this.loginForm);
         if (this.loginForm.valid) {
+            this.setLoading = true;
             var loginData = {
-                email: this.loginForm.value.email,
+                userName: this.loginForm.value.userName,
                 password: this.loginForm.value.password
             };
             this.authService.loginUser(loginData).subscribe(function (res) {
+                _this.setLoading = false;
                 console.log("loginBtn_API", res);
-                if (res.status == 1)
+                if (res.status == 1) {
                     _this.storeSessionData(res);
+                }
+                _this.toastr[res.status == 1 ? 'success' : 'error'](res.message);
             });
         }
     };
     loginComponent.prototype.storeSessionData = function (res) {
         console.log("storeSessionData", res);
         this._common.setLocalData(src_app_model_storageKey__WEBPACK_IMPORTED_MODULE_5__["storeKey"].id, res.data._id);
-        this._common.setLocalData(src_app_model_storageKey__WEBPACK_IMPORTED_MODULE_5__["storeKey"].email, res.data.email);
+        this._common.setLocalData(src_app_model_storageKey__WEBPACK_IMPORTED_MODULE_5__["storeKey"].userName, res.data.userName);
         this._common.setLocalData(src_app_model_storageKey__WEBPACK_IMPORTED_MODULE_5__["storeKey"].name, res.data.name);
         this._common.setLocalData(src_app_model_storageKey__WEBPACK_IMPORTED_MODULE_5__["storeKey"].mobileNumber, res.data.mobile);
         this._common.setLocalData(src_app_model_storageKey__WEBPACK_IMPORTED_MODULE_5__["storeKey"].token, res.token);
@@ -1174,14 +1417,16 @@ var loginComponent = /** @class */ (function () {
         var _this = this;
         console.log("registerBtn", this.registrationForm);
         if (this.registrationForm.valid) {
+            this.setLoading = true;
             var registerData = {
                 name: this.registrationForm.value.name,
-                email: this.registrationForm.value.email,
+                userName: this.registrationForm.value.userName,
                 password: this.registrationForm.value.password,
                 mobile: this.registrationForm.value.mobile
             };
             this.authService.registerUser(registerData).subscribe(function (res) {
                 console.log("registerBtn_API", res);
+                _this.setLoading = false;
                 if (res.status == 1) {
                     _this.userLoginType = 'NEWACC';
                     _this.signInMode = 'login';
@@ -1189,22 +1434,83 @@ var loginComponent = /** @class */ (function () {
             });
         }
     };
-    loginComponent.prototype.login = function (form) {
-        this.submited = true;
-        if (form.valid) {
-            console.log(form.value, "submited");
-            // this.isLoading = true;
-            this.authService.login(form.value.email, form.value.password);
+    loginComponent.prototype.matchPassword = function () {
+        return function (control) {
+            console.log("matchPassword", control);
+            if (control.parent) {
+                var password = control.parent.controls['password'];
+                return (control.value == password.value) ? null : { 'matchError': true };
+            }
+            else {
+                return null;
+            }
+        };
+    };
+    // function emailDomain(domainName: string) {
+    //   return (control: AbstractControl): { [key: string]: any } | null => {
+    //     const email: string = control.value;
+    //     const domain = email.substring(email.lastIndexOf('@') + 1);
+    //     if (email === '' || domain.toLowerCase() === domainName.toLowerCase()) {
+    //       return null;
+    //     } else {
+    //       return { 'emailDomain': true };
+    //     }
+    //   };
+    // }
+    loginComponent.prototype.validateUserName = function () {
+        var _this = this;
+        this.isUsername.checking = true;
+        if (this.isUsername.timer) {
+            clearTimeout(this.isUsername.timer);
         }
+        this.isUsername.timer = setTimeout(function () {
+            var data = { userName: _this.registrationForm.value.userName };
+            if (data.userName.trim().length != 0) {
+                _this.registrationForm.controls.userName.setErrors({ 'hasWhiteSpace': false });
+                _this.authService.validateUserName(data).subscribe(function (res) {
+                    _this.setLoading = false;
+                    _this.isUsername.checking = false;
+                    if (res.status == 1)
+                        // this.isUsername.isValid = !res.isExist
+                        _this.registrationForm.controls.userName.setErrors(res.isExist ? { 'inValidUser': true } : null);
+                    console.log("loginBtn_API", res, _this.registrationForm);
+                    // this.openToast()
+                    // this.storeSessionData(res)
+                });
+            }
+            else {
+                _this.registrationForm.controls.userName.setErrors({ 'hasWhiteSpace': true });
+            }
+        }, 1000);
     };
-    loginComponent.prototype.ngOnDestroy = function () {
-        // this.renderer.removeClass(document.body, 'hold-transition');
-        document.body.classList.remove("login-page", "hold-transition");
-        this.authStatusSub.unsubscribe();
+    /**
+   * Marks all controls in a form group as touched
+   * @param formGroup - The form group to touch
+   */
+    loginComponent.prototype.markFormGroupTouched = function (formGroup) {
+        var _this = this;
+        Object.values(formGroup.controls).forEach(function (control) {
+            control.markAsTouched();
+            if (control.controls) {
+                _this.markFormGroupTouched(control);
+            }
+        });
     };
+    // login(form: NgForm) {
+    //   this.submited = true
+    //   if (form.valid) {
+    //     console.log(form.value, "submited")
+    //     // this.isLoading = true;
+    //     this.authService.login(form.value.email, form.value.password);
+    //   }
+    // }
+    // ngOnDestroy() {
+    //   // this.renderer.removeClass(document.body, 'hold-transition');
+    //   document.body.classList.remove("login-page", "hold-transition")
+    //   // this.authStatusSub.unsubscribe();
+    // }
     loginComponent.prototype.openToast = function () {
         console.log("Open Toast Called");
-        // this.toastr.success('Hello world!');
         // this.toastr.error('Hello world!');
         // this.toastr.info('Hello world!');
         // this.toastr.show('Hello world!');
@@ -1219,9 +1525,8 @@ var loginComponent = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_auth_service__WEBPACK_IMPORTED_MODULE_3__["AuthService"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"],
             src_app_common_service__WEBPACK_IMPORTED_MODULE_4__["CommonService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"]
-            // private toastr: ToastrService
-        ])
+            _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_7__["ToastrService"]])
     ], loginComponent);
     return loginComponent;
 }());
@@ -1425,6 +1730,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _model_storageKey__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./model/storageKey */ "./src/app/model/storageKey.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+
 
 
 
@@ -1437,6 +1744,8 @@ var CommonService = /** @class */ (function () {
             status: false,
             memberId: null
         };
+        this.loadingSubject = new rxjs__WEBPACK_IMPORTED_MODULE_4__["Subject"]();
+        this.showLoading = false;
         this.tripsDummy = [
             {
                 tripId: this.getNewId(),
@@ -1767,21 +2076,31 @@ var CommonService = /** @class */ (function () {
                 isChecked: false
             },
         ];
-        this.getSaveData();
+        // this.getSaveData()
     }
-    CommonService.prototype.getSaveData = function () {
-        var data = localStorage.getItem("tripData");
-        var currentId = localStorage.getItem("currentId");
-        this.trips = data ? JSON.parse(data) : this.tripsDummy;
-        this.currentId = currentId ? JSON.parse(currentId) : this.currentId;
-        console.log("getSaveData", data, currentId);
+    CommonService.prototype.setLoading = function (showLoading) {
+        this.showLoading = showLoading;
+        this.loadingSubject.next({ showLoading: this.showLoading });
     };
-    CommonService.prototype.saveData = function () {
-        var data = JSON.stringify(this.trips);
-        var currentId = JSON.stringify(this.currentId);
-        localStorage.setItem("tripData", data);
-        localStorage.setItem("currentId", currentId);
+    CommonService.prototype.getShowloading = function () {
+        return this.showLoading;
     };
+    CommonService.prototype.subscribeLoading = function () {
+        return this.loadingSubject.asObservable();
+    };
+    // getSaveData() {
+    //   let data = localStorage.getItem("tripData")
+    //   let currentId = localStorage.getItem("currentId")
+    //   this.trips = data ? JSON.parse(data) : this.tripsDummy
+    //   this.currentId = currentId ? JSON.parse(currentId) : this.currentId
+    //   console.log("getSaveData", data, currentId)
+    // }
+    // saveData() {
+    //   let data = JSON.stringify(this.trips)
+    //   let currentId = JSON.stringify(this.currentId)
+    //   localStorage.setItem("tripData", data)
+    //   localStorage.setItem("currentId", currentId)
+    // }
     CommonService.prototype.getTripData = function (tripId) {
         if (tripId) {
             var result = [];
@@ -1866,6 +2185,15 @@ var CommonService = /** @class */ (function () {
     CommonService.prototype.getToken = function () {
         return localStorage.getItem((_model_storageKey__WEBPACK_IMPORTED_MODULE_3__["storeKey"].token).toString());
     };
+    CommonService.prototype.removeDuplicate = function (arrayData, filterByKey) {
+        var result = [];
+        arrayData.filter(function (item) {
+            var index = lodash__WEBPACK_IMPORTED_MODULE_2__["findIndex"](result, function (o) { return o[filterByKey] == item[filterByKey]; });
+            if (index < 0)
+                result.push(item);
+        });
+        return result;
+    };
     CommonService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: 'root'
@@ -1886,7 +2214,7 @@ var CommonService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <p>\n  expenses works!\n</p> -->\n<div *ngIf=\"setPage == 'expense'\">\n  <input type=\"button\" value=\"< Back\" (click)=\"backToTrips()\">\n  <input type=\"button\" value=\"Add Expense\" (click)=\"navigateToAddModifyExpense()\">\n  <input type=\"button\" value=\"View Reports\" (click)=\"reportsPage()\">\n  <br>\n  <br>\n\n  Trip Name : {{trip?.tripName}}\n  <br>\n  Total Cost : {{trip?.totalTripExpenseCost}}\n\n  <!-- <p>Add Expense <input type=\"button\" value=\"+\" (click)=\"addTripMode = true\"></p> -->\n  <hr>\n\n  <p *ngIf=\"trip?.tripExpense?.length == 0\">No Trip Added Yet</p>\n  <div *ngFor=\"let expense of trip?.tripExpense;let i=index\" (click)=\"showExpenseDetails(expense)\">\n    <p>{{expense.name}} <input style=\"float: right;\" type=\"button\" value=\"delete\" (click)=\"deleteExpense(expense,i)\">\n    </p>\n    <p>Total Members : {{expense.tripDetails.members.length}}</p>\n    <p>Per PersonCost : {{expense.tripDetails.perPersonCost}}</p>\n    <p>ExpenseCost : {{expense.tripDetails.expenseCost}}</p>\n    <hr>\n  </div>\n</div>\n<div *ngIf=\"setPage == 'addExpense'\">\n  <p>\n    <input type=\"button\" (click)=\"setPageTo('expense')\" value=\"< Show Expense\">\n  </p>\n  Expense Name :\n  <input type=\"text\" [(ngModel)]=\"addnewExpense.name\"><br>\n  Expense Cost :\n  {{addnewExpense.tripDetails.expenseCost | number:'1.0-2' }}\n  <br>\n  PerPerson Cost : \n  {{addnewExpense.tripDetails.perPersonCost | number:'1.0-2' }}\n  <hr>\n  <div>\n    Expense By: <input type=\"button\" value=\"+\" (click)=\"addInExpenseTray()\"\n      *ngIf=\"expenseTray.length < tripMembers.length\">\n    <br><br>\n    <div *ngFor=\"let tray of expenseTray;let i = index\">\n      <select name=\"members\" [(ngModel)]=\"tray.selectedmember\" (change)=\"setNewSelectedMember(tray)\">\n        <option *ngFor=\"let mem of tray.members\">{{mem.name}}</option>\n      </select>\n      Amount : <input type=\"text\" [(ngModel)]=\"tray.amount\" (keyup)=\"calculateCurrentCost()\" placeholder=\"Amount\">\n      <input *ngIf=\"i!=0\" style=\"float: right;\" type=\"button\" value=\"-\" (click)=\"removeInExpenseTray(i)\">\n      <br>\n    </div>\n\n\n  </div>\n  <br>\n  <hr>\n  <div>\n    Expense Splited between :\n    <br><br>\n    <div>\n      <input type=\"checkbox\" [(ngModel)]=\"ischeckAll\" (click)=\"checkAll($event)\"> Check All\n      <br>\n      <br>\n      <div style=\"text-align: center;\">\n        <table width=\"100%\">\n          <thead>\n            <td>Have to Pay</td>\n            <td>Name</td>\n            <td>Paid Amount</td>\n            <td>Payable Amount</td>\n          </thead>\n          <tbody *ngFor=\"let members of currentMember\">\n            <td><input type=\"checkbox\" [(ngModel)]=\"members.isChecked\" (click)=\"memberChecked($event,members)\"></td>\n            <td>{{members.name}}</td>\n            <td [ngClass]=\"members.paidamount > 0 ? 'green_color' : 'red_color'\">{{members.paidamount | number:'1.0-2'}} </td>\n            <td [ngClass]=\"members.finalAmount > 0 ? 'green_color' : 'red_color'\">{{members.finalAmount | number:'1.0-2'}} </td>\n            <!-- <td><input type=\"text\" [(ngModel)]=\"members.paidamount\"> </td> -->\n          </tbody>\n          <thead>\n            <th><hr>Total</th>\n            <th><hr>&nbsp;</th>\n            <th><hr>{{footerInfo.amountpaid | number:'1.0-2' }}</th>\n            <th><hr>{{footerInfo.amountBalance | number:'1.0-2' }}</th>\n          </thead>\n        </table>\n      </div>\n      <!-- <div *ngFor=\"let members of currentMember\">\n\n        <input type=\"checkbox\" [(ngModel)]=\"members.isChecked\" (click)=\"memberChecked($event,members)\">\n\n        {{members.name}}\n\n        <br>\n      </div> -->\n    </div>\n  </div>\n  <!-- <input type=\"text\" [(ngModel)]=\"addnewExpense.tripDetails.expenseCost\"> -->\n\n  <p>\n    <input type=\"button\" (click)=\"addExpense(addnewExpense)\" value=\"Add Expense\">\n  </p>\n\n\n</div>"
+module.exports = "\n<div *ngIf=\"setPage == 'expense'\">\n  <input type=\"button\" value=\"< Back\" (click)=\"backToTrips()\">\n  <input type=\"button\" value=\"Add Expense\" (click)=\"navigateToAddModifyExpense()\">\n  <input type=\"button\" value=\"View Reports\" (click)=\"reportsPage()\">\n  <br>\n  <br>\n\n  Trip Name : {{trip?.tripName}}\n  <br>\n  Total Cost : {{trip?.totalTripExpenseCost}}\n\n  <hr>\n\n  <p *ngIf=\"trip?.tripExpense?.length == 0\">No Expense Added Yet</p>\n  <div *ngFor=\"let expense of trip?.tripExpense;let i=index\">\n    <p (click)=\"showExpenseDetails(expense)\">{{expense.name}}\n    </p>\n    <input style=\"float: right;\" type=\"button\" *ngIf=\"expense.creatorID == userId || trip.creatorID == userId\"\n      value=\"delete\" (click)=\"deleteExpense(expense,i)\">\n    <p>Total Members : {{expense.tripDetails.members.length}}</p>\n    <p>Per PersonCost : {{expense.tripDetails.perPersonCost}}</p>\n    <p>ExpenseCost : {{expense.tripDetails.expenseCost}}</p>\n    <hr>\n  </div>\n</div>\n<div *ngIf=\"setPage == 'addExpense'\">\n  <p>\n    <input type=\"button\" (click)=\"setPageTo('expense')\" value=\"< Show Expense\">\n  </p>\n  Expense Name :\n  <input type=\"text\" [(ngModel)]=\"addnewExpense.name\"><br>\n  Expense Cost :\n  {{addnewExpense.tripDetails.expenseCost | number:'1.0-2' }}\n  <br>\n  PerPerson Cost :\n  {{addnewExpense.tripDetails.perPersonCost | number:'1.0-2' }}\n  <hr>\n  <div>\n    Expense By: <input type=\"button\" value=\"+\" (click)=\"addInExpenseTray()\"\n      *ngIf=\"expenseTray.length < tripMembers.length\">\n    <br><br>\n    <div *ngFor=\"let tray of expenseTray;let i = index\">\n      <select name=\"members\" [(ngModel)]=\"tray.selectedmember\" (change)=\"setNewSelectedMember(tray)\">\n        <option *ngFor=\"let mem of tray.members\">{{mem.name}}</option>\n      </select>\n      Amount : <input type=\"text\" [(ngModel)]=\"tray.amount\" (keyup)=\"calculateCurrentCost()\" placeholder=\"Amount\">\n      <input *ngIf=\"i!=0\" style=\"float: right;\" type=\"button\" value=\"-\" (click)=\"removeInExpenseTray(i)\">\n      <br>\n    </div>\n\n\n  </div>\n  <br>\n  <hr>\n  <div>\n    Expense Splited between :\n    <br><br>\n    <div>\n      <input type=\"checkbox\" [(ngModel)]=\"ischeckAll\" (click)=\"checkAll($event)\"> Check All\n      <br>\n      <br>\n      <div style=\"text-align: center;\">\n        <table width=\"100%\">\n          <thead>\n            <td>Have to Pay</td>\n            <td>Name</td>\n            <td>Paid Amount</td>\n            <td>Payable Amount</td>\n          </thead>\n          <tbody *ngFor=\"let members of currentMember\">\n            <td><input type=\"checkbox\" [(ngModel)]=\"members.isChecked\" (click)=\"memberChecked($event,members)\"></td>\n            <td>{{members.name}}</td>\n            <td [ngClass]=\"members.paidamount > 0 ? 'green_color' : 'red_color'\">{{members.paidamount | number:'1.0-2'}}\n            </td>\n            <td [ngClass]=\"members.finalAmount > 0 ? 'green_color' : 'red_color'\">\n              {{members.finalAmount | number:'1.0-2'}} </td>\n          </tbody>\n          <thead>\n            <th>\n              <hr>Total</th>\n            <th>\n              <hr>&nbsp;</th>\n            <th>\n              <hr>{{footerInfo.amountpaid | number:'1.0-2' }}</th>\n            <th>\n              <hr>{{footerInfo.amountBalance | number:'1.0-2' }}</th>\n          </thead>\n        </table>\n      </div>\n     \n    </div>\n  </div>\n\n  <p>\n    <input type=\"button\" (click)=\"addExpense(addnewExpense)\" value=\"Add Expense\">\n  </p>\n\n\n</div>"
 
 /***/ }),
 
@@ -2184,28 +2512,28 @@ var ExpensesComponent = /** @class */ (function () {
             // this.addInExpenseTray()
         }
     };
-    ExpensesComponent.prototype.addExpense = function (addExpense) {
-        console.log("Add Expense Called", addExpense);
-        var expense = {
-            expenseId: this._common.getNewId(),
-            name: addExpense.name,
-            tripDetails: {
-                expenseCost: addExpense.tripDetails.expenseCost,
-                members: [],
-                perPersonCost: null
-            }
-        };
-        this.AddMembersList(expense);
-        this.trip.tripExpense.push(expense);
-        // this.calculateDetails()
-        // this.calculateExpenseDetails()
-        this.setPageTo('expense');
-    };
-    ExpensesComponent.prototype.calculateDetails = function () {
-        this.trip.tripExpense.filter(function (item) {
-            // this._common.calculateDetails(item)
-        });
-    };
+    // addExpense(addExpense) {
+    //   console.log("Add Expense Called", addExpense)
+    //   let expense: TripExpenseModel = {
+    //     expenseId: this._common.getNewId(),
+    //     name: addExpense.name,
+    //     tripDetails: {
+    //       expenseCost: addExpense.tripDetails.expenseCost,
+    //       members: [],
+    //       perPersonCost: null
+    //     }
+    //   }
+    //   this.AddMembersList(expense)
+    //   this.trip.tripExpense.push(expense)
+    //   // this.calculateDetails()
+    //   // this.calculateExpenseDetails()
+    //   this.setPageTo('expense')
+    // }
+    // calculateDetails() {
+    //   this.trip.tripExpense.filter(item => {
+    //     // this._common.calculateDetails(item)
+    //   })
+    // }
     ExpensesComponent.prototype.calculateExpenseDetails = function () {
         var totalCost = 0;
         this.trip.tripExpense.filter(function (item) {
@@ -2240,18 +2568,31 @@ var ExpensesComponent = /** @class */ (function () {
         // });
     };
     ExpensesComponent.prototype.deleteExpense = function (item, index) {
-        this.trip.tripExpense.splice(index, 1);
-        this.calculateExpenseDetails();
+        var _this = this;
+        // this.trip.tripExpense.splice(index, 1);
+        // this.calculateExpenseDetails();
+        console.log("deleteExpense", item, index);
+        var data = {
+            tripId: this.tripId,
+            expenseId: item._id
+        };
+        this._trip.deleteExpense(data).subscribe(function (res) {
+            console.log("deleteExpense_api", res);
+            if (res.status == 1)
+                _this.trip.tripExpense.splice(index, 1);
+        });
     };
     ExpensesComponent.prototype.getTripInfo = function (tripId) {
         var _this = this;
         var data = { tripId: tripId };
+        this._common.setLoading(true);
         this._trip.getTripInfo(data).subscribe(function (res) {
+            _this._common.setLoading(false);
             console.log("getTripInfo", res);
             _this.trip = res.result;
             _this.tripMembers = _this.trip.members;
             _this.currentMember = JSON.parse(JSON.stringify(_this.tripMembers));
-            _this.calculateDetails();
+            // this.calculateDetails()
             _this.calculateExpenseDetails();
             _this.setcurrentMembersBulkCheck(true);
             // this.friendsList = res.friendsList
@@ -2283,7 +2624,7 @@ var ExpensesComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  <input type=\"button\" value=\"< Back\" (click)=\"backToTrips()\">\n</p>\n\n<div class=\"btn-group\">\n  <button (click)=\"setPageTo('myfriends')\">My Friends</button>\n  <button (click)=\"setPageTo('request')\">Manage Request</button>\n  <button (click)=\"setPageTo('addfriend')\">Add Friend</button>\n</div>\n\n<div *ngIf=\"setPage == 'myfriends'\">\n  <p>My friends</p>\n\n  <div *ngFor=\"let friend of friendsList;let i = index\">\n    {{friend.name}}\n    <input type=\"button\" *ngIf=\"!friend.resMsg\" style=\"float: right;\" value=\"Unfriend\"\n      (click)=\"manageFriend(friend,true)\">\n    <span style=\"float: right;\" *ngIf=\"friend.resMsg\">{{friend.resMsg}}</span>\n    <br>\n    <hr>\n  </div>\n</div>\n\n\n<div *ngIf=\"setPage == 'request'\">\n  <p>My request</p>\n  <!-- <hr> -->\n\n  <div *ngIf=\"friendsListRequestGroup[3].length > 0\">\n    <p class=\"title-heading\">Pending Requests</p>\n\n    <div *ngFor=\"let friend of friendsListRequestGroup[3];let i = index\">\n      {{friend.name}}\n      <input type=\"button\" *ngIf=\"!friend.resMsg\" style=\"float: right;\" value=\"Cancel\"\n        (click)=\"manageFriend(friend,false)\">\n      <input type=\"button\" *ngIf=\"!friend.resMsg\" style=\"float: right;\" value=\"Accept\"\n        (click)=\"manageFriend(friend,true)\">\n      <span style=\"float: right;\" *ngIf=\"friend.resMsg\">{{friend.resMsg}}</span>\n      <br>\n      <hr>\n    </div>\n  </div>\n\n\n  <!-- ------------------------------------------------------------------------------- -->\n\n  <div *ngIf=\"friendsListRequestGroup[2].length > 0\">\n    <p class=\"title-heading\">Awaiting Friend Response</p>\n\n\n    <div *ngFor=\"let friend of friendsListRequestGroup[2];let i = index\">\n      {{friend.name}}\n      <input type=\"button\" *ngIf=\"!friend.resMsg\" style=\"float: right;\" value=\"Cancel Sent Request\"\n        (click)=\"manageFriend(friend,false)\">\n      <span style=\"float: right;\" *ngIf=\"friend.resMsg\">{{friend.resMsg}}</span>\n\n      <br>\n      <hr>\n    </div>\n  </div>\n\n</div>\n\n\n<div *ngIf=\"setPage == 'addfriend'\">\n\n  <p>\n    <input style=\"width: 100%;\" type=\"text\" [(ngModel)]=\"searchFriend\" placeholder=\"Search Friend\"\n      (ngModelChange)=\"getFriendSearchResult($event)\">\n  </p>\n  <div *ngIf=\"searchFriend?.length > 0\">\n\n    <div *ngFor=\"let friend of friendsListFilter ;let i = index;\">\n\n      {{friend.name}}\n      <input *ngIf=\"!friend.resMsg && friend.friendStatus == null\" type=\"button\" style=\"float: right;\"\n        (click)=\"manageFriend(friend,true)\" value=\"Add Friend\">\n      <span style=\"float: right;\" *ngIf=\"friend.resMsg\">{{friend.resMsg}}</span>\n      <br>\n      <hr>\n    </div>\n  </div>\n\n  <div *ngIf=\"false\">\n\n    <p>Add Friends Locally</p>\n\n    <input type=\"text\" placeholder=\"First Name\" [(ngModel)]=\"addFriendData.name\"><br>\n    <!-- <input type=\"text\" placeholder=\"Last Name\" [(ngModel)]=\"addFriendData.name.last\"><br> -->\n    <input type=\"email\" placeholder=\"Email\" [(ngModel)]=\"addFriendData.emailId\"><br>\n    <input type=\"tel\" placeholder=\"Mobile Number\" [(ngModel)]=\"addFriendData.mobileNo\"><br>\n\n    <input type=\"button\" value=\"Add Friend\" (click)=\"AddFriendFn(addFriendData)\">\n  </div>\n\n\n</div>"
+module.exports = "<p>\n  <input type=\"button\" value=\"< Back\" (click)=\"backToTrips()\">\n</p>\n\n<div class=\"btn-group\">\n  <button (click)=\"setPageTo('myfriends')\">My Friends</button>\n  <button (click)=\"setPageTo('request')\">Manage Request</button>\n  <button (click)=\"setPageTo('addfriend')\">Add Friend</button>\n</div>\n\n<div *ngIf=\"setPage == 'myfriends'\">\n  <p>My friends</p>\n\n  <div *ngFor=\"let friend of friendsList;let i = index\">\n    {{friend.name}}\n    <input type=\"button\" *ngIf=\"!friend.resMsg\" style=\"float: right;\" value=\"Unfriend\"\n      (click)=\"manageFriend(friend,true)\">\n    <span style=\"float: right;\" *ngIf=\"friend.resMsg\">{{friend.resMsg}}</span>\n    <br>\n    <hr>\n  </div>\n</div>\n\n\n<div *ngIf=\"setPage == 'request'\">\n  <p>My request</p>\n  <!-- <hr> -->\n\n  <div *ngIf=\"friendsListRequestGroup[3].length > 0\">\n    <p class=\"title-heading\">Pending Requests</p>\n\n    <div *ngFor=\"let friend of friendsListRequestGroup[3];let i = index\">\n      {{friend.name}} ({{friend.userName}})\n      <input type=\"button\" *ngIf=\"!friend.resMsg\" style=\"float: right;\" value=\"Cancel\"\n        (click)=\"manageFriend(friend,false)\">\n      <input type=\"button\" *ngIf=\"!friend.resMsg\" style=\"float: right;\" value=\"Accept\"\n        (click)=\"manageFriend(friend,true)\">\n      <span style=\"float: right;\" *ngIf=\"friend.resMsg\">{{friend.resMsg}}</span>\n      <br>\n      <hr>\n    </div>\n  </div>\n\n\n  <!-- ------------------------------------------------------------------------------- -->\n\n  <div *ngIf=\"friendsListRequestGroup[2].length > 0\">\n    <p class=\"title-heading\">Awaiting Friend Response</p>\n\n\n    <div *ngFor=\"let friend of friendsListRequestGroup[2];let i = index\">\n      {{friend.name}} ({{friend.userName}})\n      <input type=\"button\" *ngIf=\"!friend.resMsg\" style=\"float: right;\" value=\"Cancel Sent Request\"\n        (click)=\"manageFriend(friend,false)\">\n      <span style=\"float: right;\" *ngIf=\"friend.resMsg\">{{friend.resMsg}}</span>\n\n      <br>\n      <hr>\n    </div>\n  </div>\n\n</div>\n\n\n<div *ngIf=\"setPage == 'addfriend'\">\n\n  <p>\n    <input style=\"width: 100%;\" type=\"text\" [(ngModel)]=\"searchFriend\" placeholder=\"Search Friend\"\n      (ngModelChange)=\"getFriendSearchResult($event)\">\n  </p>\n  <div *ngIf=\"searchFriend?.length > 0\">\n\n    <div *ngFor=\"let friend of friendsListFilter ;let i = index;\">\n\n      {{friend.name}} ({{friend.userName}})\n      <input *ngIf=\"!friend.resMsg && friend.friendStatus == null\" type=\"button\" style=\"float: right;\"\n        (click)=\"manageFriend(friend,true)\" value=\"Add Friend\">\n      <span style=\"float: right;\" *ngIf=\"friend.resMsg\">{{friend.resMsg}}</span>\n      <br>\n      <hr>\n    </div>\n  </div>\n\n  <div *ngIf=\"false\">\n\n    <p>Add Friends Locally</p>\n\n    <input type=\"text\" placeholder=\"First Name\" [(ngModel)]=\"addFriendData.name\"><br>\n    <!-- <input type=\"text\" placeholder=\"Last Name\" [(ngModel)]=\"addFriendData.name.last\"><br> -->\n    <input type=\"email\" placeholder=\"Email\" [(ngModel)]=\"addFriendData.emailId\"><br>\n    <input type=\"tel\" placeholder=\"Mobile Number\" [(ngModel)]=\"addFriendData.mobileNo\"><br>\n\n    <input type=\"button\" value=\"Add Friend\" (click)=\"AddFriendFn(addFriendData)\">\n  </div>\n\n\n</div>"
 
 /***/ }),
 
@@ -2490,7 +2831,7 @@ var FriendComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Trip Expense Manager</h1>\n<p>{{loggedInUser}}</p>\n\n<input type=\"button\" style=\"float: right;\" value=\"Save\" (click)=\"saveData()\">\n<input type=\"button\" style=\"float: right;\" value=\"logout\" (click)=\"logout()\">"
+module.exports = "<h1>Trip Expense Manager</h1>\n<p>{{loggedInUser}}</p>\n\n<!-- <input type=\"button\" style=\"float: right;\" value=\"Save\" (click)=\"saveData()\"> -->\n<input type=\"button\" style=\"float: right;\" value=\"logout\" (click)=\"logout()\">"
 
 /***/ }),
 
@@ -2533,12 +2874,14 @@ var HeaderComponent = /** @class */ (function () {
     HeaderComponent.prototype.ngOnInit = function () {
         var _this = this;
         this._common.getLocalData(_model_storageKey__WEBPACK_IMPORTED_MODULE_4__["storeKey"].name).then(function (name) {
-            _this.loggedInUser = "Welcome " + name;
+            _this._common.getLocalData(_model_storageKey__WEBPACK_IMPORTED_MODULE_4__["storeKey"].userName).then(function (userName) {
+                _this.loggedInUser = "Welcome " + name + " (" + userName + ")";
+            });
         });
     };
     HeaderComponent.prototype.saveData = function () {
         console.log("Data Saved");
-        this._common.saveData();
+        // this._common.saveData();
     };
     HeaderComponent.prototype.logout = function () {
         this.authService.logout();
@@ -2572,15 +2915,19 @@ __webpack_require__.r(__webpack_exports__);
 var ApiConstants = {
     user: {
         login: "/api/userDetails/login",
-        signup: "/api/userDetails/signup"
+        signup: "/api/userDetails/signup",
+        checkUserName: "/api/userDetails/checkUserName"
     },
     trip: {
         getTripDetails: "/api/tripDetails/getTripDetails",
-        AddTrip: "/api/tripDetails/AddTrip"
+        AddTrip: "/api/tripDetails/AddTrip",
+        deleteTrip: "/api/tripDetails/deleteTrip",
+        getTripMembersDetails: "/api/tripDetails/getTripMembersDetails"
     },
     expense: {
         getTripInfo: "/api/expenseDetails/getTripInfo",
-        addTripExpense: "/api/expenseDetails/addTripExpense"
+        addTripExpense: "/api/expenseDetails/addTripExpense",
+        deleteExpense: "/api/expenseDetails/deleteExpense"
     },
     friends: {
         getFriendsList: "/api/friendDetails/getFriendsList",
@@ -2606,7 +2953,7 @@ var storeKey;
 (function (storeKey) {
     storeKey[storeKey["name"] = 0] = "name";
     storeKey[storeKey["id"] = 1] = "id";
-    storeKey[storeKey["email"] = 2] = "email";
+    storeKey[storeKey["userName"] = 2] = "userName";
     storeKey[storeKey["mobileNumber"] = 3] = "mobileNumber";
     storeKey[storeKey["token"] = 4] = "token";
 })(storeKey || (storeKey = {}));
@@ -2732,7 +3079,9 @@ var ReportComponent = /** @class */ (function () {
     ReportComponent.prototype.getTripInfo = function (tripId) {
         var _this = this;
         var data = { tripId: tripId };
+        this._common.setLoading(true);
         this._trip.getTripInfo(data).subscribe(function (res) {
+            _this._common.setLoading(false);
             console.log("getTripInfo", res);
             _this.trip = res.result;
             _this.calculateReport();
@@ -2770,7 +3119,7 @@ var ReportComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-header></app-header>\n<router-outlet></router-outlet>\n"
+module.exports = "<app-header></app-header>\n<div class=\"loading\" *ngIf=\"setLoading\"></div>\n\n<router-outlet></router-outlet>"
 
 /***/ }),
 
@@ -2797,12 +3146,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ThemeComponent", function() { return ThemeComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _common_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../common.service */ "./src/app/common.service.ts");
+
 
 
 var ThemeComponent = /** @class */ (function () {
-    function ThemeComponent() {
+    function ThemeComponent(_common) {
+        this._common = _common;
     }
     ThemeComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.setLoading = this._common.getShowloading();
+        this.subscription = this._common.subscribeLoading().subscribe(function (setLoading) {
+            console.log("setLoading", setLoading);
+            _this.setLoading = setLoading.showLoading;
+        });
+    };
+    ThemeComponent.prototype.ngOnDestroy = function () {
+        if (this.subscription)
+            this.subscription.unsubscribe();
     };
     ThemeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -2810,7 +3172,7 @@ var ThemeComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./theme.component.html */ "./src/app/theme/theme.component.html"),
             styles: [__webpack_require__(/*! ./theme.component.scss */ "./src/app/theme/theme.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_common_service__WEBPACK_IMPORTED_MODULE_2__["CommonService"]])
     ], ThemeComponent);
     return ThemeComponent;
 }());
@@ -2826,7 +3188,7 @@ var ThemeComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"currentPage == 'showTrip'\">\n\n  <p>Add Trips\n    <input type=\"button\" value=\"+\" (click)=\"setCurrentPage('addTrip')\">\n    <input type=\"button\" value=\"Manage Friends\" (click)=\"friendsPage()\">\n  </p>\n  <hr>\n\n  <p *ngIf=\"trips.length == 0\">No Trip Added Yet</p>\n  <div *ngFor=\"let trip of trips\" (click)=\"showTripDetails(trip)\">\n    <div style=\"float: right;\">Trip Cost : {{trip.totalTripExpenseCost}}\n      <br>\n      <input *ngIf=\"userId == trip.creatorID\" type=\"button\" value=\"Delete Trip\">\n    </div>\n    <p>Trip Name : {{trip.tripName}}</p>\n    <p>Expenses : {{trip.tripExpense.length}}</p>\n    <p>Members : {{trip.members.length}}</p>\n    <hr>\n  </div>\n</div>\n\n<div *ngIf=\"currentPage == 'addTrip'\">\n  <p>Add Trip Details</p>\n\n\n\n  Trip Name :\n  <input type=\"text\" placeholder=\"Trip Name\" [(ngModel)]=\"addTrip.tripName\">\n  <br>\n  <!-- expense Total Cost:\n  <input type=\"text\" placeholder=\"Expense Total Cost\" (keyup)=\"calculateDetails()\" [(ngModel)]=\"tripDetails.total_cost\"> -->\n  <br>\n  Add Members <input type=\"button\" value=\"+\">\n  <br>\n  <br>\n  Choose Trip Members: {{addTrip.members.length}}\n\n  <input style=\"float: right;\" type=\"text\" [(ngModel)]=\"searchFriend\" placeholder=\"Search Friend\"\n    (ngModelChange)=\"filterFriend($event)\">\n  <hr>\n  <div *ngFor=\"let friend of friendsList ;let i = index;\">\n\n    {{friend.name}} <input type=\"button\" style=\"float: right;\" (click)=\"addSelectedMember(friend)\"\n      [value]=\"friend.isChecked ? 'Removed': 'Add'\">\n    <br>\n    <hr>\n    <!-- <p>{{trip.memberName}}</p> -->\n\n    <!-- <p>Have to pay <input type=\"checkbox\" [(ngModel)]=\"trip.havetopay\"></p>\n    <p *ngIf=\"trip.havetopay\">Have already Paid <input type=\"checkbox\" [(ngModel)]=\"trip.hasalreadypaid\"></p>\n    <p *ngIf=\"!trip.hasalreadypaid\">\n      Paid Amount : {{trip.paidamount}}\n    </p>\n    <p *ngIf=\"trip.hasalreadypaid\">\n      Paid Amount : <input type=\"text\" [(ngModel)]=\"trip.paidamount\" (keyup)=\"calculateDetails()\">\n    </p>\n    <p>\n      total Payable : <span [ngClass]=\"trip.finalAmount > 0 ? 'green_color' : 'red_color'\">{{trip.finalAmount}}</span>\n    </p>\n    <hr> -->\n  </div>\n\n\n\n\n\n\n  <p></p>\n\n  <input type=\"button\" value=\"Add Trip\" (click)=\"saveTrip()\">\n  <input type=\"button\" value=\"cancel\" (click)=\"setCurrentPage('showTrip')\">\n</div>\n<!-- showCalculator -->\n<!-- <app-calculator [tripData]=\"tripDetailsObj\" (calculator)=\"outputCalculator($event)\" *ngIf=\"showCalculator\"></app-calculator> -->"
+module.exports = "<div>\n\n  <p>Add Trips\n    <input type=\"button\" value=\"+\" (click)=\"editTrip();\">\n    <input type=\"button\" value=\"Manage Friends\" (click)=\"friendsPage()\">\n  </p>\n  <hr>\n\n  <p *ngIf=\"trips.length == 0\">No Trip Added Yet</p>\n\n  <div style=\"text-align: center;\" *ngIf=\"trips.length != 0\">\n    \n    <table width=\"100%\">\n      <thead>\n        <th>Name</th>\n        <th>Expense</th>\n        <th>Members</th>\n        <th>Cost</th>\n        <th>Action</th>\n      </thead>\n\n      <tbody *ngFor=\"let tripItem of trips\">\n        <td><a (click)=\"showTripDetails(tripItem)\">{{tripItem.tripName}}</a></td>\n        <td>{{tripItem?.tripExpense.length}}</td>\n        <td>{{tripItem?.members.length}}</td>\n        <td>{{tripItem?.totalTripExpenseCost}}</td>\n        <td>\n          <input *ngIf=\"userId == tripItem.creatorID\" type=\"button\" value=\"Edit Trip\" (click)=\"editTrip(tripItem)\">\n          <input *ngIf=\"userId == tripItem.creatorID\" type=\"button\" value=\"Delete Trip\" (click)=\"deleteTrip(tripItem)\">\n        </td>\n      </tbody>\n      \n    </table>\n  </div>\n\n</div>\n"
 
 /***/ }),
 
@@ -2855,11 +3217,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _common_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../common.service */ "./src/app/common.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _tripservice_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../tripservice.service */ "./src/app/tripservice.service.ts");
-/* harmony import */ var _model_storageKey__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../model/storageKey */ "./src/app/model/storageKey.ts");
-
+/* harmony import */ var _tripservice_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../tripservice.service */ "./src/app/tripservice.service.ts");
+/* harmony import */ var _model_storageKey__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../model/storageKey */ "./src/app/model/storageKey.ts");
 
 
 
@@ -2871,118 +3230,42 @@ var TripComponent = /** @class */ (function () {
         this._common = _common;
         this.router = router;
         this._trip = _trip;
-        this.addTripMode = false;
-        this.showCalculator = false;
-        this.addTrip = {
-            tripId: this._common.getNewId(),
-            tripName: null,
-            members: [],
-            totalTripExpenseCost: 0,
-            tripExpense: [],
-            creatorID: null
-        };
     }
-    // trips: TripModel[];
-    // tripDetails: TripDetailsModel = {
-    //   name: "ABC",
-    //   total_cost: null,
-    //   members: [],
-    //   perPersonCost: 0
-    // }
     TripComponent.prototype.ngOnInit = function () {
         var _this = this;
-        console.log("_common service", this._common.value);
-        this.trips = this._common.getTripData();
-        //Calling API for Home Data of Trips On load
-        this.setCurrentPage('showTrip');
-        this._common.getLocalData(_model_storageKey__WEBPACK_IMPORTED_MODULE_6__["storeKey"].id).then(function (id) {
+        this.getTripDetails();
+        this._common.getLocalData(_model_storageKey__WEBPACK_IMPORTED_MODULE_5__["storeKey"].id).then(function (id) {
             _this.userId = id;
         });
     };
-    // updateFilterList(friends) {
-    //   this.friendsListFilter = JSON.parse(JSON.stringify(this.friendsList))
-    // }
-    TripComponent.prototype.addTripData = function () {
-        console.log("Add Trip");
-        // let addTrip: TripModel = {
-        //   tripId: this._common.getNewId(),
-        //   tripName: null,
-        //   members: null,
-        //   tripDetails: null
-        // }
+    //To Navigate to Add/Edit Trips Page.
+    TripComponent.prototype.editTrip = function (tripItem) {
+        this.router.navigate(tripItem ? ['addmodifytrip', tripItem.tripId] : ['addmodifytrip']);
     };
-    TripComponent.prototype.addMembers = function (tripData) {
-        console.log("addMembers", tripData);
-        var members = {
-            memberId: null,
-            memberName: null,
-            havetopay: true,
-            hasalreadypaid: false,
-            paidamount: 0,
-            finalAmount: null,
-            isChecked: null
-        };
-        tripData.members.push(members);
-    };
-    TripComponent.prototype.saveTrip = function () {
-        console.log("saveTrip", this.addTrip);
-        this.AddTrip();
-        // this._common.addTrip(this.addTrip)
-        // this.addTripMode = false
-        // this.currentPage = "showTrip"
-    };
-    TripComponent.prototype.setCurrentPage = function (page) {
-        this.currentPage = page;
-        if (page == 'addTrip') {
-            this.getFriendsList(1);
-        }
-        else if (page == 'showTrip') {
-            this.getTripDetails();
-        }
-    };
-    TripComponent.prototype.addSelectedMember = function (friendItem) {
-        console.log("addSelectedMember", friendItem);
-        friendItem.isChecked = !friendItem.isChecked;
-        if (friendItem.isChecked) {
-            var members = {
-                memberId: friendItem._id,
-                memberName: friendItem.name,
-                havetopay: true,
-                hasalreadypaid: false,
-                paidamount: 0,
-                finalAmount: null,
-                isChecked: null
-            };
-            this.addTrip.members.push(members);
-        }
-        else {
-            var index = lodash__WEBPACK_IMPORTED_MODULE_4__["findIndex"](this.addTrip.members, function (o) {
-                return o.memberId == friendItem._id;
-            });
-            this.addTrip.members.splice(index, 1);
-        }
-        // this.updateFilterList()
-    };
-    TripComponent.prototype.filterFriend = function (event) {
-        console.log("filterFriend", event);
-        this.friendsList = this.friendsListFilter.filter(function (item) { return (item.name).toLowerCase().includes(event.toLowerCase()); });
-    };
+    //Navigate to Expense Page Where all expense of trips will be listed.
     TripComponent.prototype.showTripDetails = function (trip) {
-        console.log("showTripDetails", trip);
         this.router.navigate(['expense', trip.tripId]);
-        // this.tripDetailsObj = trip
-        // this.showCalculator = true
     };
+    //Navigate to Friends Page Where you can manage friends.
     TripComponent.prototype.friendsPage = function () {
         console.log("Navigate to friends page");
         this.router.navigate(['friends']);
     };
-    TripComponent.prototype.outputCalculator = function (event) {
-        console.log("outputCalculator", event);
+    TripComponent.prototype.deleteTrip = function (tripItem) {
+        var _this = this;
+        console.log("deleteTrip", tripItem);
+        var tripData = {
+            tripId: tripItem.tripId
+        };
+        this._trip.deleteTrip(tripData).subscribe(function (res) {
+            console.log("deleteTrip_Api", res);
+            _this.getTripDetails();
+        });
     };
     // ----------------------------------------------------------------------------------------------------
     TripComponent.prototype.getTripDetails = function () {
         var _this = this;
+        this._common.setLoading(true);
         var addTrip;
         this.trips = [];
         this._trip.getTripDetails().subscribe(function (res) {
@@ -2992,39 +3275,23 @@ var TripComponent = /** @class */ (function () {
                     tripId: item._id,
                     tripName: item.tripName,
                     members: item.members,
-                    totalTripExpenseCost: item.totalTripExpenseCost,
-                    tripExpense: [],
+                    totalTripExpenseCost: _this.calculateExpenseDetails(item),
+                    tripExpense: item.tripExpense,
                     creatorID: item.creatorID
                 };
                 _this.trips.push(addTrip);
             });
+            _this._common.setLoading(false);
         });
     };
-    TripComponent.prototype.getFriendsList = function (type) {
-        var _this = this;
-        var data = { type: type };
-        this._trip.getFriendsList(data).subscribe(function (res) {
-            console.log("getFriendsList", res);
-            _this.friendsList = res.friendsList.friendsDataInfo;
-            _this.friendsListFilter = JSON.parse(JSON.stringify(_this.friendsList));
+    TripComponent.prototype.calculateExpenseDetails = function (tripItem) {
+        var totalCost = 0;
+        tripItem.tripExpense.filter(function (item) {
+            console.log("calculateExpenseDetails", item);
+            var num = item.tripDetails.expenseCost;
+            totalCost = totalCost + parseFloat(num);
         });
-    };
-    TripComponent.prototype.AddTrip = function () {
-        var _this = this;
-        var data = {
-            tripName: this.addTrip.tripName,
-            totalTripExpenseCost: this.addTrip.totalTripExpenseCost,
-            members: []
-        };
-        this.addTrip.members.filter(function (item) {
-            data.members.push(item.memberId);
-        });
-        this._trip.AddTrip(data).subscribe(function (res) {
-            console.log("AddTrip", res);
-            _this.setCurrentPage("showTrip");
-            // this.friendsList = res.friendsList
-            // this.friendsListFilter = JSON.parse(JSON.stringify(this.friendsList))
-        });
+        return totalCost;
     };
     TripComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -3034,7 +3301,7 @@ var TripComponent = /** @class */ (function () {
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_common_service__WEBPACK_IMPORTED_MODULE_2__["CommonService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
-            _tripservice_service__WEBPACK_IMPORTED_MODULE_5__["TripserviceService"]])
+            _tripservice_service__WEBPACK_IMPORTED_MODULE_4__["TripserviceService"]])
     ], TripComponent);
     return TripComponent;
 }());
@@ -3057,6 +3324,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _model_apiLinks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./model/apiLinks */ "./src/app/model/apiLinks.ts");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
+
 
 
 
@@ -3064,7 +3333,8 @@ __webpack_require__.r(__webpack_exports__);
 var TripserviceService = /** @class */ (function () {
     function TripserviceService(http) {
         this.http = http;
-        this.domainHost = "http://localhost:3000";
+        // private domainHost: string = "http://localhost:3000"
+        this.domainHost = src_environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].apiBaseUrl;
         this.ApiConstantsData = _model_apiLinks__WEBPACK_IMPORTED_MODULE_2__["ApiConstants"];
         console.log("this.ApiConstantsData", this.ApiConstantsData);
     }
@@ -3076,9 +3346,16 @@ var TripserviceService = /** @class */ (function () {
     TripserviceService.prototype.getFriendsList = function (data) {
         return this.http.post(this.domainHost + this.ApiConstantsData.friends.getFriendsList, data);
     };
+    TripserviceService.prototype.getTripMembersList = function (data) {
+        return this.http.post(this.domainHost + this.ApiConstantsData.trip.getTripMembersDetails, data);
+    };
     // Add New Trips
     TripserviceService.prototype.AddTrip = function (data) {
         return this.http.post(this.domainHost + this.ApiConstantsData.trip.AddTrip, data);
+    };
+    // Add New Trips
+    TripserviceService.prototype.deleteTrip = function (data) {
+        return this.http.post(this.domainHost + this.ApiConstantsData.trip.deleteTrip, data);
     };
     //getTripInfo
     TripserviceService.prototype.getTripInfo = function (data) {
@@ -3088,7 +3365,11 @@ var TripserviceService = /** @class */ (function () {
     TripserviceService.prototype.addTripExpense = function (data) {
         return this.http.post(this.domainHost + this.ApiConstantsData.expense.addTripExpense, data);
     };
-    //addTripExpense
+    //deleteExpense
+    TripserviceService.prototype.deleteExpense = function (data) {
+        return this.http.post(this.domainHost + this.ApiConstantsData.expense.deleteExpense, data);
+    };
+    //Find Friends
     TripserviceService.prototype.findFriends = function (data) {
         return this.http.post(this.domainHost + this.ApiConstantsData.friends.findFriends, data);
     };
@@ -3116,7 +3397,7 @@ var TripserviceService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<input type=\"button\" value=\"< Back\" (click)=\"backToReports()\">\n\n<p>{{trip?.tripName}} Expense UserWise Report of {{memberDetails?.name}}</p>\n<hr>\n\n\n<div style=\"text-align: center;\">\n  <!-- <p *ngFor=\"let member of membersReports\">\n    name : {{member.name}}\n  </p> -->\n  <table width=\"100%\">\n    <thead>\n      <th>Expense Name</th>\n      <th>Paid</th>\n      <th>Expense Cost</th>\n      <th>Pending</th>\n    </thead>\n    <tbody *ngFor=\"let user of userWise\">\n      <!-- <td><a routerLink=\"/userwise/{{tripId}}/{{member.memberId}}\">{{member.name}}</a></td> -->\n      <td><a (click)=\"navigateToExpense(user.expenseId)\">{{user.expenseName}}</a></td>\n      <td>{{user.paidAmount | number:'1.0-2'}}</td>\n      <td>{{user.costOfExpense | number:'1.0-2'}}</td>\n      <td [ngClass]=\"user.pendingAmount > 0 ? 'green_color' : 'red_color'\">{{user.pendingAmount | number:'1.0-2'}}\n      </td>\n    </tbody>\n    <thead>\n      <th><hr>Total</th>\n      <th><hr>{{footerInfo.amountpaid | number:'1.0-2' }}</th>\n      <th><hr>{{footerInfo.amountSpend | number:'1.0-2' }}</th>\n      <th [ngClass]=\"footerInfo.amountBalance > 0 ? 'green_color' : 'red_color'\"><hr>{{footerInfo.amountBalance | number:'1.0-2' }}</th>\n    </thead>\n  </table>\n</div>"
+module.exports = "<input type=\"button\" value=\"< Back\" (click)=\"backToReports()\">\n\n<p>{{trip?.tripName}} Expense UserWise Report of {{memberDetails?.name}}</p>\n<hr>\n\n\n<div style=\"text-align: center;\">\n  <!-- <p *ngFor=\"let member of membersReports\">\n    name : {{member.name}}\n  </p> -->\n  <table width=\"100%\">\n    <thead>\n      <th>Expense Name</th>\n      <th>Paid</th>\n      <th>Expense Cost</th>\n      <th>Pending</th>\n    </thead>\n    <tbody *ngFor=\"let user of userWise\">\n      <!-- <td><a routerLink=\"/userwise/{{tripId}}/{{member.memberId}}\">{{member.name}}</a></td> -->\n      <td><a (click)=\"navigateToExpense(user.expenseId)\">{{user?.expenseName}}</a></td>\n      <td>{{user?.paidAmount | number:'1.0-2'}}</td>\n      <td>{{user?.costOfExpense | number:'1.0-2'}}</td>\n      <td [ngClass]=\"user?.pendingAmount > 0 ? 'green_color' : 'red_color'\">{{user?.pendingAmount | number:'1.0-2'}}\n      </td>\n    </tbody>\n    <thead>\n      <th><hr>Total</th>\n      <th><hr>{{footerInfo?.amountpaid | number:'1.0-2' }}</th>\n      <th><hr>{{footerInfo?.amountSpend | number:'1.0-2' }}</th>\n      <th [ngClass]=\"footerInfo.amountBalance > 0 ? 'green_color' : 'red_color'\"><hr>{{footerInfo?.amountBalance | number:'1.0-2' }}</th>\n    </thead>\n  </table>\n</div>"
 
 /***/ }),
 
@@ -3221,7 +3502,9 @@ var UserwisereportComponent = /** @class */ (function () {
     UserwisereportComponent.prototype.getTripInfo = function (tripId) {
         var _this = this;
         var data = { tripId: tripId };
+        this._common.setLoading(true);
         this._trip.getTripInfo(data).subscribe(function (res) {
+            _this._common.setLoading(false);
             console.log("getTripInfo", res);
             _this.trip = res.result;
             _this.memberDetails = _this.getMemberInfo();
@@ -3261,6 +3544,8 @@ __webpack_require__.r(__webpack_exports__);
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 var environment = {
+    // apiBaseUrl : 'https://trip-expense-manager-api.herokuapp.com',
+    apiBaseUrl: "http://localhost:3000",
     production: false
 };
 /*
